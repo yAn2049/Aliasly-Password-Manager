@@ -1,0 +1,44 @@
+-- Adatbázis létrehozása
+CREATE DATABASE IF NOT EXISTS Aliasly;
+USE Aliasly;
+
+
+-- Táblák létrehozása
+CREATE TABLE IF NOT EXISTS Mesterkulcs (
+	mester_id int PRIMARY KEY AUTO_INCREMENT,
+    	kulcs_string char(64) NOT null UNIQUE,
+    	salt_string char(64) NOT null UNIQUE,
+    	hashed_kulcs char(128) NOT null UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS Adatok (
+	id int PRIMARY KEY AUTO_INCREMENT,
+    	jelszo varchar(255) NOT null,
+    	email varchar(255),
+    	nev varchar(255),
+    	url varchar(255),
+    	hozzafuzes varchar(1020)    
+);
+
+CREATE TABLE IF NOT EXISTS HozzaferesLog (
+	log_id int PRIMARY KEY AUTO_INCREMENT,
+    	datum_ido datetime,
+    	ipcim varchar(15),
+    	leiras varchar(1020)
+);
+
+
+-- Kapcsolatok létrehozása
+ALTER TABLE adatok
+ADD COLUMN mester_id int NOT null,
+ADD CONSTRAINT fk_adat_mester
+FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE hozzafereslog
+ADD COLUMN id int NOT null,
+ADD CONSTRAINT fk_log_adat
+FOREIGN KEY (id) REFERENCES adatok(id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;

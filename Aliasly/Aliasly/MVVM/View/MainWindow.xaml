@@ -1,0 +1,36 @@
+﻿<Window x:Class="Aliasly.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aliasly"
+        mc:Ignorable="d"
+        Title="Aliasly" Height="450" Width="800">
+    <Grid>
+
+        <ListBox x:Name="lista"
+                 Height="100">
+
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Label Content="{Binding Id }"/>
+                        <Label Content="{Binding Jelszo }"/>
+                        <Label Content="{Binding EMail }"/>
+                        <Label Content="{Binding Nev }"/>
+                        <Label Content="{Binding Url }"/>
+                        <Label Content="{Binding Hozzafuzes }"/>
+
+                    </StackPanel>
+                    
+                </DataTemplate>
+                
+            </ListBox.ItemTemplate>
+            
+        </ListBox>    
+        
+    </Grid>
+</Window>

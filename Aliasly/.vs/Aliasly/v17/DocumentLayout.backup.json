@@ -1,0 +1,104 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\code dev\\vs\\wpf\\aliasly\\aliasly\\mvvm\\viewmodel\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mvvm\\viewmodel\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\code dev\\vs\\wpf\\aliasly\\aliasly\\mvvm\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mvvm\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\code dev\\vs\\wpf\\aliasly\\aliasly\\mvvm\\model\\log.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mvvm\\model\\log.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\code dev\\vs\\wpf\\aliasly\\aliasly\\mvvm\\model\\mesterkulcs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mvvm\\model\\mesterkulcs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\code dev\\vs\\wpf\\aliasly\\aliasly\\mvvm\\model\\adatok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C33E8D63-2160-4550-BC5D-BAD939DDB79F}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mvvm\\model\\adatok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\View\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Aliasly\\MVVM\\View\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\View\\MainWindow.xaml",
+              "RelativeToolTip": "Aliasly\\MVVM\\View\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-16T14:47:41.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\ViewModel\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Aliasly\\MVVM\\ViewModel\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\ViewModel\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Aliasly\\MVVM\\ViewModel\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAQwDoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T14:32:20.882Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Adatok.cs",
+              "DocumentMoniker": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\Model\\Adatok.cs",
+              "RelativeDocumentMoniker": "Aliasly\\MVVM\\Model\\Adatok.cs",
+              "ToolTip": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\Model\\Adatok.cs",
+              "RelativeToolTip": "Aliasly\\MVVM\\Model\\Adatok.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T14:54:08.566Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MesterKulcs.cs",
+              "DocumentMoniker": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\Model\\MesterKulcs.cs",
+              "RelativeDocumentMoniker": "Aliasly\\MVVM\\Model\\MesterKulcs.cs",
+              "ToolTip": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\Model\\MesterKulcs.cs",
+              "RelativeToolTip": "Aliasly\\MVVM\\Model\\MesterKulcs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T14:53:55.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Log.cs",
+              "DocumentMoniker": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\Model\\Log.cs",
+              "RelativeDocumentMoniker": "Aliasly\\MVVM\\Model\\Log.cs",
+              "ToolTip": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\MVVM\\Model\\Log.cs",
+              "RelativeToolTip": "Aliasly\\MVVM\\Model\\Log.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-16T14:54:22.024Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
