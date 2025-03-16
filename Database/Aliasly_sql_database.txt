@@ -7,8 +7,8 @@ USE Aliasly;
 CREATE TABLE IF NOT EXISTS Mesterkulcs (
 	mester_id int PRIMARY KEY AUTO_INCREMENT,
     	kulcs_string char(64) NOT null UNIQUE,
-    	salt char(64) NOT null UNIQUE,
-    	mester_kulcs char(128) NOT null UNIQUE
+    	salt_string char(64) NOT null UNIQUE,
+    	hashed_kulcs char(128) NOT null UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Adatok (

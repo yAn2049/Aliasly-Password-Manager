@@ -3,7 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2025 at 01:27 PM
+
+-- Generation Time: Mar 16, 2025 at 04:28 PM
+
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,8 +62,8 @@ CREATE TABLE `hozzafereslog` (
 CREATE TABLE `mesterkulcs` (
   `mester_id` int(11) NOT NULL,
   `kulcs_string` char(64) NOT NULL,
-  `salt` char(64) NOT NULL,
-  `mester_kulcs` char(128) NOT NULL
+  `salt_string` char(64) NOT NULL,
+  `hashed_kulcs` char(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -88,8 +90,8 @@ ALTER TABLE `hozzafereslog`
 ALTER TABLE `mesterkulcs`
   ADD PRIMARY KEY (`mester_id`),
   ADD UNIQUE KEY `kulcs_string` (`kulcs_string`),
-  ADD UNIQUE KEY `salt` (`salt`),
-  ADD UNIQUE KEY `mester_kulcs` (`mester_kulcs`);
+  ADD UNIQUE KEY `salt_string` (`salt_string`),
+  ADD UNIQUE KEY `hashed_kulcs` (`hashed_kulcs`);
 
 --
 -- AUTO_INCREMENT for dumped tables
