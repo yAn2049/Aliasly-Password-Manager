@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj": {}
+    "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\Aliasly.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj": {
+    "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\Aliasly.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj",
+        "projectUniqueName": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\Aliasly.csproj",
         "projectName": "Aliasly",
-        "projectPath": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj",
+        "projectPath": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\Aliasly.csproj",
         "packagesPath": "C:\\Users\\yAn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\obj\\",
+        "outputPath": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
