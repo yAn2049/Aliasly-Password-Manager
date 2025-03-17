@@ -1,0 +1,115 @@
+﻿<Window x:Class="Aliasly.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aliasly"
+        mc:Ignorable="d"
+        Title="Aliasly" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+
+        <!-- Master Key Entry -->
+        <Grid x:Name="mesterkulcs_felulet"
+              Visibility="Visible">
+
+            <StackPanel Width="200"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <Label Content="Enter your master key"/>
+                
+                <PasswordBox x:Name="masterkulcs_mezo"/>
+
+                <Button x:Name="enter_gomb"
+                        Content="Enter"
+                        Click="enter_gomb_Click"/>
+
+                <Button x:Name="uj_kulcs"
+                        Content="Új kulcs létrehozása"
+                        Click="uj_kulcs_Click"/>
+
+            </StackPanel>
+
+        </Grid>
+
+
+
+        <!-- Client -->
+        <DockPanel x:Name="kliens_felulet"
+                   Visibility="Collapsed">
+
+            <Grid>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+
+                    <TextBox x:Name="jelszo_mezo"
+                             Width="100" Height="25"
+                             Margin="5"
+                             TextChanged="jelszo_mezo_TextChanged"/>
+
+                    <TextBox x:Name="eMail_mezo"
+                             Width="100" Height="25"
+                             Margin="5"/>
+
+                    <TextBox x:Name="nev_mezo"
+                             Width="100" Height="25"
+                             Margin="5"/>
+
+                    <TextBox x:Name="url_mezo"
+                             Width="100" Height="25"
+                             Margin="5"/>
+
+                    <TextBox x:Name="hozzafuzes_mezo"
+                             Width="100" Height="25"
+                             Margin="5"/>
+
+                    <Button x:Name="adat_rogzites_gomb"
+                            Content="Rögzítés"
+                            Width="100" Height="25"
+                            Margin="5"
+                            Click="adat_rogzites_gomb_Click"
+                            IsEnabled="False"/>
+
+                </StackPanel>
+                
+                
+                <ListBox x:Name="adat_lista"
+                         Grid.Row="1">
+
+                    <ListBox.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <StackPanel Orientation="Horizontal">
+
+                                <Label Content="{Binding Id}"/>
+                                <Label Content="{Binding Jelszo}"/>
+                                <Label Content="{Binding EMail}"/>
+                                <Label Content="{Binding Nev}"/>
+                                <Label Content="{Binding Url}"/>
+                                <Label Content="{Binding Hozzafuzes}"/>
+                                <Label Content="{Binding MesterId}"/>
+
+                            </StackPanel>
+
+                        </DataTemplate>
+
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+
+            </Grid>
+
+        </DockPanel>
+
+    </Grid>
+    
+</Window>
