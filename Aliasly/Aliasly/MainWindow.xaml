@@ -20,7 +20,7 @@
 
                 <Label Content="Enter your master key"/>
                 
-                <PasswordBox x:Name="masterkulcs_mezo"/>
+                <PasswordBox x:Name="mesterkulcs_mezo"/>
 
                 <Button x:Name="enter_gomb"
                         Content="Enter"
