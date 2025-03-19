@@ -3,9 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-
--- Generation Time: Mar 16, 2025 at 04:28 PM
-
+-- Generation Time: Mar 19, 2025 at 10:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -26,17 +24,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adatok`
+-- Table structure for table `felhasznalo`
 --
 
-CREATE TABLE `adatok` (
-  `id` int(11) NOT NULL,
-  `jelszo` varchar(255) NOT NULL,
+CREATE TABLE `felhasznalo` (
+  `felhasznalo_id` int(11) NOT NULL,
+  `nev` varchar(255) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `nev` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `hozzafuzes` varchar(1020) DEFAULT NULL,
-  `mester_id` int(11) NOT NULL
+  `jelszo_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -48,9 +45,22 @@ CREATE TABLE `adatok` (
 CREATE TABLE `hozzafereslog` (
   `log_id` int(11) NOT NULL,
   `datum_ido` datetime DEFAULT NULL,
-  `ipcim` varchar(15) DEFAULT NULL,
   `leiras` varchar(1020) DEFAULT NULL,
-  `id` int(11) NOT NULL
+  `jelszo_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jelszo`
+--
+
+CREATE TABLE `jelszo` (
+  `jelszo_id` int(11) NOT NULL,
+  `jelszo` varchar(255) NOT NULL,
+  `erosseg` char(32) NOT NULL,
+  `titkositas` char(32) NOT NULL,
+  `mester_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -71,18 +81,25 @@ CREATE TABLE `mesterkulcs` (
 --
 
 --
--- Indexes for table `adatok`
+-- Indexes for table `felhasznalo`
 --
-ALTER TABLE `adatok`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_adat_mester` (`mester_id`);
+ALTER TABLE `felhasznalo`
+  ADD PRIMARY KEY (`felhasznalo_id`),
+  ADD KEY `fk_felh_jel` (`jelszo_id`);
 
 --
 -- Indexes for table `hozzafereslog`
 --
 ALTER TABLE `hozzafereslog`
   ADD PRIMARY KEY (`log_id`),
-  ADD KEY `fk_log_adat` (`id`);
+  ADD KEY `fk_log_jel` (`jelszo_id`);
+
+--
+-- Indexes for table `jelszo`
+--
+ALTER TABLE `jelszo`
+  ADD PRIMARY KEY (`jelszo_id`),
+  ADD KEY `fk_jel_mester` (`mester_id`);
 
 --
 -- Indexes for table `mesterkulcs`
@@ -98,16 +115,22 @@ ALTER TABLE `mesterkulcs`
 --
 
 --
--- AUTO_INCREMENT for table `adatok`
+-- AUTO_INCREMENT for table `felhasznalo`
 --
-ALTER TABLE `adatok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `felhasznalo`
+  MODIFY `felhasznalo_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hozzafereslog`
 --
 ALTER TABLE `hozzafereslog`
   MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jelszo`
+--
+ALTER TABLE `jelszo`
+  MODIFY `jelszo_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mesterkulcs`
@@ -120,16 +143,22 @@ ALTER TABLE `mesterkulcs`
 --
 
 --
--- Constraints for table `adatok`
+-- Constraints for table `felhasznalo`
 --
-ALTER TABLE `adatok`
-  ADD CONSTRAINT `fk_adat_mester` FOREIGN KEY (`mester_id`) REFERENCES `mesterkulcs` (`mester_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `felhasznalo`
+  ADD CONSTRAINT `fk_felh_jel` FOREIGN KEY (`jelszo_id`) REFERENCES `jelszo` (`jelszo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `hozzafereslog`
 --
 ALTER TABLE `hozzafereslog`
-  ADD CONSTRAINT `fk_log_adat` FOREIGN KEY (`id`) REFERENCES `adatok` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_log_jel` FOREIGN KEY (`jelszo_id`) REFERENCES `jelszo` (`jelszo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `jelszo`
+--
+ALTER TABLE `jelszo`
+  ADD CONSTRAINT `fk_jel_mester` FOREIGN KEY (`mester_id`) REFERENCES `mesterkulcs` (`mester_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -11,11 +11,17 @@ CREATE TABLE IF NOT EXISTS Mesterkulcs (
     	hashed_kulcs char(128) NOT null UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS Adatok (
-	id int PRIMARY KEY AUTO_INCREMENT,
-    	jelszo varchar(255) NOT null,
-    	email varchar(255),
-    	nev varchar(255),
+CREATE TABLE IF NOT EXISTS Jelszo (
+	jelszo_id int PRIMARY KEY AUTO_INCREMENT,
+	jelszo varchar(255) NOT null,
+	erosseg char(32) NOT null,
+	titkositas char(32) NOT null
+);
+
+CREATE TABLE IF NOT EXISTS Felhasznalo (
+	felhasznalo_id int PRIMARY KEY AUTO_INCREMENT,
+    	nev varchar(255) NOT null,
+	email varchar(255),
     	url varchar(255),
     	hozzafuzes varchar(1020)    
 );
@@ -23,22 +29,28 @@ CREATE TABLE IF NOT EXISTS Adatok (
 CREATE TABLE IF NOT EXISTS HozzaferesLog (
 	log_id int PRIMARY KEY AUTO_INCREMENT,
     	datum_ido datetime,
-    	ipcim varchar(15),
     	leiras varchar(1020)
 );
 
 
 -- Kapcsolatok létrehozása
-ALTER TABLE adatok
+ALTER TABLE jelszo
 ADD COLUMN mester_id int NOT null,
-ADD CONSTRAINT fk_adat_mester
+ADD CONSTRAINT fk_jel_mester
 FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
 
+ALTER TABLE felhasznalo
+ADD COLUMN jelszo_id int NOT null,
+ADD CONSTRAINT fk_felh_jel
+FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
 ALTER TABLE hozzafereslog
-ADD COLUMN id int NOT null,
-ADD CONSTRAINT fk_log_adat
-FOREIGN KEY (id) REFERENCES adatok(id)
+ADD COLUMN jelszo_id int NOT null,
+ADD CONSTRAINT fk_log_jel
+FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id)
 ON DELETE CASCADE
 ON UPDATE CASCADE;

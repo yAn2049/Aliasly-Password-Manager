@@ -10,7 +10,6 @@ namespace Aliasly
     {
         public int LogId { get; set; }
         public DateTime DatumIdo { get; set; }
-        public string IPcim { get; set; }
         public string Leiras { get; set; }
     }
 }

@@ -71,17 +71,17 @@
                              Width="100" Height="25"
                              Margin="5"/>
 
-                    <Button x:Name="adat_rogzites_gomb"
+                    <Button x:Name="felhasznalo_rogzites_gomb"
                             Content="Rögzítés"
                             Width="100" Height="25"
                             Margin="5"
-                            Click="adat_rogzites_gomb_Click"
+                            Click="felhasznalo_rogzites_gomb_Click"
                             IsEnabled="False"/>
 
                 </StackPanel>
                 
                 
-                <ListBox x:Name="adat_lista"
+                <ListBox x:Name="felhasznalok_lista"
                          Grid.Row="1">
 
                     <ListBox.ItemTemplate>

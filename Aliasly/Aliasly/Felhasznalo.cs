@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aliasly
 {
-    public class Adatok
+    public class Felhasznalo
     {
         public int Id { get; set; }
         public string Jelszo { get; set; }

@@ -17,7 +17,7 @@ namespace Aliasly;
 /// </summary>
 public partial class MainWindow : Window
 {
-    static List<Adatok> adatok = new List<Adatok>();
+    static List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
     static List<MesterKulcs> mesterkulcs = new List<MesterKulcs>();
     static string connParam = "server=localhost;user=root;database=aliasly;port=3306"; // Sql csatlakozási paraméterek //
 
@@ -49,7 +49,7 @@ public partial class MainWindow : Window
 
 
 
-    public List<Adatok> AdatokTablazatLekeres()
+    public List<Felhasznalo> FelhasznaloTablazatLekeres()
     {
         // Sql kapcsolat //
         MySqlConnection connection = new MySqlConnection(connParam);
@@ -59,16 +59,16 @@ public partial class MainWindow : Window
             // Sql kapcsolat nyitás //
             connection.Open();
 
-            // Sql Adatok táblázat lekérése //
-            string sqlAdatok = "SELECT id, jelszo, email, nev, url, hozzafuzes, mester_id FROM adatok";
-            MySqlCommand sqlCommand_adatok = new MySqlCommand(sqlAdatok, connection);
-            MySqlDataReader sqlReader = sqlCommand_adatok.ExecuteReader();
+            // Sql felhasználó táblázat lekérése //
+            string sqlFelhasznalo = "SELECT id, jelszo, email, nev, url, hozzafuzes, mester_id FROM adatok";
+            MySqlCommand sqlCommand_felhasznalok = new MySqlCommand(sqlFelhasznalo, connection);
+            MySqlDataReader sqlReader = sqlCommand_felhasznalok.ExecuteReader();
 
-            // Sql adatok beolvasás //
+            // Sql felhasználók beolvasás //
             while (sqlReader.Read())
             {
-                // Sql Adatok táblázat betöltése egy konstruktorba //
-                Adatok a = new Adatok()
+                // Sql felhasználó táblázat betöltése egy konstruktorba //
+                Felhasznalo a = new Felhasznalo()
                 {
                     Id = int.Parse(sqlReader["id"].ToString()),
                     Jelszo = sqlReader["jelszo"].ToString(),
@@ -78,7 +78,7 @@ public partial class MainWindow : Window
                     Hozzafuzes = sqlReader["hozzafuzes"].ToString(),
                     MesterId = int.Parse(sqlReader["mester_id"].ToString())
                 };
-                adatok.Add(a);
+                felhasznalok.Add(a);
             }
             sqlReader.Close();
         }
@@ -87,7 +87,7 @@ public partial class MainWindow : Window
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        return adatok;
+        return felhasznalok;
     }
 
 
@@ -157,13 +157,13 @@ public partial class MainWindow : Window
             // Ha helyes a kulcs akkor megjeleníti a kliens felületet //
             ShowClient();
 
-            // Adatok táblázat metódus //
-            AdatokTablazatLekeres();
+            // Felhasználó táblázat metódus //
+            FelhasznaloTablazatLekeres();
 
             // Sql soronkénti betöltése a listbox elembe //
-            foreach (var a in adatok)
+            foreach (var a in felhasznalok)
             {
-                this.adat_lista.ItemsSource = adatok;
+                this.felhasznalok_lista.ItemsSource = felhasznalok;
             }
         }
         else
@@ -220,9 +220,9 @@ public partial class MainWindow : Window
 
 
 
-    private void adat_rogzites_gomb_Click(object sender, RoutedEventArgs e)
+    private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e)
     {
-        string sqlAdatok_iras = $"INSERT INTO adatok(jelszo, email, nev, url, hozzafuzes, mester_id) VALUES ()";
+        string sqlFelhasznalo_iras = $"INSERT INTO adatok(jelszo, email, nev, url, hozzafuzes, mester_id) VALUES ()";
 
     }
 
@@ -233,11 +233,11 @@ public partial class MainWindow : Window
         // Ha a jelszó mező üres akkor a rögzítés gombot kikapcsolja //
         if (jelszo_mezo.Text != string.Empty)
         {
-            adat_rogzites_gomb.IsEnabled = true;
+            felhasznalo_rogzites_gomb.IsEnabled = true;
         }
         else
         {
-            adat_rogzites_gomb.IsEnabled = false;
+            felhasznalo_rogzites_gomb.IsEnabled = false;
         }
     }
 
