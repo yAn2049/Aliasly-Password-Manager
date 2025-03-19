@@ -17,8 +17,9 @@ namespace Aliasly;
 /// </summary>
 public partial class MainWindow : Window
 {
-    static List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
     static List<MesterKulcs> mesterkulcs = new List<MesterKulcs>();
+    static List<Jelszo> jelszavak = new List<Jelszo>();
+    static List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
     static string connParam = "server=localhost;user=root;database=aliasly;port=3306"; // Sql csatlakozási paraméterek //
 
     
@@ -45,49 +46,6 @@ public partial class MainWindow : Window
     {
         kliens_felulet.Visibility = Visibility.Visible;
         mesterkulcs_felulet.Visibility = Visibility.Collapsed;
-    }
-
-
-
-    public List<Felhasznalo> FelhasznaloTablazatLekeres()
-    {
-        // Sql kapcsolat //
-        MySqlConnection connection = new MySqlConnection(connParam);
-
-        try
-        {
-            // Sql kapcsolat nyitás //
-            connection.Open();
-
-            // Sql felhasználó táblázat lekérése //
-            string sqlFelhasznalo = "SELECT id, jelszo, email, nev, url, hozzafuzes, mester_id FROM adatok";
-            MySqlCommand sqlCommand_felhasznalok = new MySqlCommand(sqlFelhasznalo, connection);
-            MySqlDataReader sqlReader = sqlCommand_felhasznalok.ExecuteReader();
-
-            // Sql felhasználók beolvasás //
-            while (sqlReader.Read())
-            {
-                // Sql felhasználó táblázat betöltése egy konstruktorba //
-                Felhasznalo a = new Felhasznalo()
-                {
-                    Id = int.Parse(sqlReader["id"].ToString()),
-                    Jelszo = sqlReader["jelszo"].ToString(),
-                    EMail = sqlReader["email"].ToString(),
-                    Nev = sqlReader["nev"].ToString(),
-                    Url = sqlReader["url"].ToString(),
-                    Hozzafuzes = sqlReader["hozzafuzes"].ToString(),
-                    MesterId = int.Parse(sqlReader["mester_id"].ToString())
-                };
-                felhasznalok.Add(a);
-            }
-            sqlReader.Close();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        return felhasznalok;
     }
 
 
@@ -130,6 +88,94 @@ public partial class MainWindow : Window
         return mesterkulcs;
     }
 
+
+
+    public List<Jelszo> JelszoTablazatLekeres() 
+    {
+        // Sql kapcsolat //
+        MySqlConnection connection = new MySqlConnection(connParam);
+
+        try
+        {
+            // Sql kapcsolat nyitás //
+            connection.Open();
+
+            // Sql Adatok táblázat lekérése //
+            string sqlJelszo = "SELECT jelszo_id, jelszo, erosseg, titkositas, mester_id FROM jelszo";
+            MySqlCommand sqlCommand_jelszo = new MySqlCommand(sqlJelszo, connection);
+            MySqlDataReader sqlReader = sqlCommand_jelszo.ExecuteReader();
+
+            // Sql mesterkulcs beolvasás //
+            while (sqlReader.Read())
+            {
+                // Sql Mesterkulcs táblázat betöltése egy konstruktorba //
+                Jelszo j = new Jelszo()
+                {
+                    JelszoId = int.Parse(sqlReader["jelszo_id"].ToString()),
+                    JelszoString = sqlReader["jelszo"].ToString(),
+                    Erosseg = sqlReader["erosseg"].ToString(),
+                    Titkositas = sqlReader["titkositas"].ToString(),
+                    MesterId = int.Parse(sqlReader["mester_id"].ToString())
+                };
+                jelszavak.Add(j);
+            }
+            sqlReader.Close();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        return jelszavak;
+    }
+
+
+
+    public List<Felhasznalo> FelhasznaloTablazatLekeres()
+    {
+        // Sql kapcsolat //
+        MySqlConnection connection = new MySqlConnection(connParam);
+
+        try
+        {
+            // Sql kapcsolat nyitás //
+            connection.Open();
+
+            // Sql felhasználó táblázat lekérése //
+            string sqlFelhasznalo = "SELECT felhasznalo_id, nev, email, url, hozzafuzes, jelszo_id FROM felhasznalo";
+            MySqlCommand sqlCommand_felhasznalok = new MySqlCommand(sqlFelhasznalo, connection);
+            MySqlDataReader sqlReader = sqlCommand_felhasznalok.ExecuteReader();
+
+            // Sql felhasználók beolvasás //
+            while (sqlReader.Read())
+            {
+                // Sql felhasználó táblázat betöltése egy konstruktorba //
+                Felhasznalo a = new Felhasznalo()
+                {
+                    FelhasznaloId = int.Parse(sqlReader["felhasznalo_id"].ToString()),
+                    Nev = sqlReader["nev"].ToString(),
+                    EMail = sqlReader["email"].ToString(),
+                    Url = sqlReader["url"].ToString(),
+                    Hozzafuzes = sqlReader["hozzafuzes"].ToString(),
+                    JelszoId = int.Parse(sqlReader["jelszo_id"].ToString())
+                };
+                felhasznalok.Add(a);
+            }
+            sqlReader.Close();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        return felhasznalok;
+    }
+
+
+
+    
+    // public List<Log> LogTablazatLekeres() {}
+    
 
 
     private void enter_gomb_Click(object sender, RoutedEventArgs e)
@@ -179,6 +225,8 @@ public partial class MainWindow : Window
         // Sql kapcsolat //
         MySqlConnection connection = new MySqlConnection(connParam);
 
+        connection.Open();
+
         try
         {
             // Mesterkulcs táblázat metódus //
@@ -207,7 +255,7 @@ public partial class MainWindow : Window
             // Ha nem létezik ilyen adat, akkor feltölti az adatbázis táblázatába //
             else
             {
-                string sqlKulcsIras = $"INSERT INTO mesterkulcs ( kulcs_string, salt_string, hashed_kulcs) VALUES ('{mesterkulcs_mezo.Password}', '-', '-')";
+                string sqlKulcsIras = $"INSERT INTO mesterkulcs (kulcs_string, salt_string, hashed_kulcs) VALUES ('{mesterkulcs_mezo.Password}', '-', '-')";
                 MySqlCommand sqlCommand_kulcsIras = new MySqlCommand(sqlKulcsIras, connection);
                 sqlCommand_kulcsIras.ExecuteNonQuery();
             }
@@ -222,16 +270,37 @@ public partial class MainWindow : Window
 
     private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e)
     {
-        string sqlFelhasznalo_iras = $"INSERT INTO adatok(jelszo, email, nev, url, hozzafuzes, mester_id) VALUES ()";
+        /*
+         * 
+         * Ezt kurvara meg kell fixalni
+         * kiegtem :skull:
+         * 
+         */
 
+        // Sql kapcsolat //
+        MySqlConnection connection = new MySqlConnection(connParam);
+        connection.Open();
+
+        mesterkulcs = new List<MesterKulcs>(MesterkulcsTablazatLekeres());
+        jelszavak = new List<Jelszo>(JelszoTablazatLekeres());
+
+        string sqlJelszo_iras = $"INSERT INTO jelszo (jelszo, erosseg, titkositas, mester_id) VALUES ('{jelszo_mezo.Password}', '-', '-', '{mesterkulcs[0].MesterId}')";
+
+        string sqlFelhasznalo_iras = $"INSERT INTO felhasznalo (nev, email, url, hozzafuzes, jelszo_id) VALUES  ('{nev_mezo.Text}', '{eMail_mezo.Text}', '{url_mezo.Text}', '{hozzafuzes_mezo.Text}', '{jelszavak[0].JelszoId}')";
+
+        MySqlCommand sqlCommand_jelszoIras = new MySqlCommand(sqlJelszo_iras, connection);
+        MySqlCommand sqlCommand_felhasznaloIras = new MySqlCommand(sqlFelhasznalo_iras, connection);
+
+        sqlCommand_jelszoIras.ExecuteNonQuery();
+        sqlCommand_felhasznaloIras.ExecuteNonQuery();
     }
 
 
 
-    private void jelszo_mezo_TextChanged(object sender, TextChangedEventArgs e)
+    private void jelszo_mezo_PasswordChanged(object sender, RoutedEventArgs e)
     {
         // Ha a jelszó mező üres akkor a rögzítés gombot kikapcsolja //
-        if (jelszo_mezo.Text != string.Empty)
+        if (jelszo_mezo.Password != string.Empty)
         {
             felhasznalo_rogzites_gomb.IsEnabled = true;
         }
@@ -240,7 +309,4 @@ public partial class MainWindow : Window
             felhasznalo_rogzites_gomb.IsEnabled = false;
         }
     }
-
-
-
 }

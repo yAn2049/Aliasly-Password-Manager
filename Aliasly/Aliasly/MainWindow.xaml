@@ -50,16 +50,16 @@
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center">
 
-                    <TextBox x:Name="jelszo_mezo"
-                             Width="100" Height="25"
-                             Margin="5"
-                             TextChanged="jelszo_mezo_TextChanged"/>
+                    <PasswordBox x:Name="jelszo_mezo"
+                                 Width="100" Height="25"
+                                 Margin="5"
+                                 PasswordChanged="jelszo_mezo_PasswordChanged"/>
 
-                    <TextBox x:Name="eMail_mezo"
+                    <TextBox x:Name="nev_mezo"
                              Width="100" Height="25"
                              Margin="5"/>
 
-                    <TextBox x:Name="nev_mezo"
+                    <TextBox x:Name="eMail_mezo"
                              Width="100" Height="25"
                              Margin="5"/>
 
@@ -90,10 +90,10 @@
 
                             <StackPanel Orientation="Horizontal">
 
-                                <Label Content="{Binding Id}"/>
-                                <Label Content="{Binding Jelszo}"/>
-                                <Label Content="{Binding EMail}"/>
+                                <Label Content="{Binding JelszoId}"/>
+                                <Label Content="{Binding JelszoString}"/>
                                 <Label Content="{Binding Nev}"/>
+                                <Label Content="{Binding EMail}"/>
                                 <Label Content="{Binding Url}"/>
                                 <Label Content="{Binding Hozzafuzes}"/>
                                 <Label Content="{Binding MesterId}"/>
