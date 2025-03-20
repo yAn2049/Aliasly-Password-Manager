@@ -6,51 +6,36 @@ USE Aliasly;
 -- Táblák létrehozása
 CREATE TABLE IF NOT EXISTS Mesterkulcs (
 	mester_id int PRIMARY KEY AUTO_INCREMENT,
-    	kulcs_string char(64) NOT null UNIQUE,
-    	salt_string char(64) NOT null UNIQUE,
-    	hashed_kulcs char(128) NOT null UNIQUE
+    kulcs_string char(64) NOT null UNIQUE,
+    salt_string char(64) NOT null UNIQUE,
+    hashed_kulcs char(128) NOT null UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Jelszo (
 	jelszo_id int PRIMARY KEY AUTO_INCREMENT,
 	jelszo varchar(255) NOT null,
 	erosseg char(32) NOT null,
-	titkositas char(32) NOT null
+	titkositas char(32) NOT null,
+	mester_id int,
+	FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Felhasznalo (
 	felhasznalo_id int PRIMARY KEY AUTO_INCREMENT,
-    	nev varchar(255) NOT null,
+    nev varchar(255) NOT null,
 	email varchar(255),
-    	url varchar(255),
-    	hozzafuzes varchar(1020)    
+    url varchar(255),
+    hozzafuzes varchar(1020),   
+	jelszo_id int,
+	FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS HozzaferesLog (
 	log_id int PRIMARY KEY AUTO_INCREMENT,
-    	datum_ido datetime,
-    	leiras varchar(1020)
+    datum_ido datetime,
+    leiras varchar(1020),
+	jelszo_id int,
+	FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	felhasznalo_id int,
+	FOREIGN KEY (felhasznalo_id) REFERENCES felhasznalo(felhasznalo_id) ON DELETE CASCADE ON UPDATE CASCADE	
 );
-
-
--- Kapcsolatok létrehozása
-ALTER TABLE jelszo
-ADD COLUMN mester_id int NOT null,
-ADD CONSTRAINT fk_jel_mester
-FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
-
-ALTER TABLE felhasznalo
-ADD COLUMN jelszo_id int NOT null,
-ADD CONSTRAINT fk_felh_jel
-FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id)
-ON DELETE CASCADE
-ON UPDATE CASCADE;
-
-ALTER TABLE hozzafereslog
-ADD COLUMN jelszo_id int NOT null,
-ADD CONSTRAINT fk_log_jel
-FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id)
-ON DELETE CASCADE
-ON UPDATE CASCADE;

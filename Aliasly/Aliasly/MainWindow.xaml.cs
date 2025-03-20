@@ -205,6 +205,7 @@ public partial class MainWindow : Window
 
             // Felhasználó táblázat metódus //
             FelhasznaloTablazatLekeres();
+            JelszoTablazatLekeres();
 
             // Sql soronkénti betöltése a listbox elembe //
             foreach (var a in felhasznalok)
