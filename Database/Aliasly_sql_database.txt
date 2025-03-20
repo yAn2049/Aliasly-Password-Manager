@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Mesterkulcs (
 
 CREATE TABLE IF NOT EXISTS Jelszo (
 	jelszo_id int PRIMARY KEY AUTO_INCREMENT,
-	jelszo varchar(255) NOT null,
+	jelszo_string varchar(255) NOT null,
 	erosseg char(32) NOT null,
 	titkositas char(32) NOT null,
 	mester_id int,

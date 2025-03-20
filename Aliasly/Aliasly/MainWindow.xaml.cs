@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +22,8 @@ public partial class MainWindow : Window
     static List<MesterKulcs> mesterkulcs = new List<MesterKulcs>();
     static List<Jelszo> jelszavak = new List<Jelszo>();
     static List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
+
+    static List<KliensLista> klienslista = new List<KliensLista>();
     static string connParam = "server=localhost;user=root;database=aliasly;port=3306"; // Sql csatlakozási paraméterek //
 
     
@@ -101,7 +105,7 @@ public partial class MainWindow : Window
             connection.Open();
 
             // Sql Adatok táblázat lekérése //
-            string sqlJelszo = "SELECT jelszo_id, jelszo, erosseg, titkositas, mester_id FROM jelszo";
+            string sqlJelszo = "SELECT jelszo_id, jelszo_string, erosseg, titkositas, mester_id FROM jelszo";
             MySqlCommand sqlCommand_jelszo = new MySqlCommand(sqlJelszo, connection);
             MySqlDataReader sqlReader = sqlCommand_jelszo.ExecuteReader();
 
@@ -112,7 +116,7 @@ public partial class MainWindow : Window
                 Jelszo j = new Jelszo()
                 {
                     JelszoId = int.Parse(sqlReader["jelszo_id"].ToString()),
-                    JelszoString = sqlReader["jelszo"].ToString(),
+                    JelszoString = sqlReader["jelszo_string"].ToString(),
                     Erosseg = sqlReader["erosseg"].ToString(),
                     Titkositas = sqlReader["titkositas"].ToString(),
                     MesterId = int.Parse(sqlReader["mester_id"].ToString())
@@ -204,13 +208,12 @@ public partial class MainWindow : Window
             ShowClient();
 
             // Felhasználó táblázat metódus //
-            FelhasznaloTablazatLekeres();
             JelszoTablazatLekeres();
 
             // Sql soronkénti betöltése a listbox elembe //
-            foreach (var a in felhasznalok)
+            foreach (var a in jelszavak)
             {
-                this.felhasznalok_lista.ItemsSource = felhasznalok;
+                this.felhasznalok_lista.ItemsSource = jelszavak;
             }
         }
         else
