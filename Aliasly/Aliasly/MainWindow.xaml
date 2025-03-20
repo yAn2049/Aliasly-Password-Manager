@@ -12,22 +12,36 @@
 
         <!-- Master Key Entry -->
         <Grid x:Name="mesterkulcs_felulet"
-              Visibility="Visible">
+              Visibility="Collapsed">
 
-            <StackPanel Width="200"
-                        HorizontalAlignment="Center"
+            <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center">
 
-                <Label Content="Enter your master key"/>
+                <Label Content="Enter your master key"
+                       FontSize="14"
+                       Margin="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
                 
-                <PasswordBox x:Name="mesterkulcs_mezo"/>
+                <PasswordBox x:Name="mesterkulcs_mezo"
+                             FontSize="14"
+                             Height="25" Width="300"
+                             Margin="5"
+                             HorizontalAlignment="Center"
+                             VerticalContentAlignment="Center"/>
 
                 <Button x:Name="enter_gomb"
+                        FontSize="14"
                         Content="Enter"
+                        Width="120"
+                        Margin="5"
                         Click="enter_gomb_Click"/>
 
                 <Button x:Name="uj_kulcs"
-                        Content="Új kulcs létrehozása"
+                        FontSize="14"
+                        Content="Create new key"
+                        Width="120"
+                        Margin="5"
                         Click="uj_kulcs_Click"/>
 
             </StackPanel>
@@ -38,7 +52,7 @@
 
         <!-- Client -->
         <DockPanel x:Name="kliens_felulet"
-                   Visibility="Collapsed">
+                   Visibility="Visible">
 
             <Grid>
                 
@@ -50,61 +64,141 @@
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center">
 
-                    <PasswordBox x:Name="jelszo_mezo"
+                    <StackPanel VerticalAlignment="Center">
+
+                        <Label Content="Password"
+                               FontSize="14"/>
+                        <PasswordBox x:Name="jelszo_mezo"
+                                     FontSize="14"
+                                     Width="100" Height="25"
+                                     Margin="5,0,5,0"
+                                     VerticalContentAlignment="Center"
+                                     PasswordChanged="jelszo_mezo_PasswordChanged"/>
+                        
+                    </StackPanel>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <Label Content="Name"
+                               FontSize="14"/>
+                        <TextBox x:Name="nev_mezo"
+                                 FontSize="14"
                                  Width="100" Height="25"
-                                 Margin="5"
-                                 PasswordChanged="jelszo_mezo_PasswordChanged"/>
+                                 Margin="5,0,5,0"
+                                 VerticalContentAlignment="Center"/>
 
-                    <TextBox x:Name="nev_mezo"
-                             Width="100" Height="25"
-                             Margin="5"/>
+                    </StackPanel>
 
-                    <TextBox x:Name="eMail_mezo"
-                             Width="100" Height="25"
-                             Margin="5"/>
+                    <StackPanel VerticalAlignment="Center">
 
-                    <TextBox x:Name="url_mezo"
-                             Width="100" Height="25"
-                             Margin="5"/>
+                        <Label Content="E-Mail"
+                               FontSize="14"/>
+                        <TextBox x:Name="eMail_mezo"
+                                 FontSize="14"
+                                 Width="100" Height="25"
+                                 Margin="5,0,5,0"
+                                 VerticalContentAlignment="Center"/>
 
-                    <TextBox x:Name="hozzafuzes_mezo"
-                             Width="100" Height="25"
-                             Margin="5"/>
+                    </StackPanel>
 
-                    <Button x:Name="felhasznalo_rogzites_gomb"
-                            Content="Rögzítés"
-                            Width="100" Height="25"
-                            Margin="5"
-                            Click="felhasznalo_rogzites_gomb_Click"
-                            IsEnabled="False"/>
+                    <StackPanel VerticalAlignment="Center">
+
+                        <Label Content="Url"
+                               FontSize="14"/>
+                        <TextBox x:Name="url_mezo"
+                                 FontSize="14"
+                                 Width="100" Height="25"
+                                 Margin="5,0,5,0"
+                                 VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <Label Content="Description"
+                               FontSize="14"/>
+                        <TextBox x:Name="hozzafuzes_mezo"
+                                 FontSize="14"
+                                 Width="100" Height="25"
+                                 Margin="5,0,5,0"
+                                 VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <Label Content="Send data"
+                               FontSize="14"
+                               HorizontalContentAlignment="Center"/>
+                        <Button x:Name="felhasznalo_rogzites_gomb"
+                                FontSize="14"
+                                Content="Send"
+                                Width="100" Height="25"
+                                Margin="5,0,5,0"
+                                Click="felhasznalo_rogzites_gomb_Click"
+                                IsEnabled="False"/>
+                        
+                    </StackPanel>
+                    
 
                 </StackPanel>
-                
-                
-                <ListBox x:Name="felhasznalok_lista"
-                         Grid.Row="1">
 
-                    <ListBox.ItemTemplate>
 
-                        <DataTemplate>
+                <StackPanel Grid.Row="1">
 
-                            <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
 
-                                <Label Content="{Binding JelszoId}"/>
-                                <Label Content="{Binding JelszoString}"/>
-                                <Label Content="{Binding Nev}"/>
-                                <Label Content="{Binding EMail}"/>
-                                <Label Content="{Binding Url}"/>
-                                <Label Content="{Binding Hozzafuzes}"/>
-                                <Label Content="{Binding MesterId}"/>
+                        <Label Content="Id"
+                               FontSize="14"
+                               VerticalAlignment="Center"/>
+                        <Label Content="Password"
+                               FontSize="14"
+                               VerticalAlignment="Center"/>
+                        <Label Content="Name"
+                               FontSize="14"
+                               VerticalAlignment="Center"/>
+                        <Label Content="E-Mail"
+                               FontSize="14"
+                               VerticalAlignment="Center"/>
+                        <Label Content="Url"
+                               FontSize="14"
+                               VerticalAlignment="Center"/>
+                        <Label Content="Description"
+                               FontSize="14"
+                               VerticalAlignment="Center"/>
 
-                            </StackPanel>
+                    </StackPanel>
 
-                        </DataTemplate>
+                    <ListBox x:Name="felhasznalok_lista">
 
-                    </ListBox.ItemTemplate>
+                        <ListBox.ItemTemplate>
 
-                </ListBox>
+                            <DataTemplate>
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Label Content="{Binding JelszoId}"
+                                           FontSize="14"/>
+                                    <Label Content="{Binding JelszoString}"
+                                           FontSize="14"/>
+                                    <Label Content="{Binding Nev}"
+                                           FontSize="14"/>
+                                    <Label Content="{Binding EMail}"
+                                           FontSize="14"/>
+                                    <Label Content="{Binding Url}"
+                                           FontSize="14"/>
+                                    <Label Content="{Binding Hozzafuzes}"
+                                           FontSize="14"/>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+
+                </StackPanel>
 
             </Grid>
 
