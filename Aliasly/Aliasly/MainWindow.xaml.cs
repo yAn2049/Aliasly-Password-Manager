@@ -17,22 +17,19 @@ namespace Aliasly;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
+
+/*
+ * változók: snake_case
+ * osztályok és tartozékai: PascalCase
+ * metódusok: PascalCase
+ */
+
 public partial class MainWindow : Window
-{
-    static List<MesterKulcs> mesterkulcs = new List<MesterKulcs>();
-    static List<Jelszo> jelszavak = new List<Jelszo>();
-    static List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
-
-    static List<KliensLista> klienslista = new List<KliensLista>();
-    static string connParam = "server=localhost;user=root;database=aliasly;port=3306"; // Sql csatlakozási paraméterek //
-
-    
+{   
     public MainWindow()
     {
         InitializeComponent();
         StartUp();
-
-        
 
     }
 
@@ -54,166 +51,38 @@ public partial class MainWindow : Window
 
 
 
-    public List<MesterKulcs> MesterkulcsTablazatLekeres()
-    {
-        // Sql kapcsolat //
-        MySqlConnection connection = new MySqlConnection(connParam);
-
-        try
-        {
-            // Sql kapcsolat nyitás //
-            connection.Open();
-
-            // Sql Adatok táblázat lekérése //
-            string sqlMesterkulcs = "SELECT mester_id, kulcs_string, salt_string, hashed_kulcs FROM mesterkulcs";
-            MySqlCommand sqlCommand_mesterkulcs = new MySqlCommand(sqlMesterkulcs, connection);
-            MySqlDataReader sqlReader = sqlCommand_mesterkulcs.ExecuteReader();
-
-            // Sql mesterkulcs beolvasás //
-            while (sqlReader.Read())
-            {
-                // Sql Mesterkulcs táblázat betöltése egy konstruktorba //
-                MesterKulcs m = new MesterKulcs()
-                {
-                    MesterId = int.Parse(sqlReader["mester_id"].ToString()),
-                    KulcsString = sqlReader["kulcs_string"].ToString(),
-                    SaltString = sqlReader["salt_string"].ToString(),
-                    HashedKulcs = sqlReader["hashed_kulcs"].ToString()
-                };
-                mesterkulcs.Add(m);
-            }
-            sqlReader.Close();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        return mesterkulcs;
-    }
-
-
-
-    public List<Jelszo> JelszoTablazatLekeres() 
-    {
-        // Sql kapcsolat //
-        MySqlConnection connection = new MySqlConnection(connParam);
-
-        try
-        {
-            // Sql kapcsolat nyitás //
-            connection.Open();
-
-            // Sql Adatok táblázat lekérése //
-            string sqlJelszo = "SELECT jelszo_id, jelszo_string, erosseg, titkositas, mester_id FROM jelszo";
-            MySqlCommand sqlCommand_jelszo = new MySqlCommand(sqlJelszo, connection);
-            MySqlDataReader sqlReader = sqlCommand_jelszo.ExecuteReader();
-
-            // Sql mesterkulcs beolvasás //
-            while (sqlReader.Read())
-            {
-                // Sql Mesterkulcs táblázat betöltése egy konstruktorba //
-                Jelszo j = new Jelszo()
-                {
-                    JelszoId = int.Parse(sqlReader["jelszo_id"].ToString()),
-                    JelszoString = sqlReader["jelszo_string"].ToString(),
-                    Erosseg = sqlReader["erosseg"].ToString(),
-                    Titkositas = sqlReader["titkositas"].ToString(),
-                    MesterId = int.Parse(sqlReader["mester_id"].ToString())
-                };
-                jelszavak.Add(j);
-            }
-            sqlReader.Close();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        return jelszavak;
-    }
-
-
-
-    public List<Felhasznalo> FelhasznaloTablazatLekeres()
-    {
-        // Sql kapcsolat //
-        MySqlConnection connection = new MySqlConnection(connParam);
-
-        try
-        {
-            // Sql kapcsolat nyitás //
-            connection.Open();
-
-            // Sql felhasználó táblázat lekérése //
-            string sqlFelhasznalo = "SELECT felhasznalo_id, nev, email, url, hozzafuzes, jelszo_id FROM felhasznalo";
-            MySqlCommand sqlCommand_felhasznalok = new MySqlCommand(sqlFelhasznalo, connection);
-            MySqlDataReader sqlReader = sqlCommand_felhasznalok.ExecuteReader();
-
-            // Sql felhasználók beolvasás //
-            while (sqlReader.Read())
-            {
-                // Sql felhasználó táblázat betöltése egy konstruktorba //
-                Felhasznalo a = new Felhasznalo()
-                {
-                    FelhasznaloId = int.Parse(sqlReader["felhasznalo_id"].ToString()),
-                    Nev = sqlReader["nev"].ToString(),
-                    EMail = sqlReader["email"].ToString(),
-                    Url = sqlReader["url"].ToString(),
-                    Hozzafuzes = sqlReader["hozzafuzes"].ToString(),
-                    JelszoId = int.Parse(sqlReader["jelszo_id"].ToString())
-                };
-                felhasznalok.Add(a);
-            }
-            sqlReader.Close();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        return felhasznalok;
-    }
-
-
-
-    
-    // public List<Log> LogTablazatLekeres() {}
-    
-
-
     private void enter_gomb_Click(object sender, RoutedEventArgs e)
     {
         // Mesterkulcs táblázat metódus //
-        MesterkulcsTablazatLekeres();
+        List<MesterKulcs> mester_kulcs = new AdatbazisMetodusok().MesterkulcsTablazatLekeres();
 
         // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
-        bool vanMarIlyenKulcs = false;
-        foreach (var m in mesterkulcs)
+        bool van_mar_ilyen_kulcs = false;
+        foreach (var m in mester_kulcs)
         {
             if (mesterkulcs_mezo.Password == m.KulcsString)
             {
-                vanMarIlyenKulcs = true;
+                van_mar_ilyen_kulcs = true;
                 break;
             }
             else
             {
-                vanMarIlyenKulcs = false;
+                van_mar_ilyen_kulcs = false;
             }
         }
 
-        if (vanMarIlyenKulcs)
+        if (van_mar_ilyen_kulcs)
         {
             // Ha helyes a kulcs akkor megjeleníti a kliens felületet //
             ShowClient();
 
             // Felhasználó táblázat metódus //
-            JelszoTablazatLekeres();
+            List<Felhasznalo> felhasznalok = new AdatbazisMetodusok().FelhasznaloTablazatLekeres();
 
             // Sql soronkénti betöltése a listbox elembe //
-            foreach (var a in jelszavak)
+            foreach (var f in felhasznalok)
             {
-                this.felhasznalok_lista.ItemsSource = jelszavak;
+                this.felhasznalok_lista.ItemsSource = felhasznalok;
             }
         }
         else
@@ -226,42 +95,40 @@ public partial class MainWindow : Window
 
     private void uj_kulcs_Click(object sender, RoutedEventArgs e)
     {
-        // Sql kapcsolat //
-        MySqlConnection connection = new MySqlConnection(connParam);
-
-        connection.Open();
+        // Adatbázis kapcsolat
+        MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
 
         try
         {
             // Mesterkulcs táblázat metódus //
-            MesterkulcsTablazatLekeres();
+            List<MesterKulcs> mester_kulcs = new AdatbazisMetodusok().MesterkulcsTablazatLekeres();
 
             // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
-            bool vanMarIlyenKulcs = false;
-            foreach (var m in mesterkulcs)
+            bool van_mar_ilyen_kulcs = false;
+            foreach (var m in mester_kulcs)
             {
                 if (mesterkulcs_mezo.Password == m.KulcsString)
                 {
-                    vanMarIlyenKulcs = true;
+                    van_mar_ilyen_kulcs = true;
                     break;
                 }
                 else
                 {
-                    vanMarIlyenKulcs = false;
+                    van_mar_ilyen_kulcs = false;
                 }
             }
 
             // Ha létezik már ilyen adat, hibát dob fel. //
-            if (vanMarIlyenKulcs)
+            if (van_mar_ilyen_kulcs)
             {
                 MessageBox.Show("Ez a kulcs már létezik az adatbázisodban!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             // Ha nem létezik ilyen adat, akkor feltölti az adatbázis táblázatába //
             else
             {
-                string sqlKulcsIras = $"INSERT INTO mesterkulcs (kulcs_string, salt_string, hashed_kulcs) VALUES ('{mesterkulcs_mezo.Password}', '-', '-')";
-                MySqlCommand sqlCommand_kulcsIras = new MySqlCommand(sqlKulcsIras, connection);
-                sqlCommand_kulcsIras.ExecuteNonQuery();
+                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (kulcs_string, salt_string, hashed_kulcs) VALUES ('{mesterkulcs_mezo.Password}', '-', '-')";
+                MySqlCommand sql_command_kulcs_iras = new MySqlCommand(sql_kulcs_iras, db_csatlakozas);
+                sql_command_kulcs_iras.ExecuteNonQuery();
             }
         }
         catch (Exception ex)
@@ -274,29 +141,7 @@ public partial class MainWindow : Window
 
     private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e)
     {
-        /*
-         * 
-         * Ezt kurvara meg kell fixalni
-         * kiegtem :skull:
-         * 
-         */
-
-        // Sql kapcsolat //
-        MySqlConnection connection = new MySqlConnection(connParam);
-        connection.Open();
-
-        mesterkulcs = new List<MesterKulcs>(MesterkulcsTablazatLekeres());
-        jelszavak = new List<Jelszo>(JelszoTablazatLekeres());
-
-        string sqlJelszo_iras = $"INSERT INTO jelszo (jelszo, erosseg, titkositas, mester_id) VALUES ('{jelszo_mezo.Password}', '-', '-', '{mesterkulcs[0].MesterId}')";
-
-        string sqlFelhasznalo_iras = $"INSERT INTO felhasznalo (nev, email, url, hozzafuzes, jelszo_id) VALUES  ('{nev_mezo.Text}', '{eMail_mezo.Text}', '{url_mezo.Text}', '{hozzafuzes_mezo.Text}', '{jelszavak[0].JelszoId}')";
-
-        MySqlCommand sqlCommand_jelszoIras = new MySqlCommand(sqlJelszo_iras, connection);
-        MySqlCommand sqlCommand_felhasznaloIras = new MySqlCommand(sqlFelhasznalo_iras, connection);
-
-        sqlCommand_jelszoIras.ExecuteNonQuery();
-        sqlCommand_felhasznaloIras.ExecuteNonQuery();
+        // ezt majd krafting kesobb
     }
 
 
