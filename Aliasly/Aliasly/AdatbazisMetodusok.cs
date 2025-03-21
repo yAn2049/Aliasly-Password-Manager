@@ -107,6 +107,7 @@ namespace Aliasly
                     jelszavak.Add(temp_j);
                 }
                 sql_reader.Close();
+                db_csatlakozas.Close();
             }
             catch (Exception ex)
             {
@@ -144,6 +145,7 @@ namespace Aliasly
                     felhasznalok.Add(temp_fh);
                 }
                 sql_reader.Close();
+                db_csatlakozas.Close();
             }
             catch (Exception ex)
             {
@@ -180,6 +182,7 @@ namespace Aliasly
                     hozzaferes_log.Add(temp_l);
                 }
                 sql_reader.Close();
+                db_csatlakozas.Close();
             }
             catch (Exception ex)
             {
