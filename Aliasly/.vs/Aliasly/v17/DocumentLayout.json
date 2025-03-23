@@ -1,21 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\",
+  "WorkspaceRootPath": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly\\aliasly\\adatbazismetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\documents\\github\\aliasly-password-manager\\aliasly\\aliasly\\adatbazismetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\adatbazismetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly\\aliasly\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\documents\\github\\aliasly-password-manager\\aliasly\\aliasly\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly\\aliasly\\klienslista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\klienslista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly\\aliasly\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\yan\\documents\\github\\aliasly-password-manager\\aliasly\\aliasly\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -26,42 +22,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "KliensLista.cs",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\KliensLista.cs",
-              "RelativeDocumentMoniker": "Aliasly\\KliensLista.cs",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\KliensLista.cs",
-              "RelativeToolTip": "Aliasly\\KliensLista.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T17:06:07.926Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Aliasly\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\MainWindow.xaml",
               "RelativeToolTip": "Aliasly\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-17T11:40:59.772Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-17T11:40:59.772Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Aliasly\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\MainWindow.xaml.cs",
               "RelativeToolTip": "Aliasly\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAkwI8AAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAYwGIAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-17T11:40:55.547Z",
               "EditorCaption": ""
@@ -70,11 +52,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "AdatbazisMetodusok.cs",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\AdatbazisMetodusok.cs",
+              "DocumentMoniker": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\AdatbazisMetodusok.cs",
               "RelativeDocumentMoniker": "Aliasly\\AdatbazisMetodusok.cs",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly\\Aliasly\\AdatbazisMetodusok.cs",
+              "ToolTip": "C:\\Users\\yAn\\Documents\\GitHub\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\AdatbazisMetodusok.cs",
               "RelativeToolTip": "Aliasly\\AdatbazisMetodusok.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAIwLgAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAMUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-21T10:33:12.394Z",
               "EditorCaption": ""

@@ -16,16 +16,10 @@ namespace Aliasly
         private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
         private List<HozzaferesLog> hozzaferes_log = new List<HozzaferesLog>();
 
-
         // Sql csatlakozási paraméterek, xampp és mampp
         private string xampp_conn_params = "server=localhost;user=root;database=aliasly;port=3306";
         private string mampp_conn_params = "server=localhost;user=root;database=aliasly;port=3306;password=root";
-
-        // Sql táblák SELECT
-        private string sql_mesterkulcs_select = "SELECT mester_id, kulcs_string, salt_string, hashed_kulcs FROM mesterkulcs";
-        private string sql_jelszo_select = "SELECT jelszo_id, jelszo_string, erosseg, titkositas, mester_id FROM jelszo";
-        private string sql_felhasznalo_select = "SELECT felhasznalo_id, nev, email, url, hozzafuzes, jelszo_id FROM felhasznalo";
-        private string sql_hozzaferes_log_select = "SELECT log_id, datum_ido, leiras, jelszo_id, jelszo_id, felhasznalo_id FROM hozzafereslog";
+        
 
 
         public MySqlConnection AdatbazisCsatlakozas() // Adatbázis kapcsolat létesítése
@@ -53,6 +47,8 @@ namespace Aliasly
 
             try
             {
+                // Tábla SELECT 
+                string sql_mesterkulcs_select = "SELECT mester_id, kulcs_string, salt_string, hashed_kulcs FROM mesterkulcs";
                 MySqlCommand sql_command_mesterkulcs = new MySqlCommand(sql_mesterkulcs_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_mesterkulcs.ExecuteReader();
 
@@ -89,6 +85,8 @@ namespace Aliasly
 
             try
             {
+                // Tábla SELECT 
+                string sql_jelszo_select = "SELECT jelszo_id, jelszo_string, erosseg, titkositas, mester_id FROM jelszo";
                 MySqlCommand sql_command_jelszo = new MySqlCommand(sql_jelszo_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_jelszo.ExecuteReader();
 
@@ -126,6 +124,8 @@ namespace Aliasly
 
             try
             {
+                // Tábla SELECT 
+                string sql_felhasznalo_select = "SELECT felhasznalo_id, nev, email, url, hozzafuzes, jelszo_id FROM felhasznalo";
                 MySqlCommand sql_command_felhasznalok = new MySqlCommand(sql_felhasznalo_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_felhasznalok.ExecuteReader();
 
@@ -164,6 +164,8 @@ namespace Aliasly
 
             try
             {
+                // Tábla SELECT 
+                string sql_hozzaferes_log_select = "SELECT log_id, datum_ido, leiras, jelszo_id, jelszo_id, felhasznalo_id FROM hozzafereslog";
                 MySqlCommand sql_command_log = new MySqlCommand(sql_hozzaferes_log_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_log.ExecuteReader();
 
@@ -191,5 +193,8 @@ namespace Aliasly
 
             return hozzaferes_log;
         }
+
+
+
     }
 }
