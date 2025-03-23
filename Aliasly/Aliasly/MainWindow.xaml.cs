@@ -95,45 +95,40 @@ public partial class MainWindow : Window
 
     private void uj_kulcs_Click(object sender, RoutedEventArgs e)
     {
-        // Adatbázis kapcsolat
-        MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+        string mesterkulcs = mesterkulcs_mezo.Password;
 
-        try
+        TitkositasMetodusok titkositasMetodusok = new TitkositasMetodusok();
+        List<string> hashResults = titkositasMetodusok.HashMasterKey(mesterkulcs);
+
+        string fullHash = hashResults[0];
+        string salt = hashResults[1];
+        string hashWithoutSalt = hashResults[2];
+
+        AdatbazisMetodusok adatbazisMetodusok = new AdatbazisMetodusok();
+
+        // Mesterkulcs táblázat metódus //
+        List<MesterKulcs> mester_kulcs = adatbazisMetodusok.MesterkulcsTablazatLekeres();
+
+        // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
+        bool van_mar_ilyen_kulcs = mester_kulcs.Any(m => m.KulcsString == fullHash);
+
+        // Ha létezik már ilyen adat, hibát dob fel. //
+        if (van_mar_ilyen_kulcs)
         {
-            // Mesterkulcs táblázat metódus //
-            List<MesterKulcs> mester_kulcs = new AdatbazisMetodusok().MesterkulcsTablazatLekeres();
-
-            // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
-            bool van_mar_ilyen_kulcs = false;
-            foreach (var m in mester_kulcs)
-            {
-                if (mesterkulcs_mezo.Password == m.KulcsString)
-                {
-                    van_mar_ilyen_kulcs = true;
-                    break;
-                }
-                else
-                {
-                    van_mar_ilyen_kulcs = false;
-                }
-            }
-
-            // Ha létezik már ilyen adat, hibát dob fel. //
-            if (van_mar_ilyen_kulcs)
-            {
-                MessageBox.Show("Ez a kulcs már létezik az adatbázisodban!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            // Ha nem létezik ilyen adat, akkor feltölti az adatbázis táblázatába //
-            else
-            {
-                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (kulcs_string, salt_string, hashed_kulcs) VALUES ('{mesterkulcs_mezo.Password}', '-', '-')";
-                MySqlCommand sql_command_kulcs_iras = new MySqlCommand(sql_kulcs_iras, db_csatlakozas);
-                sql_command_kulcs_iras.ExecuteNonQuery();
-            }
+            MessageBox.Show("Ez a kulcs már létezik az adatbázisodban!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
-        catch (Exception ex)
+        // Ha nem létezik ilyen adat, akkor feltölti az adatbázis táblázatába //
+        else
         {
-            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            try
+            {
+                adatbazisMetodusok.MesterkulcsTablazatIras(fullHash, salt, hashWithoutSalt);
+                MessageBox.Show("Új mesterkulcs sikeresen hozzáadva!", "Siker!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 

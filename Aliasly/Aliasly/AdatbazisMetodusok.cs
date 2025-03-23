@@ -194,6 +194,31 @@ namespace Aliasly
             return hozzaferes_log;
         }
 
+        public void MesterkulcsTablazatIras(string kulcs_string, string salt_string, string hashed_kulcs)
+        {
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+            try
+            {
+                // Tábla INSERT
+                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (kulcs_string, salt_string, hashed_kulcs) VALUES ('{kulcs_string}', '{salt_string}', '{hashed_kulcs}')";
+                MySqlCommand sql_command_kulcs_iras = new MySqlCommand(sql_kulcs_iras, db_csatlakozas);
+                //db_csatlakozas.Open();
+                sql_command_kulcs_iras.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+        }
+
 
 
     }
