@@ -16,12 +16,8 @@ namespace Aliasly
 
         public List<string> HashMasterKey(string masterKey)
         {
-            // Generate a salt
-            byte[] salt = new byte[16];
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(salt);
-            }
+            // Use a fixed salt
+            byte[] salt = Encoding.UTF8.GetBytes("fixed_salt_value_16");
 
             // Hash the master key with the salt using PBKDF2
             var pbkdf2 = new Rfc2898DeriveBytes(masterKey, salt, 10000);
