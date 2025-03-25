@@ -42,7 +42,7 @@
                         Content="Create new key"
                         Width="120"
                         Margin="5"
-                        Click="uj_kulcs_Click"/>
+                        />
 
             </StackPanel>
 
@@ -55,7 +55,7 @@
                    Visibility="Visible">
 
             <Grid>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="3*"/>
@@ -144,61 +144,34 @@
                 </StackPanel>
 
 
-                <StackPanel Grid.Row="1">
+                <Grid Grid.Row="1">
 
-                    <StackPanel Orientation="Horizontal">
+                    <ListView x:Name="felhasznalok_lista">
 
-                        <Label Content="Id"
-                               FontSize="14"
-                               VerticalAlignment="Center"/>
-                        <Label Content="Password"
-                               FontSize="14"
-                               VerticalAlignment="Center"/>
-                        <Label Content="Name"
-                               FontSize="14"
-                               VerticalAlignment="Center"/>
-                        <Label Content="E-Mail"
-                               FontSize="14"
-                               VerticalAlignment="Center"/>
-                        <Label Content="Url"
-                               FontSize="14"
-                               VerticalAlignment="Center"/>
-                        <Label Content="Description"
-                               FontSize="14"
-                               VerticalAlignment="Center"/>
+                        <ListView.View>
 
-                    </StackPanel>
+                            <GridView>
 
-                    <ListBox x:Name="felhasznalok_lista">
+                                <GridViewColumn Header="Id" 
+                                                DisplayMemberBinding="{Binding JelszoId}"/>
+                                <GridViewColumn Header="Password" 
+                                                DisplayMemberBinding="{Binding JelszoString}"/>
+                                <GridViewColumn Header="Name" 
+                                                DisplayMemberBinding="{Binding Nev}"/>
+                                <GridViewColumn Header="E-mail" 
+                                                DisplayMemberBinding="{Binding EMail}"/>
+                                <GridViewColumn Header="Url" 
+                                                DisplayMemberBinding="{Binding Url}"/>
+                                <GridViewColumn Header="Description" 
+                                                DisplayMemberBinding="{Binding Hozzafuzes}"/>
 
-                        <ListBox.ItemTemplate>
+                            </GridView>
 
-                            <DataTemplate>
+                        </ListView.View>
 
-                                <StackPanel Orientation="Horizontal">
+                    </ListView>
 
-                                    <Label Content="{Binding JelszoId}"
-                                           FontSize="14"/>
-                                    <Label Content="{Binding JelszoString}"
-                                           FontSize="14"/>
-                                    <Label Content="{Binding Nev}"
-                                           FontSize="14"/>
-                                    <Label Content="{Binding EMail}"
-                                           FontSize="14"/>
-                                    <Label Content="{Binding Url}"
-                                           FontSize="14"/>
-                                    <Label Content="{Binding Hozzafuzes}"
-                                           FontSize="14"/>
-
-                                </StackPanel>
-
-                            </DataTemplate>
-
-                        </ListBox.ItemTemplate>
-
-                    </ListBox>
-
-                </StackPanel>
+                </Grid>
 
             </Grid>
 

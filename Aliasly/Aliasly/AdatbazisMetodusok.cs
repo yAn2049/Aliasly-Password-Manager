@@ -15,6 +15,7 @@ namespace Aliasly
         private List<Jelszo> jelszavak = new List<Jelszo>();
         private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
         private List<HozzaferesLog> hozzaferes_log = new List<HozzaferesLog>();
+        private List<KliensLista> kliens_lista = new List<KliensLista>();
 
         // Sql csatlakozási paraméterek, xampp és mampp
         private string xampp_conn_params = "server=localhost;user=root;database=aliasly;port=3306";
@@ -48,7 +49,7 @@ namespace Aliasly
             try
             {
                 // Tábla SELECT 
-                string sql_mesterkulcs_select = "SELECT mester_id, kulcs_string, salt_string, hashed_kulcs FROM mesterkulcs";
+                string sql_mesterkulcs_select = "SELECT mester_id, salt_string, hashed_kulcs FROM mesterkulcs";
                 MySqlCommand sql_command_mesterkulcs = new MySqlCommand(sql_mesterkulcs_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_mesterkulcs.ExecuteReader();
 
@@ -59,18 +60,23 @@ namespace Aliasly
                     MesterKulcs temp_mk = new MesterKulcs()
                     {
                         MesterId = int.Parse(sql_reader["mester_id"].ToString()),
-                        KulcsString = sql_reader["kulcs_string"].ToString(),
                         SaltString = sql_reader["salt_string"].ToString(),
                         HashedKulcs = sql_reader["hashed_kulcs"].ToString()
                     };
                     mester_kulcs.Add(temp_mk);
                 }
                 sql_reader.Close();
-                db_csatlakozas.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
             }
 
             return mester_kulcs;
@@ -105,11 +111,17 @@ namespace Aliasly
                     jelszavak.Add(temp_j);
                 }
                 sql_reader.Close();
-                db_csatlakozas.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
             }
 
             return jelszavak;
@@ -145,11 +157,17 @@ namespace Aliasly
                     felhasznalok.Add(temp_fh);
                 }
                 sql_reader.Close();
-                db_csatlakozas.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
             }
 
             return felhasznalok;
@@ -184,24 +202,76 @@ namespace Aliasly
                     hozzaferes_log.Add(temp_l);
                 }
                 sql_reader.Close();
-                db_csatlakozas.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
 
             return hozzaferes_log;
         }
 
-        public void MesterkulcsTablazatIras(string kulcs_string, string salt_string, string hashed_kulcs)
+
+
+        public List<KliensLista> KliensListaLekeres()
+        {
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+
+            try
+            {
+                // Adatok SELECT 
+                string sql_kliensek_select = $"SELECT j.jelszo_id, j.jelszo_string, f.nev, f.email, f.url, f.hozzafuzes FROM Jelszo j JOIN Felhasznalo f ON j.jelszo_id = f.jelszo_id";
+                MySqlCommand sql_command_kliensek = new MySqlCommand(sql_kliensek_select, db_csatlakozas);
+                MySqlDataReader sql_reader = sql_command_kliensek.ExecuteReader();
+
+                while (sql_reader.Read())
+                {
+                    KliensLista temp_k = new KliensLista()
+                    {
+                        JelszoId = int.Parse(sql_reader["jelszo_id"].ToString()),
+                        JelszoString = sql_reader["jelszo_string"].ToString(),
+                        Nev = sql_reader["nev"].ToString(),
+                        EMail = sql_reader["email"].ToString(),
+                        Url = sql_reader["url"].ToString(),
+                        Hozzafuzes = sql_reader["hozzafuzes"].ToString(),
+                    };
+                    kliens_lista.Add(temp_k);
+                }
+                sql_reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+
+            return kliens_lista;
+        }
+
+
+
+        public void MesterkulcsTablazatIras(string salt_string, string hashed_kulcs)
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
             try
             {
                 // Tábla INSERT
-                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (kulcs_string, salt_string, hashed_kulcs) VALUES ('{kulcs_string}', '{salt_string}', '{hashed_kulcs}')";
+                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (salt_string, hashed_kulcs) VALUES ('{salt_string}', '{hashed_kulcs}')";
                 MySqlCommand sql_command_kulcs_iras = new MySqlCommand(sql_kulcs_iras, db_csatlakozas);
                 //db_csatlakozas.Open();
                 sql_command_kulcs_iras.ExecuteNonQuery();
@@ -221,5 +291,83 @@ namespace Aliasly
 
 
 
+        public void JelszoTablazatIras(string jelszo_string, string erosseg, int mester_id)
+        {
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+
+            try
+            {
+                // Tábla INSERT
+                string sql_jelszo_iras = $"INSERT INTO jelszo (jelszo_string, erosseg, titkositas, mester_id) VALUES ('{jelszo_string}', '{erosseg}', 'AES-256', '{mester_id}')";
+                MySqlCommand sql_command_jelszo_iras = new MySqlCommand(sql_jelszo_iras, db_csatlakozas);
+                sql_command_jelszo_iras.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+        }
+
+
+
+        public void FelhasznaloTablazatIras(string nev, string email, string url, string hozzafuzes)
+        {
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+
+            try
+            {
+                // Tábla INSERT
+                string sql_felhasznalo_iras = $"INSERT INTO felhasznalo (nev, email, url, hozzafuzes, jelszo_id) VALUES ('{nev}', '{email}', '{url}', '{hozzafuzes}', LAST_INSERT_ID())";
+                MySqlCommand sql_command_felhasznalo_iras = new MySqlCommand(sql_felhasznalo_iras, db_csatlakozas);
+                sql_command_felhasznalo_iras.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+        }
+
+
+
+        public void LogTablazatIras(DateTime datum_ido, string leiras, int jelszo_id, int felhasznalo_id)
+        {
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+
+            try
+            {
+                // Tábla INSERT
+                string sql_log_iras = $"INSERT INTO hozzafereslog (datum_ido, leiras, jelszo_id, felhasznalo_id) VALUES ('{datum_ido}', '{leiras}', '{jelszo_id}', '{felhasznalo_id}')";
+                MySqlCommand sql_command_log_iras = new MySqlCommand(sql_log_iras, db_csatlakozas);
+                sql_command_log_iras.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+        }
     }
 }

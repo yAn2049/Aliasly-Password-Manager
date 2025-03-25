@@ -60,7 +60,7 @@ public partial class MainWindow : Window
         bool van_mar_ilyen_kulcs = false;
         foreach (var m in mester_kulcs)
         {
-            if (mesterkulcs_mezo.Password == m.KulcsString)
+            if (mesterkulcs_mezo.Password == m.SaltString)
             {
                 van_mar_ilyen_kulcs = true;
                 break;
@@ -77,12 +77,12 @@ public partial class MainWindow : Window
             ShowClient();
 
             // Felhasználó táblázat metódus //
-            List<Felhasznalo> felhasznalok = new AdatbazisMetodusok().FelhasznaloTablazatLekeres();
+            List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres();
 
             // Sql soronkénti betöltése a listbox elembe //
-            foreach (var f in felhasznalok)
+            foreach (var k in kliens_lista)
             {
-                this.felhasznalok_lista.ItemsSource = felhasznalok;
+                this.felhasznalok_lista.ItemsSource = kliens_lista;
             }
         }
         else
@@ -92,7 +92,7 @@ public partial class MainWindow : Window
     }
 
 
-
+    /*
     private void uj_kulcs_Click(object sender, RoutedEventArgs e)
     {
         string mesterkulcs = mesterkulcs_mezo.Password;
@@ -131,12 +131,34 @@ public partial class MainWindow : Window
             }
         }
     }
-
+    */
 
 
     private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e)
     {
-        // ezt majd krafting kesobb
+        List<MesterKulcs> mester_kulcs = new AdatbazisMetodusok().MesterkulcsTablazatLekeres();
+        List<Jelszo> jelszavak = new AdatbazisMetodusok().JelszoTablazatLekeres();
+        List<Felhasznalo> felhasznalok = new AdatbazisMetodusok().FelhasznaloTablazatLekeres();
+
+        string erosseg = "placeholder";
+
+        AdatbazisMetodusok metodus = new AdatbazisMetodusok();
+
+        try
+        {
+            metodus.JelszoTablazatIras(jelszo_mezo.Password.ToString(), erosseg, mester_kulcs[0].MesterId);
+
+            metodus.FelhasznaloTablazatIras(nev_mezo.Text, eMail_mezo.Text, url_mezo.Text, hozzafuzes_mezo.Text);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        finally
+        {
+            this.felhasznalok_lista.Items.Refresh();
+        }
+
     }
 
 
