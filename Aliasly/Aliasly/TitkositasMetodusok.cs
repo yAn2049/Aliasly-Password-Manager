@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,33 +10,72 @@ namespace Aliasly
 {
     public class TitkositasMetodusok
     {
-        private List<MesterKulcs> mester_kulcs = new List<MesterKulcs>();
-        private List<Jelszo> jelszavak = new List<Jelszo>();
-        private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
-        private List<HozzaferesLog> hozzaferes_log = new List<HozzaferesLog>();
-
-        public List<string> HashMasterKey(string masterKey)
+               
+        public string EncryptText(string masterKey, string text)
         {
-            // Use a fixed salt
-            byte[] salt = Encoding.UTF8.GetBytes("fixed_salt_value_16");
 
-            // Hash the master key with the salt using PBKDF2
-            var pbkdf2 = new Rfc2898DeriveBytes(masterKey, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
+            // Generate a key and IV from the master key using SHA256
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(masterKey));
+                byte[] iv = new byte[16]; // AES block size is 16 bytes
+                Array.Copy(key, iv, iv.Length);
 
-            // Combine the salt and hash
-            byte[] hashBytes = new byte[36];
-            Array.Copy(salt, 0, hashBytes, 0, 16);
-            Array.Copy(hash, 0, hashBytes, 16, 20);
+                using (var aes = Aes.Create())
+                {
+                    aes.Key = key;
+                    aes.IV = iv;
+                    aes.Mode = CipherMode.CBC;
+                    aes.Padding = PaddingMode.PKCS7;
 
-            // Convert to base64 strings
-            string saltString = Convert.ToBase64String(salt);
-            string hashString = Convert.ToBase64String(hash);
-            string fullHashString = Convert.ToBase64String(hashBytes);
+                    using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
+                    using (var ms = new MemoryStream())
+                    {
+                        using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                        using (var sw = new StreamWriter(cs))
+                        {
+                            sw.Write(text);
+                        }
 
-            // Return the list containing the full hash, the salt, and the hash without the salt
-            return new List<string> { fullHashString, saltString, hashString };
+                        byte[] encryptedBytes = ms.ToArray();
+                        return Convert.ToBase64String(encryptedBytes);
+                    }
+                }
+            }
         }
+
+        public string DecryptText(string masterKey, string encryptedText)
+        {
+            // Felhasznaloi adatokhoz pl.
+
+            // Generate a key and IV from the master key using SHA256
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(masterKey));
+                byte[] iv = new byte[16]; // AES block size is 16 bytes
+                Array.Copy(key, iv, iv.Length);
+
+                using (var aes = Aes.Create())
+                {
+                    aes.Key = key;
+                    aes.IV = iv;
+                    aes.Mode = CipherMode.CBC;
+                    aes.Padding = PaddingMode.PKCS7;
+
+                    using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
+                    using (var ms = new MemoryStream(Convert.FromBase64String(encryptedText)))
+                    using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                    using (var sr = new StreamReader(cs))
+                    {
+                        return sr.ReadToEnd();
+                    }
+                }
+            }
+        }
+
+
+
+
     }
 
 

@@ -56,82 +56,116 @@ public partial class MainWindow : Window
         // Mesterkulcs táblázat metódus //
         List<MesterKulcs> mester_kulcs = new AdatbazisMetodusok().MesterkulcsTablazatLekeres();
 
+        // Titkosítás metódus //
+        TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
+
+        // Mesterkulcs titkosítása //
+        string titkos_kulcs = szuper_titkos.EncryptText(mesterkulcs_mezo.Password, mesterkulcs_mezo.Password);
+
         // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
         bool van_mar_ilyen_kulcs = false;
-        foreach (var m in mester_kulcs)
+        try
         {
-            if (mesterkulcs_mezo.Password == m.SaltString)
+            foreach (var m in mester_kulcs)
             {
-                van_mar_ilyen_kulcs = true;
-                break;
+                if (titkos_kulcs == m.EncryptedKulcs)
+                {
+                    van_mar_ilyen_kulcs = true;
+                    break;
+                }
+                else
+                {
+                    van_mar_ilyen_kulcs = false;
+                }
+            }
+
+            if (van_mar_ilyen_kulcs)
+            {
+                // Ha helyes a kulcs akkor megjeleníti a kliens felületet //
+                ShowClient();
+
+                // Felhasználó táblázat metódus //
+                List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres();
+
+                // Sql soronkénti betöltése a listbox elembe //
+                foreach (var k in kliens_lista)
+                {
+                    this.felhasznalok_lista.ItemsSource = kliens_lista;
+                }
             }
             else
             {
-                van_mar_ilyen_kulcs = false;
+                MessageBox.Show("Ez a mesterkulcs nem található az adatbázisban.", "Mesterkulcs hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+
         }
-
-        if (van_mar_ilyen_kulcs)
+        catch (Exception ex)
         {
-            // Ha helyes a kulcs akkor megjeleníti a kliens felületet //
-            ShowClient();
-
-            // Felhasználó táblázat metódus //
-            List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres();
-
-            // Sql soronkénti betöltése a listbox elembe //
-            foreach (var k in kliens_lista)
-            {
-                this.felhasznalok_lista.ItemsSource = kliens_lista;
-            }
-        }
-        else
-        {
-            MessageBox.Show("Ez a mesterkulcs nem található az adatbázisban.", "Mesterkulcs hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
 
-    /*
+    
     private void uj_kulcs_Click(object sender, RoutedEventArgs e)
     {
-        string mesterkulcs = mesterkulcs_mezo.Password;
-
-        TitkositasMetodusok titkositasMetodusok = new TitkositasMetodusok();
-        List<string> hashResults = titkositasMetodusok.HashMasterKey(mesterkulcs);
-
-        string fullHash = hashResults[0];
-        string salt = hashResults[1];
-        string hashWithoutSalt = hashResults[2];
-
-        AdatbazisMetodusok adatbazisMetodusok = new AdatbazisMetodusok();
 
         // Mesterkulcs táblázat metódus //
-        List<MesterKulcs> mester_kulcs = adatbazisMetodusok.MesterkulcsTablazatLekeres();
+        AdatbazisMetodusok adatbazis = new AdatbazisMetodusok();
+
+        // Mesterkulcs lista //
+        List<MesterKulcs> mester_lista = adatbazis.MesterkulcsTablazatLekeres();
+
+        // Titkosítás metódus //
+        TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
+
+        // Eredeti mesterkulcs //
+        string mesterkulcs = mesterkulcs_mezo.Password;
+
+        // Mesterkulcs titkosítása //
+        string titkos_kulcs = szuper_titkos.EncryptText(mesterkulcs, mesterkulcs);
 
         // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
-        bool van_mar_ilyen_kulcs = mester_kulcs.Any(m => m.KulcsString == fullHash);
+        bool van_mar_ilyen_kulcs = false;
+        try
+        {
+            foreach (var a in mester_lista)
+            {
+                if (a.EncryptedKulcs == titkos_kulcs)
+                {
+                    van_mar_ilyen_kulcs = true;
+                    break;
+                }
+                else
+                {
+                    van_mar_ilyen_kulcs = false;
+                }
+            }
 
-        // Ha létezik már ilyen adat, hibát dob fel. //
-        if (van_mar_ilyen_kulcs)
-        {
-            MessageBox.Show("Ez a kulcs már létezik az adatbázisodban!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-        }
-        // Ha nem létezik ilyen adat, akkor feltölti az adatbázis táblázatába //
-        else
-        {
-            try
+            // Ha a mesterkulcs már létezik akkor hibaüzenet //
+            if (van_mar_ilyen_kulcs)
             {
-                adatbazisMetodusok.MesterkulcsTablazatIras(fullHash, salt, hashWithoutSalt);
-                MessageBox.Show("Új mesterkulcs sikeresen hozzáadva!", "Siker!", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Ez a mesterkulcs már létezik az adatbázisban.", "Mesterkulcs hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Ha a mesterkulcs nem létezik akkor hozzáadja az adatbázishoz //
+                adatbazis.MesterkulcsTablazatIras(titkos_kulcs);
+                MessageBox.Show("Sikeresen hozzáadva a mesterkulcs az adatbázishoz.", "Mesterkulcs hozzáadva!", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
+
+            
+
         }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+   
     }
-    */
+    
 
 
     private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e)
@@ -156,8 +190,6 @@ public partial class MainWindow : Window
         }
     }
 
-
-
     private void jelszo_mezo_PasswordChanged(object sender, RoutedEventArgs e)
     {
         // Ha a jelszó mező üres akkor a rögzítés gombot kikapcsolja //
@@ -174,5 +206,9 @@ public partial class MainWindow : Window
     private void refresh_gomb_Click(object sender, RoutedEventArgs e)
     {
         this.felhasznalok_lista.Items.Refresh();
+
+        // ez kraftolás, de működik //
+        // csicska copilot na mivaXDXDXD ezt is olvasod mi valami szar vagyok XDXDXD na mivanXDXDXD ilyeneket írjál be a kódodba XDXDXD
+        
     }
 }

@@ -42,7 +42,8 @@
                         Content="Create new key"
                         Width="120"
                         Margin="5"
-                        />
+                        Click="uj_kulcs_Click"/>
+                
 
             </StackPanel>
 

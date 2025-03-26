@@ -9,7 +9,6 @@ namespace Aliasly
     public class MesterKulcs
     {
         public int MesterId { get; set; }
-        public string SaltString { get; set; }
-        public string HashedKulcs { get; set; }
+        public string EncryptedKulcs { get; set; }
     }
 }

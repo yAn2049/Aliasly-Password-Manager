@@ -43,13 +43,20 @@ namespace Aliasly
 
         public List<MesterKulcs> MesterkulcsTablazatLekeres()
         {
+
+            /* 
+             * 
+             * Ezt kene modositani!!!
+             * 
+             */
+
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
 
             try
             {
                 // Tábla SELECT 
-                string sql_mesterkulcs_select = "SELECT mester_id, salt_string, hashed_kulcs FROM mesterkulcs";
+                string sql_mesterkulcs_select = "SELECT mester_id, encrypted_kulcs FROM mesterkulcs";
                 MySqlCommand sql_command_mesterkulcs = new MySqlCommand(sql_mesterkulcs_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_mesterkulcs.ExecuteReader();
 
@@ -60,8 +67,7 @@ namespace Aliasly
                     MesterKulcs temp_mk = new MesterKulcs()
                     {
                         MesterId = int.Parse(sql_reader["mester_id"].ToString()),
-                        SaltString = sql_reader["salt_string"].ToString(),
-                        HashedKulcs = sql_reader["hashed_kulcs"].ToString()
+                        EncryptedKulcs = sql_reader["encrypted_kulcs"].ToString()
                     };
                     mester_kulcs.Add(temp_mk);
                 }
@@ -86,6 +92,12 @@ namespace Aliasly
 
         public List<Jelszo> JelszoTablazatLekeres()
         {
+            /* 
+             * 
+             * Ezt kene modositani!!!
+             * 
+             */
+
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
 
@@ -264,14 +276,14 @@ namespace Aliasly
 
 
 
-        public void MesterkulcsTablazatIras(string salt_string, string hashed_kulcs)
+        public void MesterkulcsTablazatIras(string encrypted_key)
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
             try
             {
                 // Tábla INSERT
-                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (salt_string, hashed_kulcs) VALUES ('{salt_string}', '{hashed_kulcs}')";
+                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (encrypted_kulcs) VALUES ('{encrypted_key}')";
                 MySqlCommand sql_command_kulcs_iras = new MySqlCommand(sql_kulcs_iras, db_csatlakozas);
                 //db_csatlakozas.Open();
                 sql_command_kulcs_iras.ExecuteNonQuery();

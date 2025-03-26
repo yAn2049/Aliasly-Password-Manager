@@ -6,8 +6,7 @@ USE Aliasly;
 -- Táblák létrehozása
 CREATE TABLE IF NOT EXISTS Mesterkulcs (
 	mester_id int PRIMARY KEY AUTO_INCREMENT,
-    salt_string char(64) NOT null UNIQUE,
-    hashed_kulcs char(128) NOT null UNIQUE
+    	encrypted_kulcs char(64) NOT null UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Jelszo (
