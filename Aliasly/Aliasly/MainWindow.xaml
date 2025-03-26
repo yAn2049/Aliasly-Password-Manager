@@ -139,6 +139,20 @@
                                 IsEnabled="False"/>
                         
                     </StackPanel>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <Label Content="Refresh"
+                               FontSize="14"
+                               HorizontalContentAlignment="Center"/>
+                        <Button x:Name="refresh_gomb"
+                                FontSize="14"
+                                Content="Refresh"
+                                Width="100" Height="25"
+                                Margin="5,0,5,0"
+                                Click="refresh_gomb_Click"/>
+
+                    </StackPanel>
                     
 
                 </StackPanel>
@@ -146,7 +160,8 @@
 
                 <Grid Grid.Row="1">
 
-                    <ListView x:Name="felhasznalok_lista">
+                    <ListView x:Name="felhasznalok_lista"
+                              ItemsSource="{Binding kliens_lista, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
                         <ListView.View>
 

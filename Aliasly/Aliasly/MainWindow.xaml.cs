@@ -154,11 +154,6 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        finally
-        {
-            this.felhasznalok_lista.Items.Refresh();
-        }
-
     }
 
 
@@ -174,5 +169,10 @@ public partial class MainWindow : Window
         {
             felhasznalo_rogzites_gomb.IsEnabled = false;
         }
+    }
+
+    private void refresh_gomb_Click(object sender, RoutedEventArgs e)
+    {
+        this.felhasznalok_lista.Items.Refresh();
     }
 }
