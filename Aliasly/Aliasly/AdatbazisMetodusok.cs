@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,20 +11,23 @@ namespace Aliasly
 {
     public class AdatbazisMetodusok
     {
-        // Osztályok 
+        // Táblázat listák //
         private List<MesterKulcs> mester_kulcs = new List<MesterKulcs>();
         private List<Jelszo> jelszavak = new List<Jelszo>();
         private List<Felhasznalo> felhasznalok = new List<Felhasznalo>();
         private List<HozzaferesLog> hozzaferes_log = new List<HozzaferesLog>();
         private List<KliensLista> kliens_lista = new List<KliensLista>();
+       
 
-        // Sql csatlakozási paraméterek, xampp és mampp
+
+        // Sql csatlakozási paraméterek, xampp és mampp //
         private string xampp_conn_params = "server=localhost;user=root;database=aliasly;port=3306";
         private string mampp_conn_params = "server=localhost;user=root;database=aliasly;port=3306;password=root";
-        
 
 
-        public MySqlConnection AdatbazisCsatlakozas() // Adatbázis kapcsolat létesítése
+
+        // Adatbázis kapcsolat paraméteradása //
+        public MySqlConnection AdatbazisCsatlakozas() 
         {
             MySqlConnection db_csatlakozas;
             try
@@ -84,7 +88,6 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
-
             return mester_kulcs;
         }
 
@@ -135,7 +138,6 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
-
             return jelszavak;
         }
 
@@ -181,7 +183,6 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
-
             return felhasznalok;
         }
 
@@ -203,7 +204,7 @@ namespace Aliasly
                 while (sql_reader.Read())
                 {
                     // Sql felhasználó táblázat betöltése egy konstruktorba
-                    HozzaferesLog temp_l = new HozzaferesLog()
+                    HozzaferesLog temp_hl = new HozzaferesLog()
                     {
                         LogId = int.Parse(sql_reader["log_id"].ToString()),
                         DatumIdo = DateTime.Parse(sql_reader["datum_ido"].ToString()),
@@ -211,7 +212,7 @@ namespace Aliasly
                         JelszoId = int.Parse(sql_reader["jelszo_id"].ToString()),
                         FelhasznaloId = int.Parse(sql_reader["felhasznalo_id"].ToString())
                     };
-                    hozzaferes_log.Add(temp_l);
+                    hozzaferes_log.Add(temp_hl);
                 }
                 sql_reader.Close();
             }
@@ -226,7 +227,6 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
-
             return hozzaferes_log;
         }
 
@@ -270,7 +270,6 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
-
             return kliens_lista;
         }
 
@@ -282,10 +281,9 @@ namespace Aliasly
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
             try
             {
-                // Tábla INSERT
+                // Mesterkulcs tábla INSERT
                 string sql_kulcs_iras = $"INSERT INTO mesterkulcs (encrypted_kulcs) VALUES ('{encrypted_key}')";
                 MySqlCommand sql_command_kulcs_iras = new MySqlCommand(sql_kulcs_iras, db_csatlakozas);
-                //db_csatlakozas.Open();
                 sql_command_kulcs_iras.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -310,7 +308,7 @@ namespace Aliasly
 
             try
             {
-                // Tábla INSERT
+                // Jelszo tábla INSERT
                 string sql_jelszo_iras = $"INSERT INTO jelszo (jelszo_string, erosseg, titkositas, mester_id) VALUES ('{jelszo_string}', '{erosseg}', 'AES-256', '{mester_id}')";
                 MySqlCommand sql_command_jelszo_iras = new MySqlCommand(sql_jelszo_iras, db_csatlakozas);
                 sql_command_jelszo_iras.ExecuteNonQuery();
@@ -337,7 +335,7 @@ namespace Aliasly
 
             try
             {
-                // Tábla INSERT
+                // Felhasználo tábla INSERT
                 string sql_felhasznalo_iras = $"INSERT INTO felhasznalo (nev, email, url, hozzafuzes, jelszo_id) VALUES ('{nev}', '{email}', '{url}', '{hozzafuzes}', LAST_INSERT_ID())";
                 MySqlCommand sql_command_felhasznalo_iras = new MySqlCommand(sql_felhasznalo_iras, db_csatlakozas);
                 sql_command_felhasznalo_iras.ExecuteNonQuery();
@@ -364,7 +362,7 @@ namespace Aliasly
 
             try
             {
-                // Tábla INSERT
+                // Hozzáférés log tábla INSERT
                 string sql_log_iras = $"INSERT INTO hozzafereslog (datum_ido, leiras, jelszo_id, felhasznalo_id) VALUES ('{datum_ido}', '{leiras}', '{jelszo_id}', '{felhasznalo_id}')";
                 MySqlCommand sql_command_log_iras = new MySqlCommand(sql_log_iras, db_csatlakozas);
                 sql_command_log_iras.ExecuteNonQuery();

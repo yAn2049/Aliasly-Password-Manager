@@ -24,13 +24,13 @@ namespace Aliasly;
  * metódusok: PascalCase
  */
 
+
 public partial class MainWindow : Window
 {   
     public MainWindow()
     {
         InitializeComponent();
         StartUp();
-
     }
 
 
@@ -155,9 +155,6 @@ public partial class MainWindow : Window
                 MessageBox.Show("Sikeresen hozzáadva a mesterkulcs az adatbázishoz.", "Mesterkulcs hozzáadva!", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
-
-            
-
         }
         catch (Exception ex)
         {
@@ -188,7 +185,21 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+        finally
+        {
+            // Felhasznalok lista uritese
+            felhasznalok_lista.ItemsSource = null;
+
+            // Felhasznalok lista frissitese
+            List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres();
+            foreach (var k in kliens_lista)
+            {
+                felhasznalok_lista.ItemsSource = kliens_lista;
+            }
+        }
     }
+
+
 
     private void jelszo_mezo_PasswordChanged(object sender, RoutedEventArgs e)
     {
@@ -201,14 +212,5 @@ public partial class MainWindow : Window
         {
             felhasznalo_rogzites_gomb.IsEnabled = false;
         }
-    }
-
-    private void refresh_gomb_Click(object sender, RoutedEventArgs e)
-    {
-        this.felhasznalok_lista.Items.Refresh();
-
-        // ez kraftolás, de működik //
-        // csicska copilot na mivaXDXDXD ezt is olvasod mi valami szar vagyok XDXDXD na mivanXDXDXD ilyeneket írjál be a kódodba XDXDXD
-        
     }
 }

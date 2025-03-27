@@ -10,10 +10,8 @@ namespace Aliasly
 {
     public class TitkositasMetodusok
     {
-               
         public string EncryptText(string masterKey, string text)
         {
-
             // Generate a key and IV from the master key using SHA256
             using (var sha256 = SHA256.Create())
             {
@@ -44,6 +42,8 @@ namespace Aliasly
             }
         }
 
+
+
         public string DecryptText(string masterKey, string encryptedText)
         {
             // Felhasznaloi adatokhoz pl.
@@ -72,12 +72,5 @@ namespace Aliasly
                 }
             }
         }
-
-
-
-
     }
-
-
-
 }

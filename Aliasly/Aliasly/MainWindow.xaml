@@ -9,62 +9,48 @@
         WindowStartupLocation="CenterScreen">
 
     <Grid>
-
         <!-- Master Key Entry -->
-        <Grid x:Name="mesterkulcs_felulet"
-              Visibility="Collapsed">
-
-            <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+        <Grid x:Name="mesterkulcs_felulet" Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
                 <Label Content="Enter your master key"
                        FontSize="14"
                        Margin="5"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-                
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
                 <PasswordBox x:Name="mesterkulcs_mezo"
                              FontSize="14"
                              Height="25" Width="300"
                              Margin="5"
-                             HorizontalAlignment="Center"
-                             VerticalContentAlignment="Center"/>
+                             HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
 
-                <Button x:Name="enter_gomb"
+                <Button x:Name="enter_gomb" Content="Enter"
                         FontSize="14"
-                        Content="Enter"
-                        Width="120"
+                        Height="25" Width="150"
                         Margin="5"
                         Click="enter_gomb_Click"/>
 
                 <Button x:Name="uj_kulcs"
-                        FontSize="14"
                         Content="Create new key"
-                        Width="120"
+                        FontSize="14"
+                        Height="25" Width="150"
                         Margin="5"
                         Click="uj_kulcs_Click"/>
-                
 
             </StackPanel>
-
         </Grid>
 
 
 
         <!-- Client -->
-        <DockPanel x:Name="kliens_felulet"
-                   Visibility="Visible">
-
+        <DockPanel x:Name="kliens_felulet" Visibility="Visible">
             <Grid>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <StackPanel VerticalAlignment="Center">
 
                         <Label Content="Password"
@@ -75,9 +61,7 @@
                                      Margin="5,0,5,0"
                                      VerticalContentAlignment="Center"
                                      PasswordChanged="jelszo_mezo_PasswordChanged"/>
-                        
                     </StackPanel>
-
                     <StackPanel VerticalAlignment="Center">
 
                         <Label Content="Name"
@@ -89,7 +73,6 @@
                                  VerticalContentAlignment="Center"/>
 
                     </StackPanel>
-
                     <StackPanel VerticalAlignment="Center">
 
                         <Label Content="E-Mail"
@@ -113,7 +96,6 @@
                                  VerticalContentAlignment="Center"/>
 
                     </StackPanel>
-
                     <StackPanel VerticalAlignment="Center">
 
                         <Label Content="Description"
@@ -125,7 +107,6 @@
                                  VerticalContentAlignment="Center"/>
 
                     </StackPanel>
-
                     <StackPanel VerticalAlignment="Center">
 
                         <Label Content="Send data"
@@ -138,35 +119,17 @@
                                 Margin="5,0,5,0"
                                 Click="felhasznalo_rogzites_gomb_Click"
                                 IsEnabled="False"/>
-                        
-                    </StackPanel>
-
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="Refresh"
-                               FontSize="14"
-                               HorizontalContentAlignment="Center"/>
-                        <Button x:Name="refresh_gomb"
-                                FontSize="14"
-                                Content="Refresh"
-                                Width="100" Height="25"
-                                Margin="5,0,5,0"
-                                Click="refresh_gomb_Click"/>
 
                     </StackPanel>
-                    
-
                 </StackPanel>
 
 
+
                 <Grid Grid.Row="1">
-
                     <ListView x:Name="felhasznalok_lista"
-                              ItemsSource="{Binding kliens_lista, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
-
+                              ItemsSource="{Binding kliens_lista}">
                         <ListView.View>
-
-                            <GridView>
+                            <GridView x:Name="lista_grid_view">
 
                                 <GridViewColumn Header="Id" 
                                                 DisplayMemberBinding="{Binding JelszoId}"/>
@@ -180,19 +143,12 @@
                                                 DisplayMemberBinding="{Binding Url}"/>
                                 <GridViewColumn Header="Description" 
                                                 DisplayMemberBinding="{Binding Hozzafuzes}"/>
-
+                                
                             </GridView>
-
                         </ListView.View>
-
                     </ListView>
-
                 </Grid>
-
             </Grid>
-
         </DockPanel>
-
     </Grid>
-    
 </Window>
