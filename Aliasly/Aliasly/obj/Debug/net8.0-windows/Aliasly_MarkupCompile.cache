@@ -4,17 +4,30 @@
 winexe
 C#
 .cs
+<<<<<<< Updated upstream
 C:\Users\yAn\Code Dev\VS\Wpf\Aliasly\Aliasly\obj\Debug\net8.0-windows\
+=======
+C:\Users\Noelk\Documents\Aliasly\Aliasly-Password-Manager\Aliasly\Aliasly\obj\Debug\net8.0-windows\
+>>>>>>> Stashed changes
 Aliasly
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+<<<<<<< Updated upstream
 C:\Users\yAn\Code Dev\VS\Wpf\Aliasly\Aliasly\App.xaml
 11121423476
 
 7717103782
 20637807021
 MVVM\View\MainWindow.xaml;
+=======
+C:\Users\Noelk\Documents\Aliasly\Aliasly-Password-Manager\Aliasly\Aliasly\App.xaml
+11407045341
+
+111157517861
+206-1299420755
+MainWindow.xaml;
+>>>>>>> Stashed changes
 
 False
 
