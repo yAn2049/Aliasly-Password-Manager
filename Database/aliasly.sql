@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 27, 2025 at 10:43 AM
+-- Generation Time: Mar 28, 2025 at 03:53 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -49,7 +49,8 @@ CREATE TABLE `hozzafereslog` (
   `datum_ido` datetime NOT NULL,
   `leiras` varchar(1020) NOT NULL,
   `jelszo_id` int(11) DEFAULT NULL,
-  `felhasznalo_id` int(11) DEFAULT NULL
+  `felhasznalo_id` int(11) DEFAULT NULL,
+  `mester_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -74,7 +75,7 @@ CREATE TABLE `jelszo` (
 
 CREATE TABLE `mesterkulcs` (
   `mester_id` int(11) NOT NULL,
-  `encrypted_kulcs` char(64) NOT NULL
+  `mesterkulcs` char(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -94,7 +95,8 @@ ALTER TABLE `felhasznalo`
 ALTER TABLE `hozzafereslog`
   ADD PRIMARY KEY (`log_id`),
   ADD KEY `jelszo_id` (`jelszo_id`),
-  ADD KEY `felhasznalo_id` (`felhasznalo_id`);
+  ADD KEY `felhasznalo_id` (`felhasznalo_id`),
+  ADD KEY `mester_id` (`mester_id`);
 
 --
 -- Indexes for table `jelszo`
@@ -108,7 +110,7 @@ ALTER TABLE `jelszo`
 --
 ALTER TABLE `mesterkulcs`
   ADD PRIMARY KEY (`mester_id`),
-  ADD UNIQUE KEY `encrypted_kulcs` (`encrypted_kulcs`);
+  ADD UNIQUE KEY `mesterkulcs` (`mesterkulcs`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -153,7 +155,8 @@ ALTER TABLE `felhasznalo`
 --
 ALTER TABLE `hozzafereslog`
   ADD CONSTRAINT `hozzafereslog_ibfk_1` FOREIGN KEY (`jelszo_id`) REFERENCES `jelszo` (`jelszo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `hozzafereslog_ibfk_2` FOREIGN KEY (`felhasznalo_id`) REFERENCES `felhasznalo` (`felhasznalo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `hozzafereslog_ibfk_2` FOREIGN KEY (`felhasznalo_id`) REFERENCES `felhasznalo` (`felhasznalo_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hozzafereslog_ibfk_3` FOREIGN KEY (`mester_id`) REFERENCES `mesterkulcs` (`mester_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `jelszo`

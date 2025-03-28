@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS HozzaferesLog (
 	jelszo_id int,
 	FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	felhasznalo_id int,
-	FOREIGN KEY (felhasznalo_id) REFERENCES felhasznalo(felhasznalo_id) ON DELETE CASCADE ON UPDATE CASCADE	
+	FOREIGN KEY (felhasznalo_id) REFERENCES felhasznalo(felhasznalo_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	mester_id int,
 	FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
