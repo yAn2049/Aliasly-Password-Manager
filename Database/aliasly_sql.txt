@@ -6,7 +6,7 @@ USE Aliasly;
 -- Táblák létrehozása
 CREATE TABLE IF NOT EXISTS Mesterkulcs (
 	mester_id int PRIMARY KEY AUTO_INCREMENT,
-    	encrypted_kulcs char(64) NOT null UNIQUE
+    	mesterkulcs char(64) NOT null UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Jelszo (
@@ -36,4 +36,6 @@ CREATE TABLE IF NOT EXISTS HozzaferesLog (
 	FOREIGN KEY (jelszo_id) REFERENCES jelszo(jelszo_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	felhasznalo_id int,
 	FOREIGN KEY (felhasznalo_id) REFERENCES felhasznalo(felhasznalo_id) ON DELETE CASCADE ON UPDATE CASCADE	
+	mester_id int,
+	FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
