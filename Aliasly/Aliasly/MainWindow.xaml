@@ -44,6 +44,12 @@
 
         <!-- Client -->
         <DockPanel x:Name="kliens_felulet" Visibility="Visible">
+            <Grid DockPanel.Dock="Top">
+                <Label x:Name="aktiv_kulcs"
+                       FontSize="16"
+                       HorizontalAlignment="Left"
+                       Margin="5"/>
+            </Grid>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -119,6 +125,21 @@
                                 Margin="5,0,5,0"
                                 Click="felhasznalo_rogzites_gomb_Click"
                                 IsEnabled="False"/>
+
+                    </StackPanel>
+
+                    <StackPanel VerticalAlignment="Center">
+
+                        <Label Content="Log out"
+                               FontSize="14"
+                               HorizontalContentAlignment="Center"/>
+                        <Button x:Name="kijelentkezes_gomb"
+                                FontSize="14"
+                                Content="X"
+                                Width="100" Height="25"
+                                Margin="5,0,5,0"
+                              
+                                IsEnabled="True" Click="kijelentkezes_gomb_Click"/>
 
                     </StackPanel>
                 </StackPanel>

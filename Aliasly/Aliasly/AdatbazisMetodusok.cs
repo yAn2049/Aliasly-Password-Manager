@@ -232,7 +232,7 @@ namespace Aliasly
 
 
 
-        public List<KliensLista> KliensListaLekeres()
+        public List<KliensLista> KliensListaLekeres(string mester_id)
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
@@ -240,7 +240,7 @@ namespace Aliasly
             try
             {
                 // Adatok SELECT 
-                string sql_kliensek_select = $"SELECT j.jelszo_id, j.jelszo_string, f.nev, f.email, f.url, f.hozzafuzes FROM Jelszo j JOIN Felhasznalo f ON j.jelszo_id = f.jelszo_id";
+                string sql_kliensek_select = $"SELECT j.jelszo_id, j.jelszo_string, f.nev, f.email, f.url, f.hozzafuzes FROM Jelszo j JOIN Felhasznalo f ON j.jelszo_id = f.jelszo_id WHERE j.mester_id = '{mester_id}'";
                 MySqlCommand sql_command_kliensek = new MySqlCommand(sql_kliensek_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_kliensek.ExecuteReader();
 
@@ -301,15 +301,15 @@ namespace Aliasly
 
 
 
-        public void JelszoTablazatIras(string jelszo_string, string erosseg, int mester_id)
+        public void JelszoTablazatIras(string jelszo_string, string erosseg, string mester_id)
         {
             // Adatbázis kapcsolat
-            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+            MySqlConnection db_csatlakozas = AdatbazisCsatlakozas();
 
             try
             {
                 // Jelszo tábla INSERT
-                string sql_jelszo_iras = $"INSERT INTO jelszo (jelszo_string, erosseg, titkositas, mester_id) VALUES ('{jelszo_string}', '{erosseg}', 'AES-256', '{mester_id}')";
+                string sql_jelszo_iras = $"INSERT INTO jelszo (jelszo_string, erosseg, titkositas, mester_id) VALUES ('{jelszo_string}', '{erosseg}', 'AES-256', {mester_id})";
                 MySqlCommand sql_command_jelszo_iras = new MySqlCommand(sql_jelszo_iras, db_csatlakozas);
                 sql_command_jelszo_iras.ExecuteNonQuery();
             }
@@ -324,12 +324,59 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
+            /*
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+
+            try
+            {
+                // Jelszo tábla INSERT
+
+                string sql_jelszo_iras = $"INSERT INTO jelszo (jelszo_string, erosseg, titkositas, mester_id) VALUES ('{jelszo_string}', '{erosseg}', 'AES-256', LAST_INSERT_ID())";
+                MySqlCommand sql_command_jelszo_iras = new MySqlCommand(sql_jelszo_iras, db_csatlakozas);
+                sql_command_jelszo_iras.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+            */
         }
 
 
 
-        public void FelhasznaloTablazatIras(string nev, string email, string url, string hozzafuzes)
+        public void FelhasznaloTablazatIras(string nev, string email, string url, string hozzafuzes, int jelszo_id)
         {
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = AdatbazisCsatlakozas();
+
+            try
+            {
+                // Felhasználo tábla INSERT
+                string sql_felhasznalo_iras = $"INSERT INTO felhasznalo (nev, email, url, hozzafuzes, jelszo_id) VALUES ('{nev}', '{email}', '{url}', '{hozzafuzes}', {jelszo_id})";
+                MySqlCommand sql_command_felhasznalo_iras = new MySqlCommand(sql_felhasznalo_iras, db_csatlakozas);
+                sql_command_felhasznalo_iras.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+
+            /*
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
 
@@ -351,6 +398,7 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
+            */
         }
 
 
@@ -378,6 +426,58 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
+        }
+
+
+
+        public string MesterkulcsIDLekerdezes(string encrypted_key)
+        {
+            string mesterkulcs_id = "";
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+            try
+            {
+                // Tábla SELECT 
+                string sql_mesterkulcs_id_select = $"SELECT mester_id FROM mesterkulcs WHERE encrypted_kulcs = '{encrypted_key}'";
+                MySqlCommand sql_command_mesterkulcs_id = new MySqlCommand(sql_mesterkulcs_id_select, db_csatlakozas);
+                MySqlDataReader sql_reader = sql_command_mesterkulcs_id.ExecuteReader();
+                // Sql mesterkulcs beolvasás
+                while (sql_reader.Read())
+                {
+                    mesterkulcs_id = sql_reader["mester_id"].ToString();
+                }
+                sql_reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
+            return mesterkulcs_id;
+        }
+ 
+
+
+        public int JelszoIdUtolso(MySqlConnection db_csatlakozas)
+        {
+            int lastInsertedId = 0;
+            try
+            {
+                string sql_last_insert_id = "SELECT LAST_INSERT_ID()";
+                MySqlCommand sql_command_last_insert_id = new MySqlCommand(sql_last_insert_id, db_csatlakozas);
+                lastInsertedId = Convert.ToInt32(sql_command_last_insert_id.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return lastInsertedId;
         }
     }
 }

@@ -10,5 +10,7 @@ namespace Aliasly
     {
         public int MesterId { get; set; }
         public string EncryptedKulcs { get; set; }
+
+        
     }
 }

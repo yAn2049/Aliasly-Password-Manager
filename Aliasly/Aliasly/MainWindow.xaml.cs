@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +27,10 @@ namespace Aliasly;
 
 
 public partial class MainWindow : Window
-{   
+{
+    // Aktív kulcs
+    public string AktivKulcs { get; set; }
+    public string AktivKulcsId { get; set; }
     public MainWindow()
     {
         InitializeComponent();
@@ -39,6 +43,10 @@ public partial class MainWindow : Window
     {
         mesterkulcs_felulet.Visibility = Visibility.Visible;
         kliens_felulet.Visibility = Visibility.Collapsed;
+
+        // inditaskor nullazza az ertekeket, nem tudom pontosan, hogy szukseg van-e ra,  megduma majd, egyenlore mukodik //
+        AktivKulcs = string.Empty;
+        AktivKulcsId = string.Empty;
     }
 
 
@@ -81,17 +89,26 @@ public partial class MainWindow : Window
 
             if (van_mar_ilyen_kulcs)
             {
-                // Ha helyes a kulcs akkor megjeleníti a kliens felületet //
-                ShowClient();
+                // Aktuális kulcs //
 
+                AktivKulcs = titkos_kulcs; // Titkositott mesterKulcsot jegyzi meg //
+                AktivKulcsId = new AdatbazisMetodusok().MesterkulcsIDLekerdezes(AktivKulcs); // Mesterkulcs id-t jegyzi meg //
+
+                MessageBox.Show($"Mesterkulcs: \t{AktivKulcs} \nId: \t\t{AktivKulcsId}", "Bejelentkezés sikeres!", MessageBoxButton.OK, MessageBoxImage.Information);
+                // Ha helyes a kulcs akkor megjeleníti a kliens felületet //
+                aktiv_kulcs.Content = $"[Key]:\t{mesterkulcs_mezo.Password}";
+                ShowClient();
+               
                 // Felhasználó táblázat metódus //
-                List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres();
+                List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres(AktivKulcsId);
 
                 // Sql soronkénti betöltése a listbox elembe //
                 foreach (var k in kliens_lista)
                 {
                     this.felhasznalok_lista.ItemsSource = kliens_lista;
                 }
+
+                
             }
             else
             {
@@ -103,10 +120,10 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    }
+    } // Bejelentkezes gomb esemeny - Login //
 
 
-    
+
     private void uj_kulcs_Click(object sender, RoutedEventArgs e)
     {
 
@@ -160,16 +177,13 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-   
-    }
-    
+
+    } // Új mesterkulcs hozzáadása gomb esemény - Login//
+
 
 
     private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e)
     {
-        List<MesterKulcs> mester_kulcs = new AdatbazisMetodusok().MesterkulcsTablazatLekeres();
-        List<Jelszo> jelszavak = new AdatbazisMetodusok().JelszoTablazatLekeres();
-        List<Felhasznalo> felhasznalok = new AdatbazisMetodusok().FelhasznaloTablazatLekeres();
 
         string erosseg = "placeholder";
 
@@ -177,27 +191,37 @@ public partial class MainWindow : Window
 
         try
         {
-            metodus.JelszoTablazatIras(jelszo_mezo.Password.ToString(), erosseg, mester_kulcs[0].MesterId);
+            // uj jelszo hozzaadasa //
+            // AktivKulcsId = mesterkulcs_id ami hasznalatban van //
+            metodus.JelszoTablazatIras(jelszo_mezo.Password.ToString(), erosseg, AktivKulcsId);
 
-            metodus.FelhasznaloTablazatIras(nev_mezo.Text, eMail_mezo.Text, url_mezo.Text, hozzafuzes_mezo.Text);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        finally
-        {
-            // Felhasznalok lista uritese
+            // Az utolso beszurt jelszo_id lekerese //
+            int jelszoId;
+            using (MySqlConnection db_csatlakozas = metodus.AdatbazisCsatlakozas())
+            {
+                jelszoId = metodus.JelszoIdUtolso(db_csatlakozas);
+            }
+
+            // Beszur egy uj felhasznalo rekordot a lekerdezett jelszo_id-vel //
+            metodus.FelhasznaloTablazatIras(nev_mezo.Text, eMail_mezo.Text, url_mezo.Text, hozzafuzes_mezo.Text, jelszoId);
+
+            // Felhasznalok lista uritese //
             felhasznalok_lista.ItemsSource = null;
 
-            // Felhasznalok lista frissitese
-            List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres();
+            // Felhasznalok lista frissitese //
+            List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres(AktivKulcsId);
             foreach (var k in kliens_lista)
             {
                 felhasznalok_lista.ItemsSource = kliens_lista;
             }
         }
-    }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+
+    } // Felhasználó rögzítés gomb esemény - Main //
 
 
 
@@ -212,5 +236,24 @@ public partial class MainWindow : Window
         {
             felhasznalo_rogzites_gomb.IsEnabled = false;
         }
+    }  // Jelszó mező változás esemény - Main//
+
+
+
+    private void kijelentkezes_gomb_Click(object sender, RoutedEventArgs e) // Kijelentkezés gomb esemény - Main //
+    {
+        // Aktív kulcs és id nullázása //
+        AktivKulcs = string.Empty;
+        AktivKulcsId = string.Empty;
+        
+        aktiv_kulcs.Content = null;
+
+        // Felhasznalok lista uritese //
+        felhasznalok_lista.ItemsSource = null;
+
+        // Login felulet mutatasa //
+        kliens_felulet.Visibility = Visibility.Collapsed;
+        mesterkulcs_felulet.Visibility = Visibility.Visible;
+
     }
 }
