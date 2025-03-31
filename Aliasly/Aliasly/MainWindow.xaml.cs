@@ -214,6 +214,14 @@ public partial class MainWindow : Window
             {
                 felhasznalok_lista.ItemsSource = kliens_lista;
             }
+
+
+            // Mezők ürítése //
+            nev_mezo.Text = null;
+            eMail_mezo.Text = null;
+            url_mezo.Text = null;
+            hozzafuzes_mezo.Text = null;
+            jelszo_mezo.Password = null;
         }
         catch (Exception ex)
         {
@@ -242,11 +250,15 @@ public partial class MainWindow : Window
 
     private void kijelentkezes_gomb_Click(object sender, RoutedEventArgs e) // Kijelentkezés gomb esemény - Main //
     {
+        // Mezők ürítése //
+        mesterkulcs_mezo.Password = null;
+
+        // Aktív kulcs mező ürítése //
+        aktiv_kulcs.Content = null;
+
         // Aktív kulcs és id nullázása //
         AktivKulcs = string.Empty;
         AktivKulcsId = string.Empty;
-        
-        aktiv_kulcs.Content = null;
 
         // Felhasznalok lista uritese //
         felhasznalok_lista.ItemsSource = null;
