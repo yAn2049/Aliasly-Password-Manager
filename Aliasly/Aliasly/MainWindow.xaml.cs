@@ -268,4 +268,9 @@ public partial class MainWindow : Window
         mesterkulcs_felulet.Visibility = Visibility.Visible;
 
     }
+
+    private void sor_torles_gomb_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

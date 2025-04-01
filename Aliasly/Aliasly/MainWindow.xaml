@@ -164,7 +164,19 @@
                                                 DisplayMemberBinding="{Binding Url}"/>
                                 <GridViewColumn Header="Description" 
                                                 DisplayMemberBinding="{Binding Hozzafuzes}"/>
-                                
+                                <GridViewColumn Header="Delete"
+                                                >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="sor_torles_gomb"
+                                                    Content="X"
+                                                    Width="50"
+                                                    Click="sor_torles_gomb_Click"
+                                                    />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
                             </GridView>
                         </ListView.View>
                     </ListView>
