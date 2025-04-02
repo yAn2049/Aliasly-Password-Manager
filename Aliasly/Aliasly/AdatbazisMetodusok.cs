@@ -237,6 +237,8 @@ namespace Aliasly
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
 
+            // Titkositott jelszavak listaja
+
             try
             {
                 // Adatok SELECT 
@@ -478,6 +480,38 @@ namespace Aliasly
                 MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return lastInsertedId;
+        }
+
+
+
+        public void FelhasznaloSorTorles(int jelszo_id)
+        {
+            // Adatbázis kapcsolat
+            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
+            try
+            {
+                // Felhasználó sor törlés parancsok
+                string sql_felhasznalo_torles = $"DELETE FROM felhasznalo WHERE jelszo_id = {jelszo_id}";
+                string sql_jelszo_torles = $"DELETE FROM jelszo WHERE jelszo_id = {jelszo_id}";
+                MySqlCommand sql_command_felhasznalo_torles = new MySqlCommand(sql_felhasznalo_torles, db_csatlakozas);
+                MySqlCommand sql_command_jelszo_torles = new MySqlCommand(sql_jelszo_torles, db_csatlakozas);
+
+
+                // Felhasználó sor törlés vegrehajtás
+                sql_command_felhasznalo_torles.ExecuteNonQuery();
+                sql_command_jelszo_torles.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
+                {
+                    db_csatlakozas.Close();
+                }
+            }
         }
     }
 }

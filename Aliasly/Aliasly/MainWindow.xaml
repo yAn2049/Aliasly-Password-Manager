@@ -172,6 +172,8 @@
                                                     Content="X"
                                                     Width="50"
                                                     Click="sor_torles_gomb_Click"
+                                                    CommandParameter="{Binding JelszoId}"
+                                                    
                                                     />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>

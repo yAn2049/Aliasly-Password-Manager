@@ -120,7 +120,7 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    } // Bejelentkezes gomb esemeny - Login //
+    } // Bejelentkezes gomb esemeny - Login // // titkositva
 
 
 
@@ -188,9 +188,13 @@ public partial class MainWindow : Window
         string erosseg = "placeholder";
 
         AdatbazisMetodusok metodus = new AdatbazisMetodusok();
+        //TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
 
         try
         {
+            // titkositas //
+            //string titkos_jelszo = szuper_titkos.EncryptText(AktivKulcs, jelszo_mezo.Password.ToString());
+
             // uj jelszo hozzaadasa //
             // AktivKulcsId = mesterkulcs_id ami hasznalatban van //
             metodus.JelszoTablazatIras(jelszo_mezo.Password.ToString(), erosseg, AktivKulcsId);
@@ -229,7 +233,7 @@ public partial class MainWindow : Window
         }
 
 
-    } // Felhasználó rögzítés gomb esemény - Main //
+    } // Felhasználó rögzítés gomb esemény - Main // // ezt kene 
 
 
 
@@ -269,8 +273,41 @@ public partial class MainWindow : Window
 
     }
 
+
+
     private void sor_torles_gomb_Click(object sender, RoutedEventArgs e)
     {
+        // Megkapja a megnyomott gombot //
+        Button button = sender as Button;
 
+        if (button != null)
+        {
+            // Megkapja a gomb erteket //
+            int sor_id = (int)button.CommandParameter;
+
+            // Create an instance of AdatbazisMetodusok
+            AdatbazisMetodusok metodus = new AdatbazisMetodusok();
+
+            try
+            {
+                // Delete the record with the specified sor_id
+                metodus.FelhasznaloSorTorles(sor_id);
+
+                // Refresh the list after deletion
+                felhasznalok_lista.ItemsSource = null;
+                List<KliensLista> kliens_lista = metodus.KliensListaLekeres(AktivKulcsId);
+                foreach (var k in kliens_lista)
+                {
+                    felhasznalok_lista.ItemsSource = kliens_lista;
+                }
+
+                // Optionally, update the UI or show a message
+                MessageBox.Show($"Record with Id {sor_id} has been deleted.", "Record Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
