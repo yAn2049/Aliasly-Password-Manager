@@ -93,151 +93,14 @@ namespace Aliasly
 
 
 
-        public List<Jelszo> JelszoTablazatLekeres()
-        {
-            /* 
-             * 
-             * Ezt kene modositani!!!
-             * 
-             */
-
-            // Adatbázis kapcsolat
-            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
-
-            try
-            {
-                // Tábla SELECT 
-                string sql_jelszo_select = "SELECT jelszo_id, jelszo_string, erosseg, titkositas, mester_id FROM jelszo";
-                MySqlCommand sql_command_jelszo = new MySqlCommand(sql_jelszo_select, db_csatlakozas);
-                MySqlDataReader sql_reader = sql_command_jelszo.ExecuteReader();
-
-                // Sql mesterkulcs beolvasás
-                while (sql_reader.Read())
-                {
-                    // Sql Mesterkulcs táblázat betöltése egy konstruktorba
-                    Jelszo temp_j = new Jelszo()
-                    {
-                        JelszoId = int.Parse(sql_reader["jelszo_id"].ToString()),
-                        JelszoString = sql_reader["jelszo_string"].ToString(),
-                        Erosseg = sql_reader["erosseg"].ToString(),
-                        Titkositas = sql_reader["titkositas"].ToString(),
-                        MesterId = int.Parse(sql_reader["mester_id"].ToString())
-                    };
-                    jelszavak.Add(temp_j);
-                }
-                sql_reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
-                {
-                    db_csatlakozas.Close();
-                }
-            }
-            return jelszavak;
-        }
-
-
-
-        public List<Felhasznalo> FelhasznaloTablazatLekeres()
+        public List<KliensLista> KliensListaLekeres(string mester_id, string mester_kulcs)
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
 
-            try
-            {
-                // Tábla SELECT 
-                string sql_felhasznalo_select = "SELECT felhasznalo_id, nev, email, url, hozzafuzes, jelszo_id FROM felhasznalo";
-                MySqlCommand sql_command_felhasznalok = new MySqlCommand(sql_felhasznalo_select, db_csatlakozas);
-                MySqlDataReader sql_reader = sql_command_felhasznalok.ExecuteReader();
+            // vissza titkositas
+            TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
 
-                // Sql felhasználók beolvasás
-                while (sql_reader.Read())
-                {
-                    // Sql felhasználó táblázat betöltése egy konstruktorba
-                    Felhasznalo temp_fh = new Felhasznalo()
-                    {
-                        FelhasznaloId = int.Parse(sql_reader["felhasznalo_id"].ToString()),
-                        Nev = sql_reader["nev"].ToString(),
-                        EMail = sql_reader["email"].ToString(),
-                        Url = sql_reader["url"].ToString(),
-                        Hozzafuzes = sql_reader["hozzafuzes"].ToString(),
-                        JelszoId = int.Parse(sql_reader["jelszo_id"].ToString())
-                    };
-                    felhasznalok.Add(temp_fh);
-                }
-                sql_reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
-                {
-                    db_csatlakozas.Close();
-                }
-            }
-            return felhasznalok;
-        }
-
-
-
-        public List<HozzaferesLog> HozzaferesLogTablazatLekeres()
-        {
-            // Adatbázis kapcsolat
-            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
-
-            try
-            {
-                // Tábla SELECT 
-                string sql_hozzaferes_log_select = "SELECT log_id, datum_ido, leiras, jelszo_id, jelszo_id, felhasznalo_id FROM hozzafereslog";
-                MySqlCommand sql_command_log = new MySqlCommand(sql_hozzaferes_log_select, db_csatlakozas);
-                MySqlDataReader sql_reader = sql_command_log.ExecuteReader();
-
-                // Sql felhasználók beolvasás
-                while (sql_reader.Read())
-                {
-                    // Sql felhasználó táblázat betöltése egy konstruktorba
-                    HozzaferesLog temp_hl = new HozzaferesLog()
-                    {
-                        LogId = int.Parse(sql_reader["log_id"].ToString()),
-                        DatumIdo = DateTime.Parse(sql_reader["datum_ido"].ToString()),
-                        Leiras = sql_reader["leiras"].ToString(),
-                        JelszoId = int.Parse(sql_reader["jelszo_id"].ToString()),
-                        FelhasznaloId = int.Parse(sql_reader["felhasznalo_id"].ToString())
-                    };
-                    hozzaferes_log.Add(temp_hl);
-                }
-                sql_reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
-                {
-                    db_csatlakozas.Close();
-                }
-            }
-            return hozzaferes_log;
-        }
-
-
-
-        public List<KliensLista> KliensListaLekeres(string mester_id)
-        {
-            // Adatbázis kapcsolat
-            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
-
-            // Titkositott jelszavak listaja
 
             try
             {
@@ -251,11 +114,11 @@ namespace Aliasly
                     KliensLista temp_k = new KliensLista()
                     {
                         JelszoId = int.Parse(sql_reader["jelszo_id"].ToString()),
-                        JelszoString = sql_reader["jelszo_string"].ToString(),
-                        Nev = sql_reader["nev"].ToString(),
-                        EMail = sql_reader["email"].ToString(),
-                        Url = sql_reader["url"].ToString(),
-                        Hozzafuzes = sql_reader["hozzafuzes"].ToString(),
+                        JelszoString = szuper_titkos.DecryptText(mester_kulcs, sql_reader["jelszo_string"].ToString()),
+                        Nev = szuper_titkos.DecryptText(mester_kulcs, sql_reader["nev"].ToString()),
+                        EMail = szuper_titkos.DecryptText(mester_kulcs, sql_reader["email"].ToString()),
+                        Url = szuper_titkos.DecryptText(mester_kulcs, sql_reader["url"].ToString()),
+                        Hozzafuzes = szuper_titkos.DecryptText(mester_kulcs, sql_reader["hozzafuzes"].ToString()),
                     };
                     kliens_lista.Add(temp_k);
                 }
@@ -405,7 +268,7 @@ namespace Aliasly
 
 
 
-        public void LogTablazatIras(DateTime datum_ido, string leiras, int jelszo_id, int felhasznalo_id)
+        public void LogTablazatIras(string leiras, string jelszo_id, string felhasznalo_id, string mester_id)
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
@@ -413,7 +276,7 @@ namespace Aliasly
             try
             {
                 // Hozzáférés log tábla INSERT
-                string sql_log_iras = $"INSERT INTO hozzafereslog (datum_ido, leiras, jelszo_id, felhasznalo_id) VALUES ('{datum_ido}', '{leiras}', '{jelszo_id}', '{felhasznalo_id}')";
+                string sql_log_iras = $"INSERT INTO hozzafereslog ( leiras, jelszo_id, felhasznalo_id, mester_id) VALUES ('{leiras}', '{jelszo_id}', '{felhasznalo_id}', '{mester_id}')"; 
                 MySqlCommand sql_command_log_iras = new MySqlCommand(sql_log_iras, db_csatlakozas);
                 sql_command_log_iras.ExecuteNonQuery();
             }
@@ -466,7 +329,7 @@ namespace Aliasly
  
 
 
-        public int JelszoIdUtolso(MySqlConnection db_csatlakozas)
+        public int UtolsoBeszurtId(MySqlConnection db_csatlakozas)
         {
             int lastInsertedId = 0;
             try
@@ -482,7 +345,7 @@ namespace Aliasly
             return lastInsertedId;
         }
 
-
+ 
 
         public void FelhasznaloSorTorles(int jelszo_id)
         {
