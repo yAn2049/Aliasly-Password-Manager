@@ -115,3 +115,4 @@ C:\Users\nemet\Desktop\Aliasly-Password-Manager\Aliasly\Aliasly\obj\Debug\net8.0
 C:\Users\nemet\Desktop\Aliasly-Password-Manager\Aliasly\Aliasly\obj\Debug\net8.0-windows\Aliasly.pdb
 C:\Users\nemet\Desktop\Aliasly-Password-Manager\Aliasly\Aliasly\obj\Debug\net8.0-windows\Aliasly.genruntimeconfig.cache
 C:\Users\nemet\Desktop\Aliasly-Password-Manager\Aliasly\Aliasly\obj\Debug\net8.0-windows\ref\Aliasly.dll
+C:\Users\yAn\Documents\GitHub\Aliasly-Password-Manager\Aliasly\Aliasly\obj\Debug\net8.0-windows\Aliasly_Content.g.cs

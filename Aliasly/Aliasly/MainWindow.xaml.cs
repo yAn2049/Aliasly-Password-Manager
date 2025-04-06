@@ -43,6 +43,9 @@ public partial class MainWindow : Window
     {
         mesterkulcs_felulet.Visibility = Visibility.Visible;
         kliens_felulet.Visibility = Visibility.Collapsed;
+        uj_kulcs_felulet.Visibility = Visibility.Collapsed;
+
+        mesterkulcs_mezo.Password = string.Empty;
 
         // inditaskor nullazza az ertekeket, nem tudom pontosan, hogy szukseg van-e ra,  megduma majd, egyenlore mukodik //
         AktivKulcs = string.Empty;
@@ -55,6 +58,23 @@ public partial class MainWindow : Window
     {
         kliens_felulet.Visibility = Visibility.Visible;
         mesterkulcs_felulet.Visibility = Visibility.Collapsed;
+        uj_kulcs_felulet.Visibility = Visibility.Collapsed;
+    }
+
+
+
+    private void uj_kulcs_link_Click(object sender, RoutedEventArgs e)
+    {
+        kliens_felulet.Visibility = Visibility.Collapsed;
+        mesterkulcs_felulet.Visibility = Visibility.Collapsed;
+        uj_kulcs_felulet.Visibility = Visibility.Visible;
+    }
+
+
+
+    private void uj_kulcs_vissza_Click(object sender, RoutedEventArgs e)
+    {
+        StartUp();
     }
 
 
@@ -97,12 +117,6 @@ public partial class MainWindow : Window
 
                 AktivKulcs = titkos_kulcs; // Titkositott mesterKulcsot jegyzi meg //
                 AktivKulcsId = adatbazis.MesterkulcsIDLekerdezes(AktivKulcs); // Mesterkulcs id-t jegyzi meg //
-
-                // felhasznalo visszajelzes //
-                MessageBox.Show($"Mesterkulcs: \t{AktivKulcs} \nId: \t\t{AktivKulcsId}", "Bejelentkezés sikeres!", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // Ha helyes a kulcs akkor megjeleníti a kliens felületet //
-                aktiv_kulcs.Content = $"[Key]:\t{mesterkulcs_mezo.Password}";
 
                 // logolas //
                 adatbazis.LogTablazatIras("Bejelentkezes", string.Empty, string.Empty, AktivKulcsId);
@@ -257,8 +271,6 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-
-
     } 
 
 
@@ -285,9 +297,6 @@ public partial class MainWindow : Window
         // Mezők ürítése //
         mesterkulcs_mezo.Password = null;
 
-        // Aktív kulcs mező ürítése //
-        aktiv_kulcs.Content = null;
-
         // logolas //
         metodus.LogTablazatIras("Kijelentkezes", string.Empty, string.Empty, AktivKulcsId);
 
@@ -301,7 +310,6 @@ public partial class MainWindow : Window
         // Login felulet mutatasa //
         kliens_felulet.Visibility = Visibility.Collapsed;
         mesterkulcs_felulet.Visibility = Visibility.Visible;
-
     }
 
 
@@ -345,5 +353,5 @@ public partial class MainWindow : Window
                 MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-    } 
+    }
 }

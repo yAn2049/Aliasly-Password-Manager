@@ -6,183 +6,256 @@
         xmlns:local="clr-namespace:Aliasly"
         mc:Ignorable="d"
         Title="Aliasly" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Background="#212121">
 
+        <!-- 
+        Lila    - #623CEA
+        Sötét   - #212121
+        Világos - #F2F9FF
+        -->
+    
     <Grid>
-        <!-- Master Key Entry -->
-        <Grid x:Name="mesterkulcs_felulet" Visibility="Collapsed">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <!-- Belépés felület -->
+        <StackPanel x:Name="mesterkulcs_felulet" Visibility="Visible"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                <Label Content="Enter your master key"
-                       FontSize="14"
-                       Margin="5"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                <PasswordBox x:Name="mesterkulcs_mezo"
-                             FontSize="14"
-                             Height="25" Width="300"
-                             Margin="5"
-                             HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
-
-                <Button x:Name="enter_gomb" Content="Enter"
-                        FontSize="14"
-                        Height="25" Width="150"
-                        Margin="5"
-                        Click="enter_gomb_Click"/>
-
-                <Button x:Name="uj_kulcs"
-                        Content="Create new key"
-                        FontSize="14"
-                        Height="25" Width="150"
-                        Margin="5"
-                        Click="uj_kulcs_Click"/>
-
+            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="/images/icons/Aliasly_Logo_Icon_NoBg.png"
+                       Height="24"/>
+                <Label Content="Aliasly"
+                       Margin="3"
+                       FontSize="24" FontFamily="Cascadia Mono" FontWeight="Bold"
+                       Foreground="#F2F9FF"/>
             </StackPanel>
-        </Grid>
+
+            <Label Content="Enter your master key"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Margin="5"
+                   FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                   Foreground="#F2F9FF"/>
+
+            <PasswordBox x:Name="mesterkulcs_mezo"
+                         HorizontalAlignment="Center" VerticalContentAlignment="Center"
+                         Height="25" Width="300"
+                         Margin="5"
+                         FontSize="14" FontFamily="Cascadia Mono"
+                         Foreground="#212121" Background="#F2F9FF"/>
+
+            <Button x:Name="enter_gomb" Content="Enter"
+                    Height="25" Width="150"
+                    Margin="5"
+                    FontSize="14" FontFamily="Cascadia Mono"
+                    Foreground="#F2F9FF" Background="#623CEA"
+                    BorderThickness="0"
+                    Click="enter_gomb_Click"/>
+
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Margin="5"
+                       FontSize="14" FontFamily="Cascadia Mono">
+                <Hyperlink x:Name="uj_kulcs_link" 
+                           Foreground="#F2F9FF"
+                           Click="uj_kulcs_link_Click">
+                    Create a new key
+                </Hyperlink>
+            </TextBlock>
+
+        </StackPanel>
+
+
+        
+        <!-- Új kulcs felület -->
+        <StackPanel x:Name="uj_kulcs_felulet" Visibility="Collapsed"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="/images/icons/Aliasly_Logo_Icon_NoBg.png"
+                       Height="24"/>
+                <Label Content="Aliasly"
+                       Margin="3"
+                       FontSize="24" FontFamily="Cascadia Mono" FontWeight="Bold"
+                       Foreground="#F2F9FF"/>
+            </StackPanel>
+
+            <Label Content="Enter a new master key"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Margin="5"
+                   FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                   Foreground="#F2F9FF"/>
+
+            <PasswordBox x:Name="uj_kulcs_mezo"
+                         HorizontalAlignment="Center" VerticalContentAlignment="Center"
+                         Height="25" Width="300"
+                         Margin="5"
+                         FontSize="14" FontFamily="Cascadia Mono"
+                         Foreground="#212121" Background="#F2F9FF"/>
+
+            <Button x:Name="uj_kulcs" Content="Create new key"
+                    Height="25" Width="150"
+                    Margin="5"
+                    FontSize="14" FontFamily="Cascadia Mono"
+                    Foreground="#F2F9FF" Background="#623CEA"
+                    BorderThickness="0"
+                    Click="uj_kulcs_Click"/>
+
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Margin="5"   
+                       FontSize="14" FontFamily="Cascadia Mono">
+                <Hyperlink x:Name="uj_kulcs_vissza" 
+                           Foreground="#F2F9FF"
+                           Click="uj_kulcs_vissza_Click">
+                    Back to entry screen
+                </Hyperlink>    
+            </TextBlock>
+
+        </StackPanel>
 
 
 
-        <!-- Client -->
-        <DockPanel x:Name="kliens_felulet" Visibility="Visible">
-            <Grid DockPanel.Dock="Top">
-                <Label x:Name="aktiv_kulcs"
-                       FontSize="16"
-                       HorizontalAlignment="Left"
-                       Margin="5"/>
-            </Grid>
-            <Grid>
+        <!-- Kliens felület -->
+        <DockPanel x:Name="kliens_felulet" Visibility="Collapsed">
+            <Grid DockPanel.Dock="Left">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="Password"
-                               FontSize="14"/>
-                        <PasswordBox x:Name="jelszo_mezo"
-                                     FontSize="14"
-                                     Width="100" Height="25"
-                                     Margin="5,0,5,0"
-                                     VerticalContentAlignment="Center"
-                                     PasswordChanged="jelszo_mezo_PasswordChanged"/>
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="Name"
-                               FontSize="14"/>
-                        <TextBox x:Name="nev_mezo"
-                                 FontSize="14"
-                                 Width="100" Height="25"
-                                 Margin="5,0,5,0"
-                                 VerticalContentAlignment="Center"/>
-
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="E-Mail"
-                               FontSize="14"/>
-                        <TextBox x:Name="eMail_mezo"
-                                 FontSize="14"
-                                 Width="100" Height="25"
-                                 Margin="5,0,5,0"
-                                 VerticalContentAlignment="Center"/>
-
-                    </StackPanel>
-
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="Url"
-                               FontSize="14"/>
-                        <TextBox x:Name="url_mezo"
-                                 FontSize="14"
-                                 Width="100" Height="25"
-                                 Margin="5,0,5,0"
-                                 VerticalContentAlignment="Center"/>
-
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="Description"
-                               FontSize="14"/>
-                        <TextBox x:Name="hozzafuzes_mezo"
-                                 FontSize="14"
-                                 Width="100" Height="25"
-                                 Margin="5,0,5,0"
-                                 VerticalContentAlignment="Center"/>
-
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="Send data"
-                               FontSize="14"
-                               HorizontalContentAlignment="Center"/>
-                        <Button x:Name="felhasznalo_rogzites_gomb"
-                                FontSize="14"
-                                Content="Send"
-                                Width="100" Height="25"
-                                Margin="5,0,5,0"
-                                Click="felhasznalo_rogzites_gomb_Click"
-                                IsEnabled="False"/>
-
-                    </StackPanel>
-
-                    <StackPanel VerticalAlignment="Center">
-
-                        <Label Content="Log out"
-                               FontSize="14"
-                               HorizontalContentAlignment="Center"/>
-                        <Button x:Name="kijelentkezes_gomb"
-                                FontSize="14"
-                                Content="X"
-                                Width="100" Height="25"
-                                Margin="5,0,5,0"
-                              
-                                IsEnabled="True" Click="kijelentkezes_gomb_Click"/>
-
-                    </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Source="/images/icons/Aliasly_Logo_Icon_NoBg.png"
+                           Height="28"/>
+                    <Label Content="Aliasly"
+                           Margin="3"
+                           FontSize="28" FontFamily="Cascadia Mono" FontWeight="Bold"
+                           Foreground="#F2F9FF"/>
                 </StackPanel>
 
 
 
-                <Grid Grid.Row="1">
-                    <ListView x:Name="felhasznalok_lista"
-                              ItemsSource="{Binding kliens_lista}">
-                        <ListView.View>
-                            <GridView x:Name="lista_grid_view">
+            
+                <!-- Adat mezők -->
+                <StackPanel Grid.Row="1" MinWidth="250">
 
-                                <GridViewColumn Header="Id" 
-                                                DisplayMemberBinding="{Binding JelszoId}"/>
-                                <GridViewColumn Header="Password" 
-                                                DisplayMemberBinding="{Binding JelszoString}"/>
-                                <GridViewColumn Header="Name" 
-                                                DisplayMemberBinding="{Binding Nev}"/>
-                                <GridViewColumn Header="E-mail" 
-                                                DisplayMemberBinding="{Binding EMail}"/>
-                                <GridViewColumn Header="Url" 
-                                                DisplayMemberBinding="{Binding Url}"/>
-                                <GridViewColumn Header="Description" 
-                                                DisplayMemberBinding="{Binding Hozzafuzes}"/>
-                                <GridViewColumn Header="Delete"
-                                                >
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button x:Name="sor_torles_gomb"
-                                                    Content="X"
-                                                    Width="50"
-                                                    Click="sor_torles_gomb_Click"
-                                                    CommandParameter="{Binding JelszoId}"
-                                                    
-                                                    />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                    <StackPanel HorizontalAlignment="Center">
+                        <Label Content="Password"
+                               FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                               Foreground="#F2F9FF"/>
+                        <PasswordBox x:Name="jelszo_mezo"
+                                     VerticalContentAlignment="Center"
+                                     Width="200" Height="25"
+                                     FontSize="14"
+                                     PasswordChanged="jelszo_mezo_PasswordChanged"/>
+                    </StackPanel>
 
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
+                    <StackPanel HorizontalAlignment="Center"
+                                Margin="0,5,0,0">
+                        <Label Content="Name"
+                               FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                               Foreground="#F2F9FF"/>
+                        <TextBox x:Name="nev_mezo"
+                                VerticalContentAlignment="Center"
+                                Width="200" Height="25"
+                                FontSize="14" FontFamily="Cascadia Mono"/>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center"
+                                Margin="0,5,0,0">
+                        <Label Content="Email"
+                               FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                               Foreground="#F2F9FF"/>
+                        <TextBox x:Name="eMail_mezo"
+                                VerticalContentAlignment="Center"
+                                Width="200" Height="25"
+                                FontSize="14" FontFamily="Cascadia Mono"/>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center"
+                                Margin="0,5,0,0">
+                        <Label Content="Url"
+                               FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                               Foreground="#F2F9FF"/>
+                        <TextBox x:Name="url_mezo"
+                                VerticalContentAlignment="Center"
+                                Width="200" Height="25"
+                                FontSize="14" FontFamily="Cascadia Mono"/>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center"
+                                Margin="0,5,0,0">
+                        <Label Content="Description"
+                               FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                               Foreground="#F2F9FF"/>
+                        <TextBox x:Name="hozzafuzes_mezo"
+                                VerticalContentAlignment="Center"
+                                Width="200" Height="25"
+                                FontSize="14" FontFamily="Cascadia Mono"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Margin="0,15,0,0">
+                        <Button x:Name="felhasznalo_rogzites_gomb" Content="Save"
+                                Width="90" Height="28"
+                                Margin="5"
+                                FontSize="14" FontFamily="Cascadia Code" FontWeight="Bold"
+                                Foreground="#F2F9FF" Background="#623CEA"
+                                BorderThickness="0"
+                                Click="felhasznalo_rogzites_gomb_Click" IsEnabled="False"/>
+
+                        <Button x:Name="kijelentkezes_gomb" Content="Log out"
+                                Width="90" Height="28"
+                                Margin="5"
+                                FontSize="14" FontFamily="Cascadia Mono" FontWeight="Bold"
+                                Foreground="#F2F9FF" Background="#623CEA"
+                                BorderThickness="0"
+                                Click="kijelentkezes_gomb_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            
+            
+            <!-- Lista -->
+            <Grid>
+                <ListView x:Name="felhasznalok_lista" ItemsSource="{Binding kliens_lista}"
+                          Margin="5"
+                          BorderThickness="0">
+                    <ListView.View>
+                        <GridView x:Name="lista_grid_view">
+                            <GridViewColumn Header="Id" 
+                                            DisplayMemberBinding="{Binding JelszoId}"
+                                            Width="25"/>
+                            <GridViewColumn Header="Password" 
+                                            DisplayMemberBinding="{Binding JelszoString}"
+                                            Width="75"/>
+                            <GridViewColumn Header="Name" 
+                                            DisplayMemberBinding="{Binding Nev}"
+                                            Width="75"/>
+                            <GridViewColumn Header="E-mail" 
+                                            DisplayMemberBinding="{Binding EMail}"
+                                            Width="100"/>
+                            <GridViewColumn Header="Url" 
+                                            DisplayMemberBinding="{Binding Url}"
+                                            Width="75"/>
+                            <GridViewColumn Header="Description" 
+                                            DisplayMemberBinding="{Binding Hozzafuzes}"
+                                            Width="100"/>
+                            <GridViewColumn Header="Delete">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="sor_torles_gomb"
+                                                Content="X"
+                                                Width="50"
+                                                Click="sor_torles_gomb_Click"
+                                                CommandParameter="{Binding JelszoId}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </DockPanel>
     </Grid>
