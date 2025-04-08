@@ -1,19 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< Updated upstream
-    "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj",
-        "projectName": "Aliasly",
-        "projectPath": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\Aliasly.csproj",
-        "packagesPath": "C:\\Users\\yAn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yAn\\Code Dev\\VS\\Wpf\\Aliasly\\Aliasly\\obj\\",
-=======
     "C:\\Users\\Noelk\\Documents\\Aliasly\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\Aliasly.csproj": {}
   },
   "projects": {
@@ -25,17 +12,12 @@
         "projectPath": "C:\\Users\\Noelk\\Documents\\Aliasly\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\Aliasly.csproj",
         "packagesPath": "C:\\Users\\Noelk\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Noelk\\Documents\\Aliasly\\Aliasly-Password-Manager\\Aliasly\\Aliasly\\obj\\",
->>>>>>> Stashed changes
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< Updated upstream
-          "C:\\Users\\yAn\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
           "C:\\Users\\Noelk\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> Stashed changes
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -92,11 +74,7 @@
               "privateAssets": "none"
             }
           },
-<<<<<<< Updated upstream
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
->>>>>>> Stashed changes
         }
       }
     }
