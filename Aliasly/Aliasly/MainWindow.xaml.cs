@@ -45,7 +45,11 @@ public partial class MainWindow : Window
         kliens_felulet.Visibility = Visibility.Collapsed;
         uj_kulcs_felulet.Visibility = Visibility.Collapsed;
 
+        // login mezo uritese //
         mesterkulcs_mezo.Password = string.Empty;
+
+        // uj kulcs mezo uritese //
+        uj_kulcs_mezo.Password = string.Empty;
 
         // inditaskor nullazza az ertekeket, nem tudom pontosan, hogy szukseg van-e ra,  megduma majd, egyenlore mukodik //
         AktivKulcs = string.Empty;
@@ -161,7 +165,7 @@ public partial class MainWindow : Window
         TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
 
         // Eredeti mesterkulcs //
-        string mesterkulcs = mesterkulcs_mezo.Password;
+        string mesterkulcs = uj_kulcs_mezo.Password;
 
         // Mesterkulcs titkosítása //
         string titkos_kulcs = szuper_titkos.EncryptText(mesterkulcs, mesterkulcs);
@@ -200,6 +204,9 @@ public partial class MainWindow : Window
 
                 // felhasznalo visszajelzes //
                 MessageBox.Show("Sikeresen hozzáadva a mesterkulcs az adatbázishoz.", "Mesterkulcs hozzáadva!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Mezők ürítése //
+                uj_kulcs_mezo.Password = string.Empty;
 
             }
         }
