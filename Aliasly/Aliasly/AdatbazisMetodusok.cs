@@ -242,29 +242,6 @@ namespace Aliasly
                 }
             }
 
-            /*
-            // Adatbázis kapcsolat
-            MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
-
-            try
-            {
-                // Felhasználo tábla INSERT
-                string sql_felhasznalo_iras = $"INSERT INTO felhasznalo (nev, email, url, hozzafuzes, jelszo_id) VALUES ('{nev}', '{email}', '{url}', '{hozzafuzes}', LAST_INSERT_ID())";
-                MySqlCommand sql_command_felhasznalo_iras = new MySqlCommand(sql_felhasznalo_iras, db_csatlakozas);
-                sql_command_felhasznalo_iras.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                if (db_csatlakozas.State == System.Data.ConnectionState.Open)
-                {
-                    db_csatlakozas.Close();
-                }
-            }
-            */
         }
 
 
