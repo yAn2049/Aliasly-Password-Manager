@@ -330,22 +330,29 @@ public partial class MainWindow : Window
 
             try
             {
-                // Törli a kiválasztott sort az adatbázisból //
-                metodus.FelhasznaloSorTorles(sor_id);
+                // Megerősítés
+                MessageBoxResult result = MessageBox.Show("Biztosan törölni szeretné a kiválasztott felhasználót?", "Felhasználó törlése", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                // logolas //
-                metodus.LogTablazatIras("Sor törölve!", sor_id_string, sor_id_string, AktivKulcsId);
-
-                // Kliens lista frissítése //
-                felhasznalok_lista.ItemsSource = null;
-                List<KliensLista> kliens_lista = metodus.KliensListaLekeres(AktivKulcsId, AktivKulcs);
-                foreach (var k in kliens_lista)
+                if (result == MessageBoxResult.Yes)
                 {
-                    felhasznalok_lista.ItemsSource = kliens_lista;
+                    // Törli a kiválasztott sort az adatbázisból //
+                    metodus.FelhasznaloSorTorles(sor_id);
+
+                    // logolas //
+                    metodus.LogTablazatIras("Sor törölve!", sor_id_string, sor_id_string, AktivKulcsId);
+
+                    // Kliens lista frissítése //
+                    felhasznalok_lista.ItemsSource = null;
+                    List<KliensLista> kliens_lista = metodus.KliensListaLekeres(AktivKulcsId, AktivKulcs);
+                    foreach (var k in kliens_lista)
+                    {
+                        felhasznalok_lista.ItemsSource = kliens_lista;
+                    }
+
+                    // felhasznalo visszajelzes //
+                    MessageBox.Show($"A sor {sor_id} törölve lett az adatbázisból!", "Rekord törölve!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                // felhasznalo visszajelzes //
-                MessageBox.Show($"A sor {sor_id} törölve lett az adatbázisból!", "Rekord törölve!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

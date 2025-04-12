@@ -292,24 +292,17 @@ namespace Aliasly
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
             try
             {
-                // Megerősítés
-                MessageBoxResult result = MessageBox.Show("Biztosan törölni szeretné a kiválasztott felhasználót?", "Felhasználó törlése", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    // Felhasználó sor törlés parancsok
-                    string sql_felhasznalo_torles = $"DELETE FROM felhasznalo WHERE jelszo_id = {jelszo_id}";
-                    string sql_jelszo_torles = $"DELETE FROM jelszo WHERE jelszo_id = {jelszo_id}";
-                    MySqlCommand sql_command_felhasznalo_torles = new MySqlCommand(sql_felhasznalo_torles, db_csatlakozas);
-                    MySqlCommand sql_command_jelszo_torles = new MySqlCommand(sql_jelszo_torles, db_csatlakozas);
+             
+                 // Felhasználó sor törlés parancsok
+                 string sql_felhasznalo_torles = $"DELETE FROM felhasznalo WHERE jelszo_id = {jelszo_id}";
+                 string sql_jelszo_torles = $"DELETE FROM jelszo WHERE jelszo_id = {jelszo_id}";
+                 MySqlCommand sql_command_felhasznalo_torles = new MySqlCommand(sql_felhasznalo_torles, db_csatlakozas);
+                 MySqlCommand sql_command_jelszo_torles = new MySqlCommand(sql_jelszo_torles, db_csatlakozas);
 
 
-                    // Felhasználó sor törlés vegrehajtás
-                    sql_command_felhasznalo_torles.ExecuteNonQuery();
-                    sql_command_jelszo_torles.ExecuteNonQuery();
-
-                }
-
+                 // Felhasználó sor törlés vegrehajtás
+                 sql_command_felhasznalo_torles.ExecuteNonQuery();
+                 sql_command_jelszo_torles.ExecuteNonQuery();
 
             }
             catch (Exception ex)

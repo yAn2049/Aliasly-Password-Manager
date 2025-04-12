@@ -6,7 +6,7 @@ namespace Aliasly
 {
     public class TitkositasMetodusok
     {
-        public string EncryptText(string masterKey, string text)
+        public string EncryptText(string masterKey, string text) // Szöveg titkosítás
         {
             using (var sha256 = SHA256.Create())
             {
@@ -47,7 +47,7 @@ namespace Aliasly
 
 
 
-        public string DecryptText(string masterKey, string encryptedText)
+        public string DecryptText(string masterKey, string encryptedText) // Szöveg visszafejtés
         {
             // SHA256 algoritmus használata a mesterkulcsból kulcs és IV generálásához.
             using (var sha256 = SHA256.Create())
