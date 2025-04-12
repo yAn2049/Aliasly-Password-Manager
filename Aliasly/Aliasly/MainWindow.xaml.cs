@@ -56,95 +56,13 @@ public partial class MainWindow : Window
 
 
 
-    private void uj_kulcs_link_Click(object sender, RoutedEventArgs e) // Új kulcs link esemény - Login //
-    {
-        // Kliens felület elrejtése //
-        kliens_felulet.Visibility = Visibility.Collapsed;
-        mesterkulcs_felulet.Visibility = Visibility.Collapsed;
-        // Új kulcs felület megjelenítése //
-        uj_kulcs_felulet.Visibility = Visibility.Visible;
-    }
-
-
-
-
     private void uj_kulcs_vissza_Click(object sender, RoutedEventArgs e) // Vissza gomb esemény - Register //
     {
         StartUp();
     }
 
 
-
-    private void enter_gomb_Click(object sender, RoutedEventArgs e) // Bejelentkezes gomb esemeny - Login //
-
-    {
-        // Adatbazis osztaly peldany //
-        AdatbazisMetodusok adatbazis = new AdatbazisMetodusok();
-
-        // Mesterkulcs táblázat metódus //
-        List<MesterKulcs> mester_kulcs = adatbazis.MesterkulcsTablazatLekeres();
-
-        // Titkosítás metódus //
-        TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
-
-        // Mesterkulcs titkosítása //
-        string titkos_kulcs = szuper_titkos.EncryptText(mesterkulcs_mezo.Password, mesterkulcs_mezo.Password);
-
-        // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
-        bool van_mar_ilyen_kulcs = false;
-        try
-        {
-            foreach (var m in mester_kulcs)
-            {
-                if (titkos_kulcs == m.EncryptedKulcs)
-                {
-                    van_mar_ilyen_kulcs = true;
-                    break;
-                }
-                else
-                {
-                    van_mar_ilyen_kulcs = false;
-                }
-            }
-
-            if (van_mar_ilyen_kulcs)
-            {
-                // Aktuális kulcs //
-
-                AktivKulcs = titkos_kulcs; // Titkositott mesterKulcsot jegyzi meg //
-                AktivKulcsId = adatbazis.MesterkulcsIDLekerdezes(AktivKulcs); // Mesterkulcs id-t jegyzi meg //
-
-                // logolas //
-                adatbazis.LogTablazatIras("Bejelentkezés!", string.Empty, string.Empty, AktivKulcsId);
-
-                // kliens felulet megjelenitese //
-                ShowClient();
-
-                // Felhasználó táblázat metódus //
-                List<KliensLista> kliens_lista = adatbazis.KliensListaLekeres(AktivKulcsId, AktivKulcs);
-
-                // Sql soronkénti betöltése a listbox elembe //
-                foreach (var k in kliens_lista)
-                {
-                    this.felhasznalok_lista.ItemsSource = kliens_lista;
-                }
-
-
-            }
-            else
-            {
-                MessageBox.Show("Ez a mesterkulcs nem található az adatbázisban.", "Mesterkulcs hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-
-    private void uj_kulcs_Click(object sender, RoutedEventArgs e) // Új mesterkulcs hozzáadása gomb esemény - Login //
+    private void uj_kulcs_Click(object sender, RoutedEventArgs e) // Új mesterkulcs hozzáadása gomb esemény - Register //
     {
 
         // Mesterkulcs táblázat metódus //
@@ -211,10 +129,95 @@ public partial class MainWindow : Window
 
 
 
+    private void uj_kulcs_link_Click(object sender, RoutedEventArgs e) // Új kulcs link esemény - Login //
+    {
+        // Kliens felület elrejtése //
+        kliens_felulet.Visibility = Visibility.Collapsed;
+        mesterkulcs_felulet.Visibility = Visibility.Collapsed;
+        // Új kulcs felület megjelenítése //
+        uj_kulcs_felulet.Visibility = Visibility.Visible;
+    }
+
+
+
+    private void enter_gomb_Click(object sender, RoutedEventArgs e) // Bejelentkezes gomb esemeny - Login //
+
+    {
+        // Adatbazis osztaly peldany //
+        AdatbazisMetodusok adatbazis = new AdatbazisMetodusok();
+
+        // Mesterkulcs táblázat metódus //
+        List<MesterKulcs> mester_kulcs = adatbazis.MesterkulcsTablazatLekeres();
+
+        // Titkosítás metódus //
+        TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
+
+        // Mesterkulcs titkosítása //
+        string titkos_kulcs = szuper_titkos.EncryptText(mesterkulcs_mezo.Password, mesterkulcs_mezo.Password);
+
+        // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
+        bool van_mar_ilyen_kulcs = false;
+        try
+        {
+            foreach (var m in mester_kulcs)
+            {
+                if (titkos_kulcs == m.EncryptedKulcs)
+                {
+                    van_mar_ilyen_kulcs = true;
+                    break;
+                }
+                else
+                {
+                    van_mar_ilyen_kulcs = false;
+                }
+            }
+
+            if (van_mar_ilyen_kulcs)
+            {
+                // Aktuális kulcs //
+
+                AktivKulcs = titkos_kulcs; // Titkositott mesterKulcsot jegyzi meg //
+                AktivKulcsId = adatbazis.MesterkulcsIDLekerdezes(AktivKulcs); // Mesterkulcs id-t jegyzi meg //
+
+                // logolas //
+                adatbazis.LogTablazatIras("Bejelentkezés!", string.Empty, string.Empty, AktivKulcsId);
+
+                // Felhasználó visszajelzés //
+                MessageBox.Show($"Sikeres bejelentkezés!\nKulcs id: {AktivKulcsId}", "Bejelentkezés sikeres!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // kliens felulet megjelenitese //
+                ShowClient();
+
+                // Felhasználó táblázat metódus //
+                List<KliensLista> kliens_lista = adatbazis.KliensListaLekeres(AktivKulcsId, AktivKulcs);
+
+                // Sql soronkénti betöltése a listbox elembe //
+                foreach (var k in kliens_lista)
+                {
+                    this.felhasznalok_lista.ItemsSource = kliens_lista;
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("Ez a mesterkulcs nem található az adatbázisban.", "Mesterkulcs hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+
+
     private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e) // Felhasználó rögzítés gomb esemény - Main //
     {
 
-        string erosseg = "placeholder";
+        // jelszó erősség ellenőrzés //
+        string erosseg = JelszoErosseg(jelszo_mezo.Password);
 
         AdatbazisMetodusok metodus = new AdatbazisMetodusok();
         TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
@@ -270,6 +273,49 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+
+
+    public string JelszoErosseg(string jelszo) // Jelszó erősség ellenőrzés, megduma h marad e v nem!!! //
+    {
+        // Null or empty password is considered weak
+        if (string.IsNullOrEmpty(jelszo))
+            return "Weak";
+
+        int score = 0;
+
+        // Criteria 1: Length of the password
+        if (jelszo.Length >= 12)
+            score += 2; // Strong length
+        else if (jelszo.Length >= 8)
+            score += 1; // Good length
+
+        // Criteria 2: Contains both uppercase and lowercase letters
+        if (jelszo.Any(char.IsUpper) && jelszo.Any(char.IsLower))
+            score += 1;
+
+        // Criteria 3: Contains digits
+        if (jelszo.Any(char.IsDigit))
+            score += 1;
+
+        // Criteria 4: Contains special characters
+        if (jelszo.Any(ch => !char.IsLetterOrDigit(ch)))
+            score += 1;
+
+        // Criteria 5: Avoid common weak passwords (optional, can be extended)
+        string[] commonWeakPasswords = { "password", "123456", "qwerty", "abc123", "letmein" };
+        if (commonWeakPasswords.Contains(jelszo.ToLower()))
+            return "Weak";
+
+        // Determine strength based on score
+        return score switch
+        {
+            >= 5 => "Strong",
+            4 => "Good",
+            3 => "Okay",
+            _ => "Weak"
+        };
     }
 
 

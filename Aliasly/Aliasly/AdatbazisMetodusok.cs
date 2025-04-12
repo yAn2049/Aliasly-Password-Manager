@@ -179,6 +179,8 @@ namespace Aliasly
 
 
 
+
+
         public void FelhasznaloTablazatIras(string nev, string email, string url, string hozzafuzes, int jelszo_id) // Felhasználó tábla írás
         {
             // Adatbázis kapcsolat
