@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS Mesterkulcs (
 CREATE TABLE IF NOT EXISTS Jelszo (
 	jelszo_id int PRIMARY KEY AUTO_INCREMENT,
 	jelszo_string varchar(255) NOT null,
-	erosseg char(32) NOT null,
 	titkositas char(32) NOT null,
 	mester_id int,
 	FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -32,8 +31,8 @@ CREATE TABLE IF NOT EXISTS HozzaferesLog (
 	log_id int PRIMARY KEY AUTO_INCREMENT,
     datum_ido datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     leiras varchar(1020) NOT null,
-	jelszo_id char(32),
-	felhasznalo_id char(32),
+	jelszo_id int,
+	felhasznalo_id int,
 	mester_id int,
 	FOREIGN KEY (mester_id) REFERENCES mesterkulcs(mester_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
