@@ -1,17 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
 
 namespace Aliasly;
 
@@ -75,7 +64,7 @@ public partial class MainWindow : Window
         // Új kulcs felület megjelenítése //
         uj_kulcs_felulet.Visibility = Visibility.Visible;
     }
-    
+
 
 
 
@@ -130,7 +119,7 @@ public partial class MainWindow : Window
 
                 // kliens felulet megjelenitese //
                 ShowClient();
-               
+
                 // Felhasználó táblázat metódus //
                 List<KliensLista> kliens_lista = adatbazis.KliensListaLekeres(AktivKulcsId, AktivKulcs);
 
@@ -140,7 +129,7 @@ public partial class MainWindow : Window
                     this.felhasznalok_lista.ItemsSource = kliens_lista;
                 }
 
-                
+
             }
             else
             {
@@ -152,7 +141,7 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    } 
+    }
 
 
     private void uj_kulcs_Click(object sender, RoutedEventArgs e) // Új mesterkulcs hozzáadása gomb esemény - Login //
@@ -218,7 +207,7 @@ public partial class MainWindow : Window
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-    } 
+    }
 
 
 
@@ -281,7 +270,7 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    } 
+    }
 
 
 
@@ -296,7 +285,7 @@ public partial class MainWindow : Window
         {
             felhasznalo_rogzites_gomb.IsEnabled = false;
         }
-    }  
+    }
 
 
 

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MySql.Data.MySqlClient;
 using System.Windows;
-using MySql.Data.MySqlClient;
 
 namespace Aliasly
 {
@@ -14,7 +8,7 @@ namespace Aliasly
         // Táblázat listák //
         private List<MesterKulcs> mester_kulcs = new List<MesterKulcs>();
         private List<KliensLista> kliens_lista = new List<KliensLista>();
-       
+
 
 
         // Sql csatlakozási paraméterek, xampp és mampp //
@@ -29,9 +23,9 @@ namespace Aliasly
             MySqlConnection db_csatlakozas;
             try
             {
-                db_csatlakozas = new MySqlConnection(xampp_conn_params);               
+                db_csatlakozas = new MySqlConnection(xampp_conn_params);
                 db_csatlakozas.Open();
-                
+
             }
             catch
             {
@@ -180,7 +174,7 @@ namespace Aliasly
                     db_csatlakozas.Close();
                 }
             }
-           
+
         }
 
 
@@ -221,7 +215,7 @@ namespace Aliasly
             try
             {
                 // Hozzáférés log tábla INSERT
-                string sql_log_iras = $"INSERT INTO hozzafereslog ( leiras, jelszo_id, felhasznalo_id, mester_id) VALUES ('{leiras}', '{jelszo_id}', '{felhasznalo_id}', '{mester_id}')"; 
+                string sql_log_iras = $"INSERT INTO hozzafereslog ( leiras, jelszo_id, felhasznalo_id, mester_id) VALUES ('{leiras}', '{jelszo_id}', '{felhasznalo_id}', '{mester_id}')";
                 MySqlCommand sql_command_log_iras = new MySqlCommand(sql_log_iras, db_csatlakozas);
                 sql_command_log_iras.ExecuteNonQuery();
             }
@@ -271,7 +265,7 @@ namespace Aliasly
             }
             return mesterkulcs_id;
         }
- 
+
 
 
         public int UtolsoBeszurtId(MySqlConnection db_csatlakozas) // Utolsó beszúrt ID lekérdezés
@@ -290,7 +284,7 @@ namespace Aliasly
             return lastInsertedId;
         }
 
- 
+
 
         public void FelhasznaloSorTorles(int jelszo_id) // Felhasználó sor törlés
         {
@@ -315,7 +309,7 @@ namespace Aliasly
                     sql_command_jelszo_torles.ExecuteNonQuery();
 
                 }
-                
+
 
             }
             catch (Exception ex)
