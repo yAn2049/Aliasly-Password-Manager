@@ -67,16 +67,19 @@ public partial class MainWindow : Window
 
 
 
-    private void uj_kulcs_link_Click(object sender, RoutedEventArgs e)
+    private void uj_kulcs_link_Click(object sender, RoutedEventArgs e) // Új kulcs link esemény - Login //
     {
+        // Kliens felület elrejtése //
         kliens_felulet.Visibility = Visibility.Collapsed;
         mesterkulcs_felulet.Visibility = Visibility.Collapsed;
+        // Új kulcs felület megjelenítése //
         uj_kulcs_felulet.Visibility = Visibility.Visible;
     }
+    
 
 
 
-    private void uj_kulcs_vissza_Click(object sender, RoutedEventArgs e)
+    private void uj_kulcs_vissza_Click(object sender, RoutedEventArgs e) // Vissza gomb esemény - Register //
     {
         StartUp();
     }
@@ -123,7 +126,7 @@ public partial class MainWindow : Window
                 AktivKulcsId = adatbazis.MesterkulcsIDLekerdezes(AktivKulcs); // Mesterkulcs id-t jegyzi meg //
 
                 // logolas //
-                adatbazis.LogTablazatIras("Bejelentkezes", string.Empty, string.Empty, AktivKulcsId);
+                adatbazis.LogTablazatIras("Bejelentkezés!", string.Empty, string.Empty, AktivKulcsId);
 
                 // kliens felulet megjelenitese //
                 ShowClient();
@@ -199,7 +202,7 @@ public partial class MainWindow : Window
                 adatbazis.MesterkulcsTablazatIras(titkos_kulcs);
 
                 // logolás //
-                adatbazis.LogTablazatIras("Uj kulcs hozza adva!", string.Empty, string.Empty, adatbazis.MesterkulcsIDLekerdezes(titkos_kulcs));
+                adatbazis.LogTablazatIras("Új kulcs hozzá adva!", string.Empty, string.Empty, adatbazis.MesterkulcsIDLekerdezes(titkos_kulcs));
 
 
                 // felhasznalo visszajelzes //
@@ -246,7 +249,7 @@ public partial class MainWindow : Window
             string id = utolso_id.ToString();
             // logolas //
 
-            metodus.LogTablazatIras("Uj jelszo hozza adva!", id, id, AktivKulcsId);
+            metodus.LogTablazatIras("Új jelszó hozzá adva!", id, id, AktivKulcsId);
 
             // titkositas //
             string t_nev = szuper_titkos.EncryptText(AktivKulcs, nev_mezo.Text);
@@ -305,7 +308,7 @@ public partial class MainWindow : Window
         mesterkulcs_mezo.Password = null;
 
         // logolas //
-        metodus.LogTablazatIras("Kijelentkezes", string.Empty, string.Empty, AktivKulcsId);
+        metodus.LogTablazatIras("Kijelentkezés!", string.Empty, string.Empty, AktivKulcsId);
 
         // Aktív kulcs és id nullázása //
         AktivKulcs = string.Empty;
@@ -342,7 +345,7 @@ public partial class MainWindow : Window
                 metodus.FelhasznaloSorTorles(sor_id);
 
                 // logolas //
-                metodus.LogTablazatIras("Sor torolve!", sor_id_string, sor_id_string, AktivKulcsId);
+                metodus.LogTablazatIras("Sor törölve!", sor_id_string, sor_id_string, AktivKulcsId);
 
                 // Kliens lista frissítése //
                 felhasznalok_lista.ItemsSource = null;
@@ -353,7 +356,7 @@ public partial class MainWindow : Window
                 }
 
                 // felhasznalo visszajelzes //
-                MessageBox.Show($"A sor {sor_id} torolve lett az adatbazisbol!", "Rekord torolve", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"A sor {sor_id} törölve lett az adatbázisból!", "Rekord törölve!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
