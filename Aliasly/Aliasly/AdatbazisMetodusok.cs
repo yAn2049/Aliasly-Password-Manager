@@ -151,7 +151,7 @@ namespace Aliasly
 
 
 
-        public void JelszoTablazatIras(string jelszo_string, string erosseg, string mester_id) // Jelszó tábla írás
+        public void JelszoTablazatIras(string jelszo_string, string mester_id) // Jelszó tábla írás
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = AdatbazisCsatlakozas();
@@ -159,7 +159,7 @@ namespace Aliasly
             try
             {
                 // Jelszo tábla INSERT
-                string sql_jelszo_iras = $"INSERT INTO jelszo (jelszo_string, erosseg, titkositas, mester_id) VALUES ('{jelszo_string}', '{erosseg}', 'AES-256', {mester_id})";
+                string sql_jelszo_iras = $"INSERT INTO jelszo (jelszo_string, titkositas, mester_id) VALUES ('{jelszo_string}', 'AES-256', {mester_id})";
                 MySqlCommand sql_command_jelszo_iras = new MySqlCommand(sql_jelszo_iras, db_csatlakozas);
                 sql_command_jelszo_iras.ExecuteNonQuery();
             }

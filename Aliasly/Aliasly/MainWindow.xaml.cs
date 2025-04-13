@@ -216,9 +216,6 @@ public partial class MainWindow : Window
     private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e) // Felhasználó rögzítés gomb esemény - Main //
     {
 
-        // jelszó erősség ellenőrzés //
-        string erosseg = JelszoErosseg(jelszo_mezo.Password);
-
         AdatbazisMetodusok metodus = new AdatbazisMetodusok();
         TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
 
@@ -229,7 +226,7 @@ public partial class MainWindow : Window
 
             // uj jelszo hozzaadasa //
             // AktivKulcsId = mesterkulcs_id ami hasznalatban van //
-            metodus.JelszoTablazatIras(titkos_jelszo, erosseg, AktivKulcsId);
+            metodus.JelszoTablazatIras(titkos_jelszo, AktivKulcsId);
 
             // Az utolso beszurt jelszo_id lekerese //
             int utolso_id;
@@ -273,49 +270,6 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(ex.Message, "Adatbázis csatlakozás error!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-    }
-
-
-
-    public string JelszoErosseg(string jelszo) // Jelszó erősség ellenőrzés, megduma h marad e v nem!!! //
-    {
-        // Null or empty password is considered weak
-        if (string.IsNullOrEmpty(jelszo))
-            return "Weak";
-
-        int score = 0;
-
-        // Criteria 1: Length of the password
-        if (jelszo.Length >= 12)
-            score += 2; // Strong length
-        else if (jelszo.Length >= 8)
-            score += 1; // Good length
-
-        // Criteria 2: Contains both uppercase and lowercase letters
-        if (jelszo.Any(char.IsUpper) && jelszo.Any(char.IsLower))
-            score += 1;
-
-        // Criteria 3: Contains digits
-        if (jelszo.Any(char.IsDigit))
-            score += 1;
-
-        // Criteria 4: Contains special characters
-        if (jelszo.Any(ch => !char.IsLetterOrDigit(ch)))
-            score += 1;
-
-        // Criteria 5: Avoid common weak passwords (optional, can be extended)
-        string[] commonWeakPasswords = { "password", "123456", "qwerty", "abc123", "letmein" };
-        if (commonWeakPasswords.Contains(jelszo.ToLower()))
-            return "Weak";
-
-        // Determine strength based on score
-        return score switch
-        {
-            >= 5 => "Strong",
-            4 => "Good",
-            3 => "Okay",
-            _ => "Weak"
-        };
     }
 
 
