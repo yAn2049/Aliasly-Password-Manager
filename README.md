@@ -1,2 +1,2 @@
 # Aliasly
-Aliasly is a password manager
+Aliasly is an account manager for companies
