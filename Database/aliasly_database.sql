@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2025 at 04:01 PM
+-- Generation Time: Apr 13, 2025 at 09:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -151,7 +151,7 @@ ALTER TABLE `felhasznalo`
 -- Constraints for table `hozzafereslog`
 --
 ALTER TABLE `hozzafereslog`
-  ADD CONSTRAINT `hozzafereslog_ibfk_1` FOREIGN KEY (`mester_id`) REFERENCES `mesterkulcs` (`mester_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `hozzafereslog_ibfk_1` FOREIGN KEY (`mester_id`) REFERENCES `mesterkulcs` (`mester_id`);
 
 --
 -- Constraints for table `jelszo`
