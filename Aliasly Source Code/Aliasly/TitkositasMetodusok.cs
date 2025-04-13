@@ -46,7 +46,6 @@ namespace Aliasly
 
 
 
-
         public string DecryptText(string masterKey, string encryptedText) // Szöveg visszafejtés
         {
             // SHA256 algoritmus használata a mesterkulcsból kulcs és IV generálásához.

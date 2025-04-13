@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Aliasly.AdatbazisMetodusok">
+    <Position X="12.25" Y="3.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AACEEEQCCAAAAIAAAAAAAAgAAAwAAAUAAAAAAAQAAAA=</HashCode>
+      <FileName>AdatbazisMetodusok.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aliasly.KliensLista">
+    <Position X="10.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAACAAAAAAAAAAACQAAAAASAAAAAAAAAA=</HashCode>
+      <FileName>KliensLista.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aliasly.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAgAAAAhAAAAAAABAAAAAAQIAACAAAIQAAgBAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="0.1" Collapsed="true" />
+  </Class>
+  <Class Name="Aliasly.MesterKulcs">
+    <Position X="8.25" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MesterKulcs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aliasly.TitkositasMetodusok">
+    <Position X="12.25" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TitkositasMetodusok.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

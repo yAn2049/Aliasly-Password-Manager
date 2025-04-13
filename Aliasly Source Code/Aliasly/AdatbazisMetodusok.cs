@@ -37,9 +37,8 @@ namespace Aliasly
             return db_csatlakozas;
         }
 
-        /*Ennél a kód részletnél dönti el a program egy try - catch logikával, hogy az adatbázishoz xamp vagy mamp paraméterekkel csatlakozzon. */
 
-       
+
 
         public List<MesterKulcs> MesterkulcsTablazatLekeres() // Mesterkulcs tábla lekérdezés 
         {
@@ -81,7 +80,6 @@ namespace Aliasly
             return mester_kulcs;
         }
 
-        /*Ennél a kódrészletnél lekéri az összes mesterkulcsot az adatbázisból és egy 'MesterKulcs' tipusú listával tér vissza. A lista tartalma a mesterkulcs ID -ja és a már titkosított mesterkulcs.*/
 
 
         public List<KliensLista> KliensListaLekeres(string mester_id, string mester_kulcs) // Kliens lista lekérdezés 
@@ -126,9 +124,7 @@ namespace Aliasly
                 }
             }
             return kliens_lista;
-        }
-
-        /*Ennél a metódusnál kéri le a 'jelszo' és 'felhasznalo' tábla kiválasztott adatatagjait amelyek a következők: 'jelszo_id', 'jelszo_string', 'nev', 'email', 'url', 'hozzafuzes'. A megadott 'mester_id' paraméter alapján szűri le, hogy melyik mesterkulcshoz rendelt adatot helyezze a listába. , majd a listába töltésnél a 'TitkositasMetodusok' osztály 'DecryptText' metódusával visszafejti az adatbázisból az adatokat az eredeti formájukba. A visszafejtéshez szükség van a bekért 'mester_kulcs' paraméterre. A vissza adott 'KliensLista' típusú listában az eredeti adatokat adja vissza.*/
+        }       
 
 
 
@@ -155,8 +151,6 @@ namespace Aliasly
                 }
             }
         }
-
-        /*Ennél a metódusnál kerül írásra a 'mesterkulcs' táblába, a bekért 'encrypted_kulcs' ami a nevéből is adódóan egy előre encryptált stringet vár paraméterül, ezáltal a már titkosított kulcs kerül fel az adatbázisba. */
 
 
 
@@ -185,8 +179,6 @@ namespace Aliasly
             }
 
         }
-
-        /*Ennél a metódusnál kerül írásra a 'jelszo' tábla a paraméterül bekért 'mester_id' alapján. A 'mester_id' határozza meg, hogy melyik mesterkulcshoz lesz kötve az adat az adatbázisban. A 'jelszo_string' paraméter pedig maga a jelszó ami rögzítésre kerül az adatbázisban.*/
 
 
 
@@ -244,8 +236,7 @@ namespace Aliasly
                 }
             }
         }
-
-        /*Ennél a metódusnál kerül írásra a 'hozzafereslog' tábla a paraméterül bekért 'mester_id', 'felhasznalo_id', 'jelszo_id' és 'leiras' alapján. A 'mester_id'-t kötelező pontosan megadni mert az határozza meg, hogy melyik mesterkulcshoz lesz kötve az adat az adatbázisban. A 'felhasznalo_id' és 'jelszo_id' nem kötelező pontosan megadni, a széleskürű felhasználhatóság érdekében. A metódus nyomonkövethetővé teszi a cselekményeket az adatbázisban.*/ 
+        
 
 
         public string MesterkulcsIDLekerdezes(string encrypted_kulcs) // Mesterkulcs ID lekérdezés 
@@ -281,8 +272,7 @@ namespace Aliasly
         }
 
 
-        /*Ennél a metódusnál kerül lekérdezésre a 'mesterkulcs' tábla, a paraméterül bekért 'encrypted_kulcs' alapján. Az 'encrypted_kulcs' határozza meg, hogy melyik mesterkulcshoz van kötve az adat az adatbázisban. A vissza adott 'mesterkulcs_id' stringben a mesterkulcsnak az ID-jét adja vissza.*/
-
+       
         public int UtolsoBeszurtId(MySqlConnection db_csatlakozas) // Utolsó beszúrt ID lekérdezés 
         {
             int lastInsertedId = 0;
@@ -298,8 +288,6 @@ namespace Aliasly
             }
             return lastInsertedId;
         }
-
-        /*Ennél a metódusnál kerül lekérdezésre az utolsó beszúrt ID, ami a legutolsó beszúrt adat ID-jét adja vissza. A metódusban egy 'MySqlConnection' típusú paramétert vár, aminek a megadott adatbázis kapcsolatra kell mutatnia.*/
 
 
 

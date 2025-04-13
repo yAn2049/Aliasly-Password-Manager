@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TURYV3TT+FA=",
+  "dgSpecHash": "IdIGZwut868=",
   "success": true,
-  "projectFilePath": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\Aliasly.csproj",
+  "projectFilePath": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\Aliasly.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nemet\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
     "C:\\Users\\nemet\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",
