@@ -35,9 +35,9 @@ namespace Aliasly
             return db_csatlakozas;
         }
 
+       
 
-
-        public List<MesterKulcs> MesterkulcsTablazatLekeres() // Mesterkulcs tábla lekérdezés
+        public List<MesterKulcs> MesterkulcsTablazatLekeres() // Mesterkulcs tábla lekérdezés 
         {
 
             // Adatbázis kapcsolat
@@ -79,7 +79,7 @@ namespace Aliasly
 
 
 
-        public List<KliensLista> KliensListaLekeres(string mester_id, string mester_kulcs) // Kliens lista lekérdezés
+        public List<KliensLista> KliensListaLekeres(string mester_id, string mester_kulcs) // Kliens lista lekérdezés 
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
@@ -125,7 +125,7 @@ namespace Aliasly
 
 
 
-        public void MesterkulcsTablazatIras(string encrypted_key) // Mesterkulcs tábla írás
+        public void MesterkulcsTablazatIras(string encrypted_key) // Mesterkulcs tábla írás 
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
@@ -151,7 +151,7 @@ namespace Aliasly
 
 
 
-        public void JelszoTablazatIras(string jelszo_string, string mester_id) // Jelszó tábla írás
+        public void JelszoTablazatIras(string jelszo_string, string mester_id) // Jelszó tábla írás 
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = AdatbazisCsatlakozas();
@@ -179,9 +179,7 @@ namespace Aliasly
 
 
 
-
-
-        public void FelhasznaloTablazatIras(string nev, string email, string url, string hozzafuzes, int jelszo_id) // Felhasználó tábla írás
+        public void FelhasznaloTablazatIras(string nev, string email, string url, string hozzafuzes, int jelszo_id) // Felhasználó tábla írás 
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = AdatbazisCsatlakozas();
@@ -209,7 +207,7 @@ namespace Aliasly
 
 
 
-        public void LogTablazatIras(string leiras, string jelszo_id, string felhasznalo_id, string mester_id) // Hozzáférés log tábla írás
+        public void LogTablazatIras(string leiras, string jelszo_id, string felhasznalo_id, string mester_id) // Hozzáférés log tábla írás 
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
@@ -236,7 +234,7 @@ namespace Aliasly
 
 
 
-        public string MesterkulcsIDLekerdezes(string encrypted_key) // Mesterkulcs ID lekérdezés
+        public string MesterkulcsIDLekerdezes(string encrypted_key) // Mesterkulcs ID lekérdezés 
         {
             string mesterkulcs_id = "";
             // Adatbázis kapcsolat
@@ -270,7 +268,7 @@ namespace Aliasly
 
 
 
-        public int UtolsoBeszurtId(MySqlConnection db_csatlakozas) // Utolsó beszúrt ID lekérdezés
+        public int UtolsoBeszurtId(MySqlConnection db_csatlakozas) // Utolsó beszúrt ID lekérdezés 
         {
             int lastInsertedId = 0;
             try
@@ -288,7 +286,7 @@ namespace Aliasly
 
 
 
-        public void FelhasznaloSorTorles(int jelszo_id) // Felhasználó sor törlés
+        public void FelhasznaloSorTorles(int jelszo_id) // Felhasználó sor törlés 
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
