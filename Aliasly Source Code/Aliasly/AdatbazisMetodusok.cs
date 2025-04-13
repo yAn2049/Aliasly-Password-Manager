@@ -23,17 +23,21 @@ namespace Aliasly
             MySqlConnection db_csatlakozas;
             try
             {
+                // XAMPP adatbázis csatlakozás
                 db_csatlakozas = new MySqlConnection(xampp_conn_params);
                 db_csatlakozas.Open();
 
             }
             catch
             {
+                // MAMP adatbázis csatlakozás
                 db_csatlakozas = new MySqlConnection(mampp_conn_params);
                 db_csatlakozas.Open();
             }
             return db_csatlakozas;
         }
+
+        /*Ennél a kód részletnél dönti el a program egy try - catch logikával, hogy az adatbázishoz xamp vagy mamp paraméterekkel csatlakozzon. */
 
        
 
@@ -77,6 +81,7 @@ namespace Aliasly
             return mester_kulcs;
         }
 
+        /*Ennél a kódrészletnél lekéri az összes mesterkulcsot az adatbázisból és egy 'MesterKulcs' tipusú listával tér vissza. A lista tartalma a mesterkulcs ID -ja és a már titkosított mesterkulcs.*/
 
 
         public List<KliensLista> KliensListaLekeres(string mester_id, string mester_kulcs) // Kliens lista lekérdezés 
@@ -123,16 +128,18 @@ namespace Aliasly
             return kliens_lista;
         }
 
+        /*Ennél a metódusnál kéri le a 'jelszo' és 'felhasznalo' tábla kiválasztott adatatagjait amelyek a következők: 'jelszo_id', 'jelszo_string', 'nev', 'email', 'url', 'hozzafuzes'. A megadott 'mester_id' paraméter alapján szűri le, hogy melyik mesterkulcshoz rendelt adatot helyezze a listába. , majd a listába töltésnél a 'TitkositasMetodusok' osztály 'DecryptText' metódusával visszafejti az adatbázisból az adatokat az eredeti formájukba. A visszafejtéshez szükség van a bekért 'mester_kulcs' paraméterre. A vissza adott 'KliensLista' típusú listában az eredeti adatokat adja vissza.*/
 
 
-        public void MesterkulcsTablazatIras(string encrypted_key) // Mesterkulcs tábla írás 
+
+        public void MesterkulcsTablazatIras(string encrypted_kulcs) // Mesterkulcs tábla írás 
         {
             // Adatbázis kapcsolat
             MySqlConnection db_csatlakozas = new AdatbazisMetodusok().AdatbazisCsatlakozas();
             try
             {
                 // Mesterkulcs tábla INSERT
-                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (encrypted_kulcs) VALUES ('{encrypted_key}')";
+                string sql_kulcs_iras = $"INSERT INTO mesterkulcs (encrypted_kulcs) VALUES ('{encrypted_kulcs}')";
                 MySqlCommand sql_command_kulcs_iras = new MySqlCommand(sql_kulcs_iras, db_csatlakozas);
                 sql_command_kulcs_iras.ExecuteNonQuery();
             }
@@ -148,6 +155,8 @@ namespace Aliasly
                 }
             }
         }
+
+        /*Ennél a metódusnál kerül írásra a 'mesterkulcs' táblába, a bekért 'encrypted_kulcs' ami a nevéből is adódóan egy előre encryptált stringet vár paraméterül, ezáltal a már titkosított kulcs kerül fel az adatbázisba. */
 
 
 
@@ -177,6 +186,8 @@ namespace Aliasly
 
         }
 
+        /*Ennél a metódusnál kerül írásra a 'jelszo' tábla a paraméterül bekért 'mester_id' alapján. A 'mester_id' határozza meg, hogy melyik mesterkulcshoz lesz kötve az adat az adatbázisban. A 'jelszo_string' paraméter pedig maga a jelszó ami rögzítésre kerül az adatbázisban.*/
+
 
 
         public void FelhasznaloTablazatIras(string nev, string email, string url, string hozzafuzes, int jelszo_id) // Felhasználó tábla írás 
@@ -205,6 +216,8 @@ namespace Aliasly
 
         }
 
+        /*Ennél a metódusnál kerül írásra a 'felhasznalo' tábla a paraméterül bekért 'jelszo_id' alapján. A 'jelszo_id' határozza meg, hogy melyik jelszóhoz lesz kötve az adat az adatbázisban. A 'nev', 'email', 'url', 'hozzafuzes' paraméterek pedig a felhasználó adatai amik rögzítésre kerülnek az adatbázisban.*/
+
 
 
         public void LogTablazatIras(string leiras, string jelszo_id, string felhasznalo_id, string mester_id) // Hozzáférés log tábla írás 
@@ -232,9 +245,10 @@ namespace Aliasly
             }
         }
 
+        /*Ennél a metódusnál kerül írásra a 'hozzafereslog' tábla a paraméterül bekért 'mester_id', 'felhasznalo_id', 'jelszo_id' és 'leiras' alapján. A 'mester_id'-t kötelező pontosan megadni mert az határozza meg, hogy melyik mesterkulcshoz lesz kötve az adat az adatbázisban. A 'felhasznalo_id' és 'jelszo_id' nem kötelező pontosan megadni, a széleskürű felhasználhatóság érdekében. A metódus nyomonkövethetővé teszi a cselekményeket az adatbázisban.*/ 
 
 
-        public string MesterkulcsIDLekerdezes(string encrypted_key) // Mesterkulcs ID lekérdezés 
+        public string MesterkulcsIDLekerdezes(string encrypted_kulcs) // Mesterkulcs ID lekérdezés 
         {
             string mesterkulcs_id = "";
             // Adatbázis kapcsolat
@@ -242,7 +256,7 @@ namespace Aliasly
             try
             {
                 // Tábla SELECT 
-                string sql_mesterkulcs_id_select = $"SELECT mester_id FROM mesterkulcs WHERE encrypted_kulcs = '{encrypted_key}'";
+                string sql_mesterkulcs_id_select = $"SELECT mester_id FROM mesterkulcs WHERE encrypted_kulcs = '{encrypted_kulcs}'";
                 MySqlCommand sql_command_mesterkulcs_id = new MySqlCommand(sql_mesterkulcs_id_select, db_csatlakozas);
                 MySqlDataReader sql_reader = sql_command_mesterkulcs_id.ExecuteReader();
                 // Sql mesterkulcs beolvasás
@@ -267,6 +281,7 @@ namespace Aliasly
         }
 
 
+        /*Ennél a metódusnál kerül lekérdezésre a 'mesterkulcs' tábla, a paraméterül bekért 'encrypted_kulcs' alapján. Az 'encrypted_kulcs' határozza meg, hogy melyik mesterkulcshoz van kötve az adat az adatbázisban. A vissza adott 'mesterkulcs_id' stringben a mesterkulcsnak az ID-jét adja vissza.*/
 
         public int UtolsoBeszurtId(MySqlConnection db_csatlakozas) // Utolsó beszúrt ID lekérdezés 
         {
@@ -283,6 +298,8 @@ namespace Aliasly
             }
             return lastInsertedId;
         }
+
+        /*Ennél a metódusnál kerül lekérdezésre az utolsó beszúrt ID, ami a legutolsó beszúrt adat ID-jét adja vissza. A metódusban egy 'MySqlConnection' típusú paramétert vár, aminek a megadott adatbázis kapcsolatra kell mutatnia.*/
 
 
 
@@ -317,5 +334,7 @@ namespace Aliasly
                 }
             }
         }
+
+        /*Ennél a metódusnál kerül törlésre a 'felhasznalo' és 'jelszo' tábla, a paraméterül bekért 'jelszo_id' alapján. A 'jelszo_id' határozza meg, hogy melyik jelszóhoz van kötve az adat az adatbázisban.*/
     }
 }

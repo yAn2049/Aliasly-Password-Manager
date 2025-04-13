@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\",
+  "WorkspaceRootPath": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly source code\\aliasly\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly-password-manager\\aliasly source code\\aliasly\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly source code\\aliasly\\titkositasmetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\titkositasmetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly source code\\aliasly\\adatbazismetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly-password-manager\\aliasly source code\\aliasly\\adatbazismetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\adatbazismetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly\\aliasly source code\\aliasly\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly-password-manager\\aliasly source code\\aliasly\\titkositasmetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\titkositasmetodusok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|c:\\users\\nemet\\desktop\\aliasly-password-manager\\aliasly source code\\aliasly\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B55427B1-0FD5-4FDB-995F-79B2DD56D9D4}|Aliasly\\Aliasly.csproj|solutionrelative:aliasly\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -26,49 +26,40 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Aliasly\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\MainWindow.xaml",
               "RelativeToolTip": "Aliasly\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-04-12T21:50:09.346Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TitkositasMetodusok.cs",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\TitkositasMetodusok.cs",
+              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\TitkositasMetodusok.cs",
               "RelativeDocumentMoniker": "Aliasly\\TitkositasMetodusok.cs",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\TitkositasMetodusok.cs",
+              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\TitkositasMetodusok.cs",
               "RelativeToolTip": "Aliasly\\TitkositasMetodusok.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T21:01:15.637Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-12T21:01:15.637Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "AdatbazisMetodusok.cs",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\AdatbazisMetodusok.cs",
+              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\AdatbazisMetodusok.cs",
               "RelativeDocumentMoniker": "Aliasly\\AdatbazisMetodusok.cs",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\AdatbazisMetodusok.cs",
+              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\AdatbazisMetodusok.cs",
               "RelativeToolTip": "Aliasly\\AdatbazisMetodusok.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAADoBAAAAAAAAAAAIwFMBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T18:23:23.695Z",
               "EditorCaption": ""
@@ -77,11 +68,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Aliasly\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly\\Aliasly Source Code\\Aliasly\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\nemet\\Desktop\\Aliasly-Password-Manager\\Aliasly Source Code\\Aliasly\\MainWindow.xaml.cs",
               "RelativeToolTip": "Aliasly\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAwwDAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAA1wCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-27T12:49:35.456Z",
               "EditorCaption": ""
