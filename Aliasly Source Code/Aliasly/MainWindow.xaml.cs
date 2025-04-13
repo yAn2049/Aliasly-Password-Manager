@@ -28,26 +28,26 @@ public partial class MainWindow : Window
 
 
 
-    public void StartUp() // Indítási paraméterek //
+    public void StartUp() // Indítási paraméterek 
     {
         mesterkulcs_felulet.Visibility = Visibility.Visible;
         kliens_felulet.Visibility = Visibility.Collapsed;
         uj_kulcs_felulet.Visibility = Visibility.Collapsed;
 
-        // login mezo uritese //
+        // login mezo uritese 
         mesterkulcs_mezo.Password = string.Empty;
 
-        // uj kulcs mezo uritese //
+        // uj kulcs mezo uritese 
         uj_kulcs_mezo.Password = string.Empty;
 
-        // inditaskor nullazza az ertekeket, nem tudom pontosan, hogy szukseg van-e ra,  megduma majd, egyenlore mukodik //
+        // inditaskor nullazza az ertekeket, nem tudom pontosan, hogy szukseg van-e ra,  megduma majd, egyenlore mukodik 
         AktivKulcs = string.Empty;
         AktivKulcsId = string.Empty;
     }
 
 
 
-    public void ShowClient() // Kliens felület megjelenítő //
+    public void ShowClient() // Kliens felület megjelenítő 
     {
         kliens_felulet.Visibility = Visibility.Visible;
         mesterkulcs_felulet.Visibility = Visibility.Collapsed;
@@ -56,31 +56,31 @@ public partial class MainWindow : Window
 
 
 
-    private void uj_kulcs_vissza_Click(object sender, RoutedEventArgs e) // Vissza gomb esemény - Register //
+    private void uj_kulcs_vissza_Click(object sender, RoutedEventArgs e) // Vissza gomb esemény - Register 
     {
         StartUp();
     }
 
 
-    private void uj_kulcs_Click(object sender, RoutedEventArgs e) // Új mesterkulcs hozzáadása gomb esemény - Register //
+    private void uj_kulcs_Click(object sender, RoutedEventArgs e) // Új mesterkulcs hozzáadása gomb esemény - Register 
     {
 
-        // Mesterkulcs táblázat metódus //
+        // Mesterkulcs táblázat metódus 
         AdatbazisMetodusok adatbazis = new AdatbazisMetodusok();
 
-        // Mesterkulcs lista //
+        // Mesterkulcs lista 
         List<MesterKulcs> mester_lista = adatbazis.MesterkulcsTablazatLekeres();
 
-        // Titkosítás metódus //
+        // Titkosítás metódus 
         TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
 
-        // Eredeti mesterkulcs //
+        // Eredeti mesterkulcs 
         string mesterkulcs = uj_kulcs_mezo.Password;
 
-        // Mesterkulcs titkosítása //
+        // Mesterkulcs titkosítása 
         string titkos_kulcs = szuper_titkos.EncryptText(mesterkulcs, mesterkulcs);
 
-        // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
+        // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat 
         bool van_mar_ilyen_kulcs = false;
         try
         {
@@ -97,7 +97,7 @@ public partial class MainWindow : Window
                 }
             }
 
-            // Ha a mesterkulcs már létezik akkor hibaüzenet //
+            // Ha a mesterkulcs már létezik akkor hibaüzenet 
             if (van_mar_ilyen_kulcs)
             {
                 MessageBox.Show("Ez a mesterkulcs már létezik", "Mesterkulcs hiba!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -105,17 +105,17 @@ public partial class MainWindow : Window
             }
             else
             {
-                // Ha a mesterkulcs nem létezik akkor hozzáadja az adatbázishoz //
+                // Ha a mesterkulcs nem létezik akkor hozzáadja az adatbázishoz 
                 adatbazis.MesterkulcsTablazatIras(titkos_kulcs);
 
-                // logolás //
+                // logolás 
                 adatbazis.LogTablazatIras("Új kulcs hozzá adva!", string.Empty, string.Empty, adatbazis.MesterkulcsIDLekerdezes(titkos_kulcs));
 
 
-                // felhasznalo visszajelzes //
+                // felhasznalo visszajelzes 
                 MessageBox.Show("A mesterkulcs sikeresen hozzá lett adva az adatbázishoz.", "Mesterkulcs hozzáadva!", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Mezők ürítése //
+                // Mezők ürítése 
                 uj_kulcs_mezo.Password = string.Empty;
 
             }
@@ -129,33 +129,33 @@ public partial class MainWindow : Window
 
 
 
-    private void uj_kulcs_link_Click(object sender, RoutedEventArgs e) // Új kulcs link esemény - Login //
+    private void uj_kulcs_link_Click(object sender, RoutedEventArgs e) // Új kulcs link esemény - Login 
     {
-        // Kliens felület elrejtése //
+        // Kliens felület elrejtése 
         kliens_felulet.Visibility = Visibility.Collapsed;
         mesterkulcs_felulet.Visibility = Visibility.Collapsed;
-        // Új kulcs felület megjelenítése //
+        // Új kulcs felület megjelenítése 
         uj_kulcs_felulet.Visibility = Visibility.Visible;
     }
 
 
 
-    private void enter_gomb_Click(object sender, RoutedEventArgs e) // Bejelentkezes gomb esemeny - Login //
+    private void enter_gomb_Click(object sender, RoutedEventArgs e) // Bejelentkezes gomb esemeny - Login 
 
     {
-        // Adatbazis osztaly peldany //
+        // Adatbazis osztaly peldany 
         AdatbazisMetodusok adatbazis = new AdatbazisMetodusok();
 
-        // Mesterkulcs táblázat metódus //
+        // Mesterkulcs táblázat metódus 
         List<MesterKulcs> mester_kulcs = adatbazis.MesterkulcsTablazatLekeres();
 
-        // Titkosítás metódus //
+        // Titkosítás metódus 
         TitkositasMetodusok szuper_titkos = new TitkositasMetodusok();
 
-        // Mesterkulcs titkosítása //
+        // Mesterkulcs titkosítása 
         string titkos_kulcs = szuper_titkos.EncryptText(mesterkulcs_mezo.Password, mesterkulcs_mezo.Password);
 
-        // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat //
+        // Végigfut a mesterkulcs listán és lecsekkolja hogy létezik-e már az írni kívánt adat 
         bool van_mar_ilyen_kulcs = false;
         try
         {
@@ -174,24 +174,24 @@ public partial class MainWindow : Window
 
             if (van_mar_ilyen_kulcs)
             {
-                // Aktuális kulcs //
+                // Aktuális kulcs 
 
-                AktivKulcs = titkos_kulcs; // Titkositott mesterKulcsot jegyzi meg //
-                AktivKulcsId = adatbazis.MesterkulcsIDLekerdezes(AktivKulcs); // Mesterkulcs id-t jegyzi meg //
+                AktivKulcs = titkos_kulcs;                                    // Titkositott mesterKulcsot jegyzi meg 
+                AktivKulcsId = adatbazis.MesterkulcsIDLekerdezes(AktivKulcs); // Mesterkulcs id-t jegyzi meg 
 
-                // logolas //
+                // logolas 
                 adatbazis.LogTablazatIras("Bejelentkezés!", string.Empty, string.Empty, AktivKulcsId);
 
-                // Felhasználó visszajelzés //
+                // Felhasználó visszajelzés 
                 MessageBox.Show($"Sikeres bejelentkezés!\nKulcs id: {AktivKulcsId}\n", "Bejelentkezés sikeres!", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // kliens felulet megjelenitese //
+                // kliens felulet megjelenitese 
                 ShowClient();
 
-                // Felhasználó táblázat metódus //
+                // Felhasználó táblázat metódus 
                 List<KliensLista> kliens_lista = adatbazis.KliensListaLekeres(AktivKulcsId, AktivKulcs);
 
-                // Sql soronkénti betöltése a listbox elembe //
+                // Sql soronkénti betöltése a listbox elembe 
                 foreach (var k in kliens_lista)
                 {
                     this.felhasznalok_lista.ItemsSource = kliens_lista;
@@ -213,7 +213,7 @@ public partial class MainWindow : Window
 
 
 
-    private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e) // Felhasználó rögzítés gomb esemény - Main //
+    private void felhasznalo_rogzites_gomb_Click(object sender, RoutedEventArgs e) // Felhasználó rögzítés gomb esemény - Main 
     {
 
         AdatbazisMetodusok metodus = new AdatbazisMetodusok();
@@ -221,14 +221,14 @@ public partial class MainWindow : Window
 
         try
         {
-            // titkositas //
+            // titkositas 
             string titkos_jelszo = szuper_titkos.EncryptText(AktivKulcs, jelszo_mezo.Password.ToString());
 
-            // uj jelszo hozzaadasa //
-            // AktivKulcsId = mesterkulcs_id ami hasznalatban van //
+            // uj jelszo hozzaadasa 
+            // AktivKulcsId = mesterkulcs_id ami hasznalatban van 
             metodus.JelszoTablazatIras(titkos_jelszo, AktivKulcsId);
 
-            // Az utolso beszurt jelszo_id lekerese //
+            // Az utolso beszurt jelszo_id lekerese 
             int utolso_id;
             using (MySqlConnection db_csatlakozas = metodus.AdatbazisCsatlakozas())
             {
@@ -236,30 +236,31 @@ public partial class MainWindow : Window
             }
 
             string id = utolso_id.ToString();
-            // logolas //
+
+            // logolas 
 
             metodus.LogTablazatIras("Új jelszó hozzá adva!", id, id, AktivKulcsId);
 
-            // titkositas //
+            // titkositas 
             string t_nev = szuper_titkos.EncryptText(AktivKulcs, nev_mezo.Text);
             string t_email = szuper_titkos.EncryptText(AktivKulcs, eMail_mezo.Text);
             string t_url = szuper_titkos.EncryptText(AktivKulcs, url_mezo.Text);
             string t_hozzafuzes = szuper_titkos.EncryptText(AktivKulcs, hozzafuzes_mezo.Text);
 
-            // Beszur egy uj felhasznalo rekordot a lekerdezett jelszo_id-vel //
+            // Beszur egy uj felhasznalo rekordot a lekerdezett jelszo_id-vel 
             metodus.FelhasznaloTablazatIras(t_nev, t_email, t_url, t_hozzafuzes, utolso_id);
 
-            // Felhasznalok lista uritese //
+            // Felhasznalok lista uritese 
             felhasznalok_lista.ItemsSource = null;
 
-            // Felhasznalok lista frissitese //
+            // Felhasznalok lista frissitese 
             List<KliensLista> kliens_lista = new AdatbazisMetodusok().KliensListaLekeres(AktivKulcsId, AktivKulcs);
             foreach (var k in kliens_lista)
             {
                 felhasznalok_lista.ItemsSource = kliens_lista;
             }
 
-            // Mezők ürítése //
+            // Mezők ürítése 
             nev_mezo.Text = null;
             eMail_mezo.Text = null;
             url_mezo.Text = null;
@@ -274,9 +275,9 @@ public partial class MainWindow : Window
 
 
 
-    private void jelszo_mezo_PasswordChanged(object sender, RoutedEventArgs e) // Jelszó mező változás esemény - Main//
+    private void jelszo_mezo_PasswordChanged(object sender, RoutedEventArgs e) // Jelszó mező változás esemény - Main
     {
-        // Ha a jelszó mező üres akkor a rögzítés gombot kikapcsolja //
+        // Ha a jelszó mező üres akkor a rögzítés gombot kikapcsolja 
         if (jelszo_mezo.Password != string.Empty)
         {
             felhasznalo_rogzites_gomb.IsEnabled = true;
@@ -289,43 +290,43 @@ public partial class MainWindow : Window
 
 
 
-    private void kijelentkezes_gomb_Click(object sender, RoutedEventArgs e) // Kijelentkezés gomb esemény - Main //
+    private void kijelentkezes_gomb_Click(object sender, RoutedEventArgs e) // Kijelentkezés gomb esemény - Main 
     {
         AdatbazisMetodusok metodus = new AdatbazisMetodusok();
 
-        // Mezők ürítése //
+        // Mezők ürítése 
         mesterkulcs_mezo.Password = null;
 
-        // logolas //
+        // logolas 
         metodus.LogTablazatIras("Kijelentkezés!", string.Empty, string.Empty, AktivKulcsId);
 
-        // Aktív kulcs és id nullázása //
+        // Aktív kulcs és id nullázása 
         AktivKulcs = string.Empty;
         AktivKulcsId = string.Empty;
 
-        // Felhasznalok lista uritese //
+        // Felhasznalok lista uritese 
         felhasznalok_lista.ItemsSource = null;
 
-        // Login felulet mutatasa //
+        // Login felulet mutatasa 
         kliens_felulet.Visibility = Visibility.Collapsed;
         mesterkulcs_felulet.Visibility = Visibility.Visible;
     }
 
 
 
-    private void sor_torles_gomb_Click(object sender, RoutedEventArgs e) // Sor törlés gomb esemény - Main //
+    private void sor_torles_gomb_Click(object sender, RoutedEventArgs e) // Sor törlés gomb esemény - Main 
     {
-        // Megkapja a megnyomott gombot //
+        // Megkapja a megnyomott gombot 
         Button button = sender as Button;
 
         if (button != null)
         {
-            // Megkapja a gomb erteket //
+            // Megkapja a gomb erteket 
             int sor_id = (int)button.CommandParameter;
 
             string sor_id_string = sor_id.ToString();
 
-            // Adatbazis osztaly peldany //
+            // Adatbazis osztaly peldany
             AdatbazisMetodusok metodus = new AdatbazisMetodusok();
 
             try
@@ -335,13 +336,13 @@ public partial class MainWindow : Window
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    // Törli a kiválasztott sort az adatbázisból //
+                    // Törli a kiválasztott sort az adatbázisból
                     metodus.FelhasznaloSorTorles(sor_id);
 
-                    // logolas //
+                    // logolas
                     metodus.LogTablazatIras("Sor törölve!", sor_id_string, sor_id_string, AktivKulcsId);
 
-                    // Kliens lista frissítése //
+                    // Kliens lista frissítése 
                     felhasznalok_lista.ItemsSource = null;
                     List<KliensLista> kliens_lista = metodus.KliensListaLekeres(AktivKulcsId, AktivKulcs);
                     foreach (var k in kliens_lista)
@@ -349,7 +350,7 @@ public partial class MainWindow : Window
                         felhasznalok_lista.ItemsSource = kliens_lista;
                     }
 
-                    // felhasznalo visszajelzes //
+                    // felhasznalo visszajelzes
                     MessageBox.Show($"A(z) {sor_id}. sor törölve lett az adatbázisból!", "Rekord törölve!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
