@@ -26,7 +26,6 @@ namespace Aliasly
                 // XAMPP adatbázis csatlakozás
                 db_csatlakozas = new MySqlConnection(xampp_conn_params);
                 db_csatlakozas.Open();
-
             }
             catch
             {
