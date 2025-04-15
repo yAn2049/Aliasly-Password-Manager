@@ -10,33 +10,34 @@ namespace Aliasly
         {
             using (var sha256 = SHA256.Create())
             {
-                // A mesterkulcsból 256 bites kulcsot generálunk.
+                // A mesterkulcsból 256 bites kulcsot generál
                 byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(masterKey));
 
-                // Az IV (Initialization Vector) az AES blokkméretének megfelelően 16 bájt hosszú.
-                byte[] iv = new byte[16];
-                Array.Copy(key, iv, iv.Length); // Az IV-t a kulcs első 16 bájtjából állítjuk elő.
+                
+                byte[] iv = new byte[16]; // ennek mindig 16 bytenak kell lennie
+                Array.Copy(key, iv, iv.Length); // A kulcs elso 16 bytejat hasznaljuk IV-nek
 
-                // AES algoritmus inicializálása.
+                // AES algoritmus elinditasa
                 using (var aes = Aes.Create())
                 {
-                    aes.Key = key; // A generált kulcs beállítása.
-                    aes.IV = iv; // A generált IV beállítása.
-                    aes.Mode = CipherMode.CBC; // CBC (Cipher Block Chaining) mód használata.
-                    aes.Padding = PaddingMode.PKCS7; // PKCS7 padding a szöveg hosszának igazításához.
+                    // AES beallitasok
+                    aes.Key = key; 
+                    aes.IV = iv; 
+                    aes.Mode = CipherMode.CBC; 
+                    aes.Padding = PaddingMode.PKCS7;
 
-                    // Titkosító létrehozása.
+                    // Encrypter letrehozasa
                     using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
                     using (var ms = new MemoryStream())
                     {
-                        // A titkosított adatokat egy memóriastreambe írjuk.
+                        // titkosisott adatok memory streambe irasa
                         using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                         using (var sw = new StreamWriter(cs))
                         {
                             sw.Write(text); // A titkosítandó szöveg írása.
                         }
 
-                        // A titkosított bájtokat Base64 formátumba konvertáljuk.
+                        // bytek tömbbé alakítja és Base64 stringge alakítja
                         byte[] encryptedBytes = ms.ToArray();
                         return Convert.ToBase64String(encryptedBytes);
                     }
@@ -48,31 +49,31 @@ namespace Aliasly
 
         public string DecryptText(string masterKey, string encryptedText) // Szöveg visszafejtés
         {
-            // SHA256 algoritmus használata a mesterkulcsból kulcs és IV generálásához.
+            // SHA256 algoritmus elinditasa
             using (var sha256 = SHA256.Create())
             {
-                // A mesterkulcsból 256 bites kulcsot generálunk.
+                // A mesterkulcsból 256 bites kulcsot generál
                 byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(masterKey));
+              
+                byte[] iv = new byte[16];       // mindig 16 byte hosszu
+                Array.Copy(key, iv, iv.Length); // a kulcs elso 16 bytejat hasznaljuk IV-nek
 
-                // Az IV (Initialization Vector) az AES blokkméretének megfelelően 16 bájt hosszú.
-                byte[] iv = new byte[16];
-                Array.Copy(key, iv, iv.Length); // Az IV-t a kulcs első 16 bájtjából állítjuk elő.
-
-                // AES algoritmus inicializálása.
+                // AES algoritmus elinditasa
                 using (var aes = Aes.Create())
                 {
-                    aes.Key = key; // A generált kulcs beállítása.
-                    aes.IV = iv; // A generált IV beállítása.
-                    aes.Mode = CipherMode.CBC; // CBC (Cipher Block Chaining) mód használata.
-                    aes.Padding = PaddingMode.PKCS7; // PKCS7 padding a szöveg hosszának igazításához.
 
-                    // Visszafejtő létrehozása.
+                    // AES beallitasok
+                    aes.Key = key; 
+                    aes.Mode = CipherMode.CBC; 
+                    aes.Padding = PaddingMode.PKCS7;
+
+                    // Decrypter letrehozasa
                     using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
                     using (var ms = new MemoryStream(Convert.FromBase64String(encryptedText)))
                     using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                     using (var sr = new StreamReader(cs))
                     {
-                        // A visszafejtett szöveg olvasása és visszaadása.
+                        // A visszafejtett visszaadása
                         return sr.ReadToEnd();
                     }
                 }
