@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Aliasly</id>
+    <version>1.0.0</version>
+    <authors>Aliasly</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="94de8757fb64b2a6333cd47eb56696542ce9a369" />
+    <dependencies>
+      <group targetFramework="net8.0-windows7.0">
+        <dependency id="MySql.Data" version="9.2.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net8.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+    <contentFiles>
+      <files include="any/net8.0-windows7.0/images/icons/Aliasly_Logo_Icon_Inverted_NoBg.ico" buildAction="Content" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="C:\Users\yAn\Documents\GitHub\Aliasly-Password-Manager\Aliasly Source Code\Aliasly\bin\Debug\net8.0-windows\Aliasly.runtimeconfig.json" target="lib\net8.0-windows7.0\Aliasly.runtimeconfig.json" />
+    <file src="C:\Users\yAn\Documents\GitHub\Aliasly-Password-Manager\Aliasly Source Code\Aliasly\bin\Debug\net8.0-windows\Aliasly.dll" target="lib\net8.0-windows7.0\Aliasly.dll" />
+    <file src="C:\Users\yAn\Documents\GitHub\Aliasly-Password-Manager\Aliasly Source Code\Aliasly\images\icons\Aliasly_Logo_Icon_Inverted_NoBg.ico" target="content\images\icons\Aliasly_Logo_Icon_Inverted_NoBg.ico" />
+    <file src="C:\Users\yAn\Documents\GitHub\Aliasly-Password-Manager\Aliasly Source Code\Aliasly\images\icons\Aliasly_Logo_Icon_Inverted_NoBg.ico" target="contentFiles\any\net8.0-windows7.0\images\icons\Aliasly_Logo_Icon_Inverted_NoBg.ico" />
+  </files>
+</package>

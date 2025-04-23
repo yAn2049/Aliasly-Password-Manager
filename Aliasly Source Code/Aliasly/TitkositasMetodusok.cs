@@ -63,7 +63,8 @@ namespace Aliasly
                 {
 
                     // AES beallitasok
-                    aes.Key = key; 
+                    aes.Key = key;
+                    aes.IV = iv;
                     aes.Mode = CipherMode.CBC; 
                     aes.Padding = PaddingMode.PKCS7;
 
